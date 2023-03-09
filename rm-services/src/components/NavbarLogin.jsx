@@ -9,23 +9,25 @@ import '../components/component-styles/navbar.css';
 function NavbarLogin(){
   return (
     <>
-       <Navbar bg="dark" variant="dark" className='nav-bg'>
-        <Container>
-          <Navbar.Brand href="/">
-              <img src={logo} alt="RydMate" />
-          </Navbar.Brand>
-
-
-          <Nav className="me-auto">
-            <Nav.Link href="#home">
-             <Link to="" className='link'>
-             <button className='login-btn'> Login</button>
-             </Link>
-            </Nav.Link>
+      <Navbar className='custom-nav'>
+      <Container className='container'>
+        <Navbar.Brand href="#home">
+          <img className='logo' src={logo} alt="RydMate" />
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" className='n' />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="me-auto nav-hold">
+            {/* <Nav.Link href="#home" className='nav-link link'>Home</Nav.Link>
+            <Nav.Link href="#services" className='nav-link link'>Services</Nav.Link>
+            <Nav.Link href="#about" className=' nav-link link'>About Us</Nav.Link> */}
+            <Link to="" className='link'>
+            <button className='btn-contact'> Login </button>
+            </Link>
             
           </Nav>
-        </Container>
-      </Navbar>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
 
 
     </>

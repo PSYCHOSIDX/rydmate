@@ -1,5 +1,123 @@
-.nav-bg {
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Poppins:wght@200&family=Unbounded:wght@200&display=swap");
+* {
+  font-family: "Unbounded", sans-serif;
+}
+
+.link {
+  list-style: none;
+  text-decoration: none;
+}
+
+.custom-nav {
+  width: 100%;
+}
+
+.container {
+  width: 100%;
   display: flex;
-  background-color: black;
   justify-content: center;
+  align-items: center;
+  padding: auto;
+  background-color: #000000;
+  filter: blur(50%);
+  box-shadow: rgba(162, 159, 159, 0.049) 0px 7px 29px 0px;
+}
+
+.logo {
+  width: 50%;
+}
+
+.nav-hold {
+  width: 100%;
+  justify-content: right;
+}
+
+.nav-link {
+  all: unset;
+  color: #000000;
+  font-size: 1rem;
+  font-weight: 300;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: 0.5em;
+}
+
+.nav-link:hover {
+  color: rgb(255, 255, 255);
+  font-weight: 700;
+  background-color: rgba(45, 157, 255, 0.4156862745);
+  border-radius: 0.3rem;
+  cursor: pointer;
+}
+
+.btn-contact {
+  all: unset;
+  background-color: #f8faff;
+  padding: 1em 2em;
+  font-size: 0.8rem;
+  border-radius: 12px;
+  border: 1px solid #00FFA3;
+  color: #00FFA3;
+  font-weight: 800;
+  text-align: center;
+  margin: 0.4rem;
+}
+.btn-contact:active {
+  background-color: rgb(23, 23, 23);
+}
+
+.btn-contact:hover {
+  background-color: #222222;
+  color: rgb(255, 255, 255);
+}
+
+.me-auto {
+  text-align: center;
+  margin: auto;
+  justify-self: center;
+}
+
+.n {
+  color: aliceblue;
+  background-color: rgb(255, 255, 255);
+  max-width: 2.3em;
+  display: flex;
+  align-self: center;
+  border-radius: 10%;
+  border: none;
+}
+
+.n:hover {
+  background-color: #cccccc;
+  color: white;
+}
+
+@media screen and (max-width: 1020px) {
+  .container {
+    width: 100%;
+    margin-top: -0.5srem;
+  }
+  .link {
+    margin: 1rem;
+    font-size: 1.1rem;
+  }
+  .btn-contact {
+    font-size: 1rem;
+  }
+}
+@media screen and (max-width: 320px) {
+  .container {
+    width: auto;
+    display: block;
+  }
+  .logo {
+    width: 40%;
+    margin: 0%;
+  }
+  .n {
+    margin-left: 80%;
+    width: 20%;
+    padding: auto;
+    margin-top: -14%;
+  }
 }/*# sourceMappingURL=navbar.css.map */
