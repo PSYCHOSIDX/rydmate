@@ -26,6 +26,7 @@ body{
     
     .form-holder{
         margin: auto;
+        max-width: 1080px;
         margin-top: 10em;
         
         display: flex;
@@ -33,7 +34,7 @@ body{
         border: none;
         .phold{
             font-family: 'Poppins', sans-serif;
-            padding: 1rem 5rem;
+            padding: 1rem max(5rem);
             font-size: 1.1rem;
             border-radius: .4rem;
             margin: .3rem;
@@ -43,7 +44,7 @@ body{
         }
         
         .search-btn{
-            padding: 1.1rem 3rem;
+            padding: 1.1rem max(3rem);
             font-size: 1rem;
             border-radius: .4rem;
             margin: .3rem;
@@ -80,7 +81,11 @@ body{
     }
 }
 
-@media screen and (max-width: 500px){
+@media screen and (max-width: 500px) {
+
+    .form-holder{
+        max-width:60%;
+    }
     .search-top{
         .search-img{
          zoom: 100%;
@@ -98,3 +103,4 @@ body{
     }
   
 }
+

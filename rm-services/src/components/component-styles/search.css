@@ -23,6 +23,7 @@ body {
 }
 .search-bottom .form-holder {
   margin: auto;
+  max-width: 1080px;
   margin-top: 10em;
   display: flex;
   justify-content: center;
@@ -68,6 +69,9 @@ body {
   }
 }
 @media screen and (max-width: 500px) {
+  .form-holder {
+    max-width: 60%;
+  }
   .search-top .search-img {
     zoom: 100%;
     width: -moz-fit-content;
