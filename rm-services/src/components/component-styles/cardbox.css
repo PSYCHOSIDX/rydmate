@@ -1,0 +1,84 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Poppins:wght@200&family=Unbounded:wght@200&display=swap");
+.card-box {
+  background-image: linear-gradient(145deg, rgb(64, 145, 114), #00FFA3, rgb(179, 177, 177));
+  display: flex;
+  margin: auto;
+  margin-top: 10%;
+  justify-content: center;
+}
+.card-box h2 {
+  color: white;
+  margin-top: 2rem;
+}
+.card-box .card {
+  width: 25%;
+  height: 5rem;
+  height: -moz-fit-content;
+  height: fit-content;
+  padding: 1.6rem;
+  margin: 4rem;
+  margin-right: 0;
+  margin-left: 1rem;
+  background-color: #024549;
+  border-radius: 1.9rem;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  padding-left: 2.8rem;
+  max-height: 19rem;
+}
+.card-box .card h1 {
+  font-size: 1.5rem;
+  color: #09c08c;
+}
+.card-box .card h4 {
+  font-size: 0.8rem;
+  color: rgb(76, 155, 132);
+}
+.card-box .card .img1 {
+  width: 80%;
+}
+.card-box .card .img2 {
+  width: 66%;
+}
+.card-box .card img {
+  width: 65%;
+}
+.card-box .card .img3 {
+  width: 62%;
+}
+.card-box .card:hover {
+  background: #00FFA3;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+}
+.card-box .card:hover h1 {
+  color: rgb(4, 154, 107);
+}
+.card-box .card:hover h4 {
+  color: #06987d;
+}
+
+@media screen and (max-width: 800px) {
+  .card-box {
+    flex-direction: column;
+  }
+  .card-box .card {
+    margin: auto;
+    margin-bottom: 0.5rem;
+    width: 90%;
+    margin-top: 0.5rem;
+    scale: 95%;
+  }
+  .card-box .card .img1 {
+    width: 50%;
+    padding: 0.5rem;
+  }
+  .card-box .card .img2 {
+    width: 38%;
+  }
+  .card-box .card img {
+    width: 35%;
+  }
+  .card-box .card .img3 {
+    width: 38%;
+  }
+}/*# sourceMappingURL=cardbox.css.map */

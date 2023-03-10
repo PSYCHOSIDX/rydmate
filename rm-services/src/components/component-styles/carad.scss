@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Poppins:wght@200&family=Unbounded:wght@200&display=swap');
+
+.offer-ad{
+    display: flex;
+    width: auto;
+    margin: auto;
+    justify-content: center;
+
+    .text{
+        margin: auto;
+        color: white;
+        width: 50%;
+        scale: 92%;
+        h1{
+            font-weight: bold;
+        }
+    }
+    .offer-btn{
+        all: unset;
+        padding: 1rem 3rem;
+        font-size: 1rem;
+        text-align: center;
+        background-color: white;
+        color: black;
+        font-weight: bold;
+        margin-top: 1rem;
+        border-radius: .7rem;
+
+        &:hover{
+            background-color: #00FFA3;
+            cursor: pointer;
+        }
+    }
+    img{
+        margin: auto;
+        width: 26%;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+}
+
+@media screen and (max-width:850px) {
+    .offer-ad{
+        flex-direction: column-reverse;
+        .text{
+            width: auto;
+        }
+        img{
+            width:60%;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+    }
+}

@@ -1,6 +1,6 @@
 import React from 'react'
 import '../components/component-styles/search.css'
-import  search from '../assets/search.svg'
+import  search from '../assets/search-new.svg'
 
 const Search = () => {
   return (

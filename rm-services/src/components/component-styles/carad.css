@@ -1,0 +1,51 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Poppins:wght@200&family=Unbounded:wght@200&display=swap");
+.offer-ad {
+  display: flex;
+  width: auto;
+  margin: auto;
+  justify-content: center;
+}
+.offer-ad .text {
+  margin: auto;
+  color: white;
+  width: 50%;
+  scale: 92%;
+}
+.offer-ad .text h1 {
+  font-weight: bold;
+}
+.offer-ad .offer-btn {
+  all: unset;
+  padding: 1rem 3rem;
+  font-size: 1rem;
+  text-align: center;
+  background-color: white;
+  color: black;
+  font-weight: bold;
+  margin-top: 1rem;
+  border-radius: 0.7rem;
+}
+.offer-ad .offer-btn:hover {
+  background-color: #00FFA3;
+  cursor: pointer;
+}
+.offer-ad img {
+  margin: auto;
+  width: 26%;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+@media screen and (max-width: 850px) {
+  .offer-ad {
+    flex-direction: column-reverse;
+  }
+  .offer-ad .text {
+    width: auto;
+  }
+  .offer-ad img {
+    width: 60%;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+}/*# sourceMappingURL=carad.css.map */

@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Poppins:wght@200&family=Unbounded:wght@200&display=swap");
 body {
   background-color: black;
 }
@@ -17,7 +18,7 @@ body {
 .search-bottom .search-text {
   margin: auto;
   text-align: center;
-  color: white;
+  color: #ffffff;
   font-weight: bolder;
 }
 .search-bottom .form-holder {
@@ -28,11 +29,14 @@ body {
   border: none;
 }
 .search-bottom .form-holder .phold {
+  font-family: "Poppins", sans-serif;
   padding: 1rem 5rem;
   font-size: 1.1rem;
   border-radius: 0.4rem;
   margin: 0.3rem;
   border: none;
+  font-weight: bolder;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
 }
 .search-bottom .form-holder .search-btn {
   padding: 1.1rem 3rem;
@@ -42,6 +46,7 @@ body {
   color: white;
   background-color: #00FFA3;
   border: none;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
 }
 .search-bottom .form-holder .search-btn:hover {
   background-color: black;

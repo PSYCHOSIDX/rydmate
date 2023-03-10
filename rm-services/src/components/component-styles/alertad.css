@@ -1,0 +1,56 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Poppins:wght@200&family=Unbounded:wght@200&display=swap");
+.alert-ad {
+  display: flex;
+  flex-direction: row-reverse;
+  width: auto;
+  margin: auto;
+  justify-content: center;
+  background-color: #00FFA3;
+}
+.alert-ad .text {
+  margin: auto;
+  color: white;
+  width: 50%;
+  scale: 85%;
+}
+.alert-ad .text h1 {
+  font-weight: bold;
+}
+.alert-ad .alert-btn {
+  all: unset;
+  padding: 1rem 3rem;
+  font-size: 1rem;
+  text-align: center;
+  background-color: white;
+  color: black;
+  font-weight: bold;
+  margin-top: 1rem;
+  border-radius: 0.7rem;
+}
+.alert-ad .alert-btn:hover {
+  background-color: #5a5b5a;
+  color: white;
+  cursor: pointer;
+}
+.alert-ad img {
+  margin: auto;
+  width: 16%;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+@media screen and (max-width: 800px) {
+  .alert-ad {
+    flex-direction: column-reverse;
+    width: 100%;
+    margin-top: 2rem;
+  }
+  .alert-ad .text {
+    width: auto;
+  }
+  .alert-ad img {
+    width: 50%;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+}/*# sourceMappingURL=alertad.css.map */

@@ -1,6 +1,9 @@
 body{
     background-color: black;
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Poppins:wght@200&family=Unbounded:wght@200&display=swap');
+
 .search-top{
     overflow-x: hidden;
     .search-img{
@@ -17,7 +20,7 @@ body{
     .search-text{
         margin: auto;
         text-align: center;
-        color: white;
+        color: #ffffff;
         font-weight: bolder;
     }
     
@@ -29,11 +32,14 @@ body{
         justify-content: center;
         border: none;
         .phold{
+            font-family: 'Poppins', sans-serif;
             padding: 1rem 5rem;
             font-size: 1.1rem;
             border-radius: .4rem;
             margin: .3rem;
             border: none;
+            font-weight: bolder;
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
         }
         
         .search-btn{
@@ -45,7 +51,7 @@ body{
             color: white;
             background-color: #00FFA3;
             border: none;
-
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
             &:hover{
                 background-color: black;
             }
