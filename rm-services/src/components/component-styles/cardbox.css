@@ -20,7 +20,7 @@
   margin-right: 0;
   margin-left: 1rem;
   background-color: #024549;
-  border-radius: 1.9rem;
+  border-radius: 1rem;
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
   padding-left: 2.8rem;
   max-height: 19rem;
@@ -64,7 +64,7 @@
   .card-box .card {
     margin: auto;
     margin-bottom: 0.5rem;
-    width: 90%;
+    width: 85%;
     margin-top: 0.5rem;
     scale: 95%;
   }
