@@ -1,3 +1,9 @@
 * {
   box-sizing: border-box;
+}
+
+body {
+  background-color: black;
+  max-width: 1500px;
+  margin: auto;
 }/*# sourceMappingURL=global.css.map */
