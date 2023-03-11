@@ -31,7 +31,7 @@ body {
 }
 .search-bottom .form-holder .phold {
   font-family: "Poppins", sans-serif;
-  padding: 1rem 4.5rem;
+  padding: 1rem 5rem;
   font-size: 1.1rem;
   border-radius: 0.4rem;
   margin: 0.3rem;
@@ -40,7 +40,7 @@ body {
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
 }
 .search-bottom .form-holder .search-btn {
-  padding: 1.1rem 2.6rem;
+  padding: 1.1rem 3rem;
   font-size: 1rem;
   border-radius: 0.4rem;
   margin: 0.3rem;
@@ -83,5 +83,21 @@ body {
     justify-content: center;
     flex-direction: column;
     margin-top: -100%;
+  }
+}
+@media screen and (max-width: 1000px) {
+  .form-holder {
+    width: 90%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .form-holder .phold {
+    width: 90%;
+  }
+  .form-holder .search-btn {
+    width: 90%;
   }
 }/*# sourceMappingURL=search.css.map */

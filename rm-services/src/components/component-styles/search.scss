@@ -63,6 +63,7 @@ body{
 
 
 @media screen and (max-width: 800px){
+    
     .search-top{
         .search-img{
          zoom: 100%;
@@ -104,3 +105,19 @@ body{
   
 }
 
+@media screen and (max-width:1000px) {
+    .form-holder{
+        width: 90%;
+        margin: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        .phold{
+            width: 90%;
+        }
+        .search-btn{
+            width: 90%;
+        }
+    }
+}
