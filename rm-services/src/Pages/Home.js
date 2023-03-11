@@ -5,6 +5,7 @@ import Search from '../components/Search'
 import OfferAd from '../components/OfferAd'
 import '../global-styles/global.css'
 import AlertAd from '../components/AlertAd'
+import Footer from '../components/Footer'
 
 
 const Home = () => {
@@ -15,6 +16,7 @@ const Home = () => {
     <CardBox/>
     <OfferAd/>
     <AlertAd/>
+    <Footer/>
     </>
   )
 }
