@@ -29,11 +29,13 @@
 }
 .card-box .card h1 {
   font-size: 1.5rem;
+  font-weight: 800;
   color: #09c08c;
 }
 .card-box .card h4 {
   font-size: 0.8rem;
   color: rgb(76, 155, 132);
+  font-weight: 300;
 }
 .card-box .card .img1 {
   width: 80%;
@@ -49,15 +51,15 @@
   width: 62%;
 }
 .card-box .card:hover {
-  background: #00FFA3;
+  background: #06987d;
   color: rgb(255, 255, 255);
   cursor: pointer;
 }
 .card-box .card:hover h1 {
-  color: rgb(4, 154, 107);
+  color: rgb(253, 255, 254);
 }
 .card-box .card:hover h4 {
-  color: #06987d;
+  color: #d5f0eb;
 }
 
 @media screen and (max-width: 800px) {

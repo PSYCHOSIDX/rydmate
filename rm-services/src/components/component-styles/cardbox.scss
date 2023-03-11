@@ -28,12 +28,14 @@
         backdrop-filter: blur(.5rem);
         h1{
             font-size: 1.5rem;
+            font-weight: 800;
             color: #09c08c;
         }
 
         h4{
             font-size: .8rem;
             color: rgb(76, 155, 132);
+            font-weight: 300;
         }
 
         .img1{
@@ -51,13 +53,13 @@
         }
 
         &:hover{
-            background: #00FFA3;
+            background: #06987d;
             color: rgb(255, 255, 255);
             h1{
-                color: rgb(4, 154, 107);
+                color: rgb(253, 255, 254);
             }
             h4{
-                color: #06987d;
+                color: #d5f0eb;
             }
             cursor: pointer;
         }
