@@ -4,12 +4,17 @@ body{
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Poppins:wght@200&family=Unbounded:wght@200&display=swap');
 
+
+.search-holder{
+    height: 32rem;
+}
+
 .search-top{
     overflow-x: hidden;
     .search-img{
         margin: auto;
         width: 100%;
-      
+        height: 80%
      
     }
 }
@@ -121,3 +126,176 @@ body{
         }
     }
 }
+
+
+
+
+.ride-results{
+    background-color: #003830;
+    border: 1px solid rgb(3, 62, 53);
+    padding: 2rem;
+    width: 99%;
+    margin: auto;
+    margin-top: -2%;
+    font-family: 'Poppins', sans-serif;
+
+    .ride-head{
+       display: flex;
+       justify-content: space-between;
+       align-items: center;
+        h2{
+            align-items: center;
+            font-weight: 600;
+            color: white;
+        }
+
+
+        #dropdown-basic-button{
+            font-family: 'Poppins', sans-serif;
+            align-self: center;
+            background-color: #005b39;
+            padding: 1rem 4rem;
+            border: #ffffff;
+        }
+        
+       
+    }
+}
+
+
+
+.card-results{
+    
+    background-color: #072a1d;
+    
+    .gridbox{
+        background-color: #ffffff00;
+        width: 100%;
+    }
+    .gridrow{
+     background-color: rgba(255, 0, 0, 0);
+    }
+
+    .gridcol{
+        background-color: rgba(0, 115, 255, 0);
+        
+    }
+    
+
+ .ride-card{
+                background-color: rgb(24, 110, 93);
+                width:25rem;
+              
+                border-radius: 1rem;
+                padding: 2rem;
+                margin: auto;
+                margin-top: 1rem;
+                margin-bottom: 1rem;
+                
+                font-family: 'Poppins',sans-serif;
+                #loc{
+                    color: white;
+                    font-weight: bolder;
+                    font-size: 2rem;
+                }
+
+                #dis{
+                    color: #00FFA3;
+                    font-size: .8rem;
+                }
+                .line{
+                    background-color: #00FFA3;
+                    height: .1rem;
+                }
+                #name{
+                    color: white;
+                    font-weight:bolder;
+                    font-family: 'Poppins',sans-serif;
+                    font-size: 1.6rem;
+                    margin-top: 1rem;
+                    
+                }
+
+                .type{
+                    color: #ffffff;
+                    font-family: 'Poppins',sans-serif;
+                    font-size: .8rem;
+                    font-weight: bold;
+                }
+
+                #type{
+                    color: #00FFA3;
+                    font-family: 'Poppins',sans-serif;
+                    font-size: 1rem;
+                    font-weight: bold;
+                }
+
+                #seat{
+                    font-size: 1rem;
+                    color: white;
+                    font-weight: bolder;
+
+                }
+
+                #cost{
+                    color: #ffffff;
+                    font-size: .8rem;
+                }
+
+                #realcost{
+                    color: #00FFA3;
+                    font-weight: bolder;
+                    font-size: 1rem;
+                }
+                .ride-join{
+                    background-color: #00FFA3;
+                    font-size: 1rem;
+                    font-weight: bolder;
+                    text-align: center;
+                    font-family: 'Poppins';
+                    padding: .5rem 5rem;
+                    margin: auto;
+                    color: rgb(17, 28, 19);
+                    border-radius: 1rem;
+                    margin-left: .7rem;
+                    border: none;
+
+                    &:hover{
+                        background-color: #2f2f2f;
+                        color: white;
+                    }
+                }
+            }
+
+            display: flex;
+            justify-content: center;
+            justify-self: center;
+            align-items: center;
+            align-self: center;
+}
+
+
+@media screen and (max-width:1200px){
+    .ride-results{
+        margin-top: -13%;
+    }
+}
+
+@media screen and (max-width:800px) {
+
+    .ride-results{
+        margin-top: .2rem;
+    }
+    .ride-head{
+        margin-top: 0px;
+        h2{
+            font-size: 2.5rem;
+        }
+        flex-direction: column;
+        #dropdown-basic-button{
+            margin:1rem;
+        }
+    }
+}
+
+
