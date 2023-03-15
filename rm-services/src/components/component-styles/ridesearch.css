@@ -1,0 +1,102 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Poppins:wght@200&family=Unbounded:wght@200&display=swap");
+body {
+  background-color: black;
+}
+
+.search-top {
+  overflow-x: hidden;
+}
+.search-top .search-img {
+  margin: auto;
+  width: 100%;
+}
+
+.search-bottom {
+  margin-top: -30%;
+}
+.search-bottom .search-text {
+  margin: auto;
+  text-align: center;
+  color: #ffffff;
+  font-weight: bolder;
+}
+.search-bottom .form-holder {
+  margin: auto;
+  max-width: 1080px;
+  margin-top: 10em;
+  display: flex;
+  justify-content: center;
+  border: none;
+}
+.search-bottom .form-holder .phold {
+  font-family: "Poppins", sans-serif;
+  padding: 1rem 5rem;
+  font-size: 1.1rem;
+  border-radius: 0.4rem;
+  margin: 0.3rem;
+  border: none;
+  font-weight: bolder;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+}
+.search-bottom .form-holder .search-btn {
+  padding: 1.1rem 3rem;
+  font-size: 1rem;
+  border-radius: 0.4rem;
+  margin: 0.3rem;
+  color: white;
+  background-color: #00FFA3;
+  border: none;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+}
+.search-bottom .form-holder .search-btn:hover {
+  background-color: black;
+}
+
+@media screen and (max-width: 800px) {
+  .search-top .search-img {
+    zoom: 100%;
+    width: -moz-fit-content;
+    width: fit-content;
+    margin-left: -30%;
+  }
+  .search-bottom {
+    margin-top: -50%;
+  }
+  .search-bottom .form-holder {
+    flex-direction: column;
+    margin: 1rem;
+  }
+}
+@media screen and (max-width: 500px) {
+  .form-holder {
+    max-width: 60%;
+  }
+  .search-top .search-img {
+    zoom: 100%;
+    width: -moz-fit-content;
+    width: fit-content;
+    margin-left: -140%;
+  }
+  .search-bottom {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: -100%;
+  }
+}
+@media screen and (max-width: 1000px) {
+  .form-holder {
+    width: 90%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .form-holder .phold {
+    width: 90%;
+  }
+  .form-holder .search-btn {
+    width: 90%;
+  }
+}/*# sourceMappingURL=ridesearch.css.map */
