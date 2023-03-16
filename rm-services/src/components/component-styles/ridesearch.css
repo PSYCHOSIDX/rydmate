@@ -151,7 +151,7 @@ body {
   background-color: rgba(0, 115, 255, 0);
 }
 .card-results .ride-card {
-  background-color: rgb(24, 110, 93);
+  background-color: rgb(18, 19, 18);
   width: 25rem;
   border-radius: 1rem;
   padding: 2rem;
@@ -230,6 +230,10 @@ body {
   }
 }
 @media screen and (max-width: 800px) {
+  .auto {
+    margin-left: 2rem;
+    width: 100%;
+  }
   .ride-results {
     margin-top: 0.2rem;
   }
@@ -243,4 +247,24 @@ body {
   .ride-head #dropdown-basic-button {
     margin: 1rem;
   }
+}
+.test {
+  color: #ffffff;
+  font-size: 2rem;
+}
+
+.hide {
+  display: none;
+}
+
+.mapbox {
+  width: 100%;
+  margin: auto;
+  margin-top: -3rem;
+  background-color: #005b39;
+  padding: 0.5rem;
+}
+.mapbox .gmap {
+  margin: auto;
+  border-radius: 10rem;
 }/*# sourceMappingURL=ridesearch.css.map */

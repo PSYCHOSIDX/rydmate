@@ -14,8 +14,11 @@ const Search = () => {
             <h1 className='search-text'>Find Your Next Ride Superfast !</h1>
 
             <form action="" className='form-holder'>
+
+
                 <input type="text" placeholder='📍From'  className='phold'/>
                 <input type="text" placeholder='📍To' className='phold'/>
+                
                 <button type="submit" className='search-btn'>Search</button>
             </form>
         </div>

@@ -183,7 +183,7 @@ body{
     
 
  .ride-card{
-                background-color: rgb(24, 110, 93);
+                background-color: rgb(18, 19, 18);
                 width:25rem;
               
                 border-radius: 1rem;
@@ -282,7 +282,10 @@ body{
 }
 
 @media screen and (max-width:800px) {
-
+    .auto{
+        margin-left: 2rem;
+        width: 100%;
+    }
     .ride-results{
         margin-top: .2rem;
     }
@@ -299,3 +302,27 @@ body{
 }
 
 
+.test{
+    color: #ffffff;
+    font-size: 2rem;
+}
+
+
+
+.hide{
+    display: none;
+}
+
+// Maps
+
+.mapbox{
+    width: 100%;
+    margin: auto;
+    margin-top: -3rem;
+   background-color: #005b39;
+   padding: .5rem;
+    .gmap{
+        margin: auto;
+        border-radius: 10rem;
+    }
+}
