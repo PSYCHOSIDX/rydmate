@@ -121,13 +121,16 @@ function clearRoute(){
       <div className="mapbox">
 
       <GoogleMap  className='gmap' center={center} zoom={15} 
-                mapContainerStyle={{ width:'90%', height:'25rem',margin:'auto',borderRadius:'.5rem', marginBottom:'1rem'}} 
+                mapContainerStyle={{ width:'90%', height:'25rem',margin:'auto',borderRadius:'.9rem', marginBottom:'1rem'}} 
                  options={{
                   streetViewControl: false,
                   mapTypeControl: false,
                   fullscreenControl: false,
-                  zoomControl:false
-
+                  zoomControl:false,
+                  mapId: "c592e5989eb34504",
+                  keyboardShortcuts:false,
+                  
+                  
                  }}
                  onLoad={map => setMap(map)}
                  >
