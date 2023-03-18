@@ -1,14 +1,16 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
 import { auth, db } from "../../firebaseConfig";
-import {doc,setDoc} from "firebase/firestore"
+import {doc,setDoc} from "firebase/firestore";
 
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate()
 
-  const signUp = (e) => {
+  const SignUp = (e) => {
     e.preventDefault();
     createUserWithEmailAndPassword(auth, email, password)
       .then(async (userCredential) => {
@@ -17,6 +19,7 @@ const SignUp = () => {
         // console.log(user.uid);
         const data = { email: email};
         await setDoc( doc (db, "users", user.uid),data);
+        navigate("/verify");
       },error =>{
         console.log(error.message)
       })
@@ -24,7 +27,7 @@ const SignUp = () => {
 
   return (
     <div className="sign-in-container">
-      <form onSubmit={signUp}>
+      <form onSubmit={SignUp}>
         <h1>Create Account</h1>
         <input
           type="email"

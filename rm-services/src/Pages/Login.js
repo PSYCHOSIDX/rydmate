@@ -5,6 +5,7 @@ import SignIn from '../components/auth/SignIn'
 // import SignInWithGoogle from '../components/auth/SignInWithGoogle'
 import Footer from '../components/Footer'
 
+// import AuthDetails from '../components/auth/AuthDetails'
 
 const Login = () => {
   return (
@@ -12,6 +13,7 @@ const Login = () => {
     <SignIn/>
     {/* <SignInWithGoogle/> */}
     {/* <SignUp/> */}
+    {/* <AuthDetails/> */}
     <Footer/>
     </>
   )

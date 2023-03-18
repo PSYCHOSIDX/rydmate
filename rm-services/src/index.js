@@ -5,7 +5,7 @@ import Home from './Pages/Home';
 import Rides from './Pages/Rides';
 import  Login from './Pages/Login';
 import  SignUp from './components/auth/SignUp.jsx';
-
+import Verification from './Pages/Verification';
 
 import {
   createBrowserRouter,
@@ -31,6 +31,10 @@ const router =createBrowserRouter([
 {
   path: "/signup",
   element: <SignUp/>
+},
+{
+  path: "/verify",
+  element: <Verification/>
 },
 ]);
 
