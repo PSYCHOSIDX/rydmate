@@ -20,7 +20,7 @@ function NavbarLogin(){
             {/* <Nav.Link href="#home" className='nav-link link'>Home</Nav.Link>
             <Nav.Link href="#services" className='nav-link link'>Services</Nav.Link>
             <Nav.Link href="#about" className=' nav-link link'>About Us</Nav.Link> */}
-            <Link to="" className='link'>
+            <Link to="/login" className='link'>
             <button className='btn-contact'> Login </button>
             </Link>
             

@@ -1,14 +1,18 @@
 import { initializeApp } from "firebase/app";
-import {getFirestore} from '@firebase/firestore'
+import {getFirestore} from 'firebase/firestore'
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
-const firebase = {
-  apiKey: process.env.REACT_APP_FIREBASE_KEY,
-  authDomain: "carpool-9d220.firebaseapp.com",
-  projectId: "carpool-9d220",
-  storageBucket: "carpool-9d220.appspot.com",
-  messagingSenderId: "76397578852",
-  appId: "1:76397578852:web:88a48bdf3ed165d1eb2d71"
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBiT-LO2PAdUFDbBS2Ln0borpDGZLwSEiA",
+  authDomain: "logintrial-94d7e.firebaseapp.com",
+  projectId: "logintrial-94d7e",
+  storageBucket: "logintrial-94d7e.appspot.com",
+  messagingSenderId: "153536370112",
+  appId: "1:153536370112:web:8485d3b2673b8d74cee425",
+  measurementId: "G-S6874VMWY8"
 };
 
-const app = initializeApp(firebase);
+const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
+export const auth = getAuth(app);

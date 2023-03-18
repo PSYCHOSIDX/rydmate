@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom/client';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from './Pages/Home';
 import Rides from './Pages/Rides';
+import  Login from './Pages/Login';
+import  SignUp from './components/auth/SignUp.jsx';
+
 
 import {
   createBrowserRouter,
@@ -19,6 +22,15 @@ const router =createBrowserRouter([
 {
   path: "/rides",
   element: <Rides/>
+},
+{
+  path: "/login",
+  element: <Login/>
+},
+
+{
+  path: "/signup",
+  element: <SignUp/>
 },
 ]);
 
