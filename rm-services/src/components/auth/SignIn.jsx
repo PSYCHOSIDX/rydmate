@@ -6,6 +6,7 @@ import { SignInWithGoogle } from "./SignInWithGoogle";
 import { Link } from 'react-router-dom';
 
 
+
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -46,6 +47,7 @@ const SignIn = () => {
       <div className="sign-in-container">
         <button onClick={SignInWithGoogle}>login in with google</button>
     </div>
+    
     <Link to="/signup" className='link'>
             <button className='btn-contact'> sign up </button>
             </Link>

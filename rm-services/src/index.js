@@ -7,6 +7,8 @@ import  Login from './Pages/Login';
 import  SignUp from './components/auth/SignUp.jsx';
 import Verification from './Pages/Verification';
 
+
+
 import {
   createBrowserRouter,
   RouterProvider,
@@ -36,6 +38,8 @@ const router =createBrowserRouter([
   path: "/verify",
   element: <Verification/>
 },
+
+
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

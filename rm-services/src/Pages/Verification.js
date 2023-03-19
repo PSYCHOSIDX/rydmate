@@ -16,6 +16,7 @@ const Verification = () => {
     {/* <Verify/> */}
     <AuthDetails/>
     {/* <Footer/> */}
+
     </>
   )
 }
