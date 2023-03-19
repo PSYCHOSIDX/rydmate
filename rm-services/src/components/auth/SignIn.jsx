@@ -51,7 +51,7 @@ const SignIn = () => {
     </div>
     
     <Link to="/signup" className='link'>
-            <button className='btn-contact'> sign up </button>
+            <button> sign up </button>
             </Link>
     </div>
     

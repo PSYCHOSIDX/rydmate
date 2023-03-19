@@ -1,9 +1,12 @@
 import {  GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth, db} from "../../firebaseConfig";
-import { doc, setDoc} from "firebase/firestore"
+import { doc, setDoc} from "firebase/firestore";
 
-export const SignInWithGoogle = () => {
+
+export const SignInWithGoogle = () => {   
+
     const provider = new GoogleAuthProvider()
+
     signInWithPopup(auth,provider)
     .then(async (result) => {
       console.log(result);
@@ -15,7 +18,6 @@ export const SignInWithGoogle = () => {
    
       const data = { email: user.email};
       await setDoc( doc (db, "users", user.uid),data);
-     
     },error =>{
       console.log(error.message)
     })
