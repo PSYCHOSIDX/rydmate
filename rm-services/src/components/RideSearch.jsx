@@ -129,7 +129,7 @@ function clearRoute(){
                   zoomControl:false,
                   mapId: "c592e5989eb34504",
                   keyboardShortcuts:false,
-                  
+                  gestureHandling: "greedy",
                   
                  }}
                  onLoad={map => setMap(map)}
