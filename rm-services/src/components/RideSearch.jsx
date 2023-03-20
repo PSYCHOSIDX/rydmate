@@ -124,9 +124,9 @@ function clearRoute(){
                 mapContainerStyle={{ width:'90%', height:'25rem',margin:'auto',borderRadius:'.9rem', marginBottom:'1rem'}} 
                  options={{
                   streetViewControl: false,
-                  mapTypeControl: false,
+                 
                   fullscreenControl: false,
-                  zoomControl:false,
+         
                   mapId: "c592e5989eb34504",
                   keyboardShortcuts:false,
                   gestureHandling: "greedy",
