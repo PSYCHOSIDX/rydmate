@@ -8,7 +8,6 @@ body {
 }
 
 .search-top {
-  background-color: #00FFA3;
   overflow-x: hidden;
 }
 .search-top .search-img {
@@ -67,10 +66,10 @@ body {
   }
   .search-holder .search-top .search-img {
     height: 60vh;
-    margin-left: -250%;
+    margin-left: -150%;
   }
   .search-holder .search-bottom {
-    margin-top: -100%;
+    margin-top: -60%;
   }
   .search-holder .search-bottom .card-holder {
     flex-direction: column;
@@ -84,13 +83,13 @@ body {
     zoom: 100%;
     width: -moz-fit-content;
     width: fit-content;
-    margin-left: -500%;
+    margin-left: -200%;
   }
   .search-holder .search-bottom {
     display: flex;
     justify-content: center;
     flex-direction: column;
-    margin-top: -180%;
+    margin-top: -105%;
   }
 }
 @media screen and (max-width: 320px) {
@@ -101,6 +100,6 @@ body {
     height: 95vh;
   }
   .search-holder .search-bottom {
-    margin-top: -360%;
+    margin-top: -350%;
   }
 }/*# sourceMappingURL=search.css.map */

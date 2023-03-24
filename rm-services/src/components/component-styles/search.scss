@@ -8,7 +8,7 @@ body{
 }
 
 .search-top{
-    background-color: #00FFA3;
+   
     overflow-x: hidden;
     .search-img{
         margin: auto;
@@ -76,12 +76,12 @@ body{
         .search-top{
             .search-img{
              height: 60vh;
-             margin-left: -250%;
+             margin-left: -150%;
             }
         }
        
         .search-bottom{
-            margin-top: -100%;
+            margin-top: -60%;
            .card-holder{
             flex-direction: column;
             
@@ -101,7 +101,7 @@ body{
             .search-img{
              zoom: 100%;
              width: fit-content;
-             margin-left: -500%;
+             margin-left: -200%;
              
             }
         }
@@ -111,7 +111,7 @@ body{
             justify-content: center;
             flex-direction: column;
     
-            margin-top: -180%;
+            margin-top: -105%;
         }
     }
    
@@ -131,7 +131,7 @@ body{
         }
       }
       .search-bottom{
-        margin-top: -360%;
+        margin-top: -350%;
       }
   }
 }
