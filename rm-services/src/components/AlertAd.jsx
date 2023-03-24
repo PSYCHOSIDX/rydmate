@@ -9,9 +9,9 @@ const AlertAd = () => {
     <>
       <div className="alert-ad">
         <div className="text">
-            <h1>Set Up Your Emergengy Contacts </h1>
+            <h1>You can Set Up Emergengy Contacts </h1>
             <h4>Safety is our top most priority and we do our best to secure your rides</h4>
-            <button className='alert-btn'>Setup</button>
+            <button className='alert-btn'>Join Us</button>
         </div>
 
         <img src={alert} alt="Rides !" />

@@ -1,60 +1,68 @@
 body{
-    background-color: black;
+    background-color: #00FFA3;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Poppins:wght@200&family=Unbounded:wght@200&display=swap');
+.search-holder{
+    background-color: #323232;
+}
 
 .search-top{
+    background-color: #00FFA3;
     overflow-x: hidden;
     .search-img{
         margin: auto;
         width: 100%;
         z-index: -100;
-     
+        
     }
 }
 
 .search-bottom{
     
-    margin-top: -30%;
+    margin-top: -30%;   
     .search-text{
+        
         margin: auto;
+        margin-top: 20%;
         text-align: center;
         color: #ffffff;
         font-weight: bolder;
     }
     
-    .form-holder{
-        margin: auto;
-        max-width: 1080px;
-        margin-top: 10em;
-        
+    .card-holder{
+        margin-top: 7%;
         display: flex;
         justify-content: center;
-        border: none;
-        .phold{
-            font-family: 'Poppins', sans-serif;
-            padding: 1rem max(5rem);
-            font-size: 1.1rem;
-            border-radius: .4rem;
-            margin: .3rem;
-            border: none;
-            font-weight: bolder;
-            box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
-        }
-        
-        .search-btn{
-            padding: 1.1rem max(3rem);
-            font-size: 1rem;
-            border-radius: .4rem;
-            margin: .3rem;
-    
-            color: white;
-            background-color: #00FFA3;
-            border: none;
-            box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
-            &:hover{
-                background-color: black;
+        z-index: 0;
+        .search-card{
+            box-shadow: rgba(255, 255, 255, 0.2) 0px 7px 29px 0px;
+            margin: 1.5rem;
+            h1{
+                font-size: 2rem;
+                color: #43E383;
+            }
+
+            h4{
+                font-size: 1rem;
+                color: #282828;
+            }
+            
+            background: rgb(255, 255, 255);
+            padding: 2rem 3.2rem;
+            border-radius: 1rem;
+
+            .go-btn{
+                all: unset;
+                background-color: #000000;
+                color: rgb(255, 255, 255);
+                padding: .6rem 1.5rem;
+                text-align: center;
+                font-weight: bolder;
+                border-radius: 1rem;
+                &:hover{
+                    background-color: #43E383;
+                }
             }
         }
     }
@@ -63,61 +71,67 @@ body{
 
 
 @media screen and (max-width: 800px){
-    
-    .search-top{
-        .search-img{
-         zoom: 100%;
-         width: fit-content;
-         margin-left: -30%;
+    .search-holder{
+        margin-bottom: 90%;
+        .search-top{
+            .search-img{
+             height: 60vh;
+             margin-left: -250%;
+            }
         }
-    }
-
-    .search-bottom{
-        margin-top: -50%;
-        .form-holder{
+       
+        .search-bottom{
+            margin-top: -100%;
+           .card-holder{
             flex-direction: column;
-            margin: 1rem;
+            
+           }
+    
         }
-
     }
+   
 }
 
 @media screen and (max-width: 500px) {
 
-    .form-holder{
-        max-width:60%;
-    }
-    .search-top{
-        .search-img{
-         zoom: 100%;
-         width: fit-content;
-         margin-left: -140%;
+    .search-holder{
+        margin-bottom: 165%;
+        .search-top{
+       
+            .search-img{
+             zoom: 100%;
+             width: fit-content;
+             margin-left: -500%;
+             
+            }
+        }
+    
+        .search-bottom{
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+    
+            margin-top: -180%;
         }
     }
-
-    .search-bottom{
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-
-        margin-top: -100%;
-    }
+   
+ 
   
 }
 
-@media screen and (max-width:1000px) {
-    .form-holder{
-        width: 90%;
-        margin: auto;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        .phold{
-            width: 90%;
+@media screen and (max-width:320px) {
+  
+  .search-holder{
+    margin-bottom: 290%;
+
+    .search-top{
+       
+        .search-img{
+            height: 95vh;
         }
-        .search-btn{
-            width: 90%;
-        }
-    }
+      }
+      .search-bottom{
+        margin-top: -360%;
+      }
+  }
 }

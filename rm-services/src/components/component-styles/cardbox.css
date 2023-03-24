@@ -17,7 +17,6 @@
   height: fit-content;
   padding: 1.4rem;
   margin: 4.4rem;
-  background: rgba(255, 255, 255, 0.7490196078);
   margin-right: 0;
   margin-left: 1rem;
   border-radius: 1rem;
@@ -26,6 +25,8 @@
   max-height: 19rem;
   -webkit-backdrop-filter: blur(0.5rem);
           backdrop-filter: blur(0.5rem);
+  background: #06987d;
+  color: rgb(255, 255, 255);
 }
 .card-box .card h1 {
   font-size: 1.5rem;
@@ -36,6 +37,12 @@
   font-size: 0.8rem;
   color: rgb(76, 155, 132);
   font-weight: 300;
+}
+.card-box .card h1 {
+  color: rgb(253, 255, 254);
+}
+.card-box .card h4 {
+  color: #d5f0eb;
 }
 .card-box .card .img1 {
   width: 80%;
@@ -51,27 +58,24 @@
   width: 62%;
 }
 .card-box .card:hover {
-  background: #06987d;
-  color: rgb(255, 255, 255);
+  background: rgba(255, 255, 255, 0.7490196078);
+  color: rgb(41, 41, 41);
   cursor: pointer;
 }
-.card-box .card:hover h1 {
-  color: rgb(253, 255, 254);
-}
-.card-box .card:hover h4 {
-  color: #d5f0eb;
+.card-box .card:hover h1, .card-box .card:hover h4 {
+  color: #707070;
 }
 
 @media screen and (max-width: 800px) {
   .card-box {
     flex-direction: column;
-    margin-top: -14%;
+    margin-top: -12%;
   }
   .card-box .card {
     margin: auto;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
     width: 85%;
-    margin-top: 0.5rem;
+    margin-top: 1.5rem;
     scale: 95%;
   }
   .card-box .card .img1 {

@@ -1,9 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Poppins:wght@200&family=Unbounded:wght@200&display=swap");
 body {
-  background-color: black;
+  background-color: #00FFA3;
+}
+
+.search-holder {
+  background-color: #323232;
 }
 
 .search-top {
+  background-color: #00FFA3;
   overflow-x: hidden;
 }
 .search-top .search-img {
@@ -17,87 +22,85 @@ body {
 }
 .search-bottom .search-text {
   margin: auto;
+  margin-top: 20%;
   text-align: center;
   color: #ffffff;
   font-weight: bolder;
 }
-.search-bottom .form-holder {
-  margin: auto;
-  max-width: 1080px;
-  margin-top: 10em;
+.search-bottom .card-holder {
+  margin-top: 7%;
   display: flex;
   justify-content: center;
-  border: none;
+  z-index: 0;
 }
-.search-bottom .form-holder .phold {
-  font-family: "Poppins", sans-serif;
-  padding: 1rem 5rem;
-  font-size: 1.1rem;
-  border-radius: 0.4rem;
-  margin: 0.3rem;
-  border: none;
-  font-weight: bolder;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+.search-bottom .card-holder .search-card {
+  box-shadow: rgba(255, 255, 255, 0.2) 0px 7px 29px 0px;
+  margin: 1.5rem;
+  background: rgb(255, 255, 255);
+  padding: 2rem 3.2rem;
+  border-radius: 1rem;
 }
-.search-bottom .form-holder .search-btn {
-  padding: 1.1rem 3rem;
+.search-bottom .card-holder .search-card h1 {
+  font-size: 2rem;
+  color: #43E383;
+}
+.search-bottom .card-holder .search-card h4 {
   font-size: 1rem;
-  border-radius: 0.4rem;
-  margin: 0.3rem;
-  color: white;
-  background-color: #00FFA3;
-  border: none;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+  color: #282828;
 }
-.search-bottom .form-holder .search-btn:hover {
-  background-color: black;
+.search-bottom .card-holder .search-card .go-btn {
+  all: unset;
+  background-color: #000000;
+  color: rgb(255, 255, 255);
+  padding: 0.6rem 1.5rem;
+  text-align: center;
+  font-weight: bolder;
+  border-radius: 1rem;
+}
+.search-bottom .card-holder .search-card .go-btn:hover {
+  background-color: #43E383;
 }
 
 @media screen and (max-width: 800px) {
-  .search-top .search-img {
-    zoom: 100%;
-    width: -moz-fit-content;
-    width: fit-content;
-    margin-left: -30%;
+  .search-holder {
+    margin-bottom: 90%;
   }
-  .search-bottom {
-    margin-top: -50%;
+  .search-holder .search-top .search-img {
+    height: 60vh;
+    margin-left: -250%;
   }
-  .search-bottom .form-holder {
+  .search-holder .search-bottom {
+    margin-top: -100%;
+  }
+  .search-holder .search-bottom .card-holder {
     flex-direction: column;
-    margin: 1rem;
   }
 }
 @media screen and (max-width: 500px) {
-  .form-holder {
-    max-width: 60%;
+  .search-holder {
+    margin-bottom: 165%;
   }
-  .search-top .search-img {
+  .search-holder .search-top .search-img {
     zoom: 100%;
     width: -moz-fit-content;
     width: fit-content;
-    margin-left: -140%;
+    margin-left: -500%;
   }
-  .search-bottom {
+  .search-holder .search-bottom {
     display: flex;
     justify-content: center;
     flex-direction: column;
-    margin-top: -100%;
+    margin-top: -180%;
   }
 }
-@media screen and (max-width: 1000px) {
-  .form-holder {
-    width: 90%;
-    margin: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+@media screen and (max-width: 320px) {
+  .search-holder {
+    margin-bottom: 290%;
   }
-  .form-holder .phold {
-    width: 90%;
+  .search-holder .search-top .search-img {
+    height: 95vh;
   }
-  .form-holder .search-btn {
-    width: 90%;
+  .search-holder .search-bottom {
+    margin-top: -360%;
   }
 }/*# sourceMappingURL=search.css.map */

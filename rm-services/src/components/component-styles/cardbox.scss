@@ -18,7 +18,7 @@
         height: fit-content;
         padding: 1.4rem;
         margin: 4.4rem;
-        background: #ffffffbf;
+       
         margin-right: 0;
         margin-left: 1rem;
         border-radius: 1rem;
@@ -26,6 +26,7 @@
         padding-left: 2.8rem;
         max-height: 19rem;
         backdrop-filter: blur(.5rem);
+
         h1{
             font-size: 1.5rem;
             font-weight: 800;
@@ -38,6 +39,15 @@
             font-weight: 300;
         }
 
+
+        background: #06987d;
+            color: rgb(255, 255, 255);
+            h1{
+                color: rgb(253, 255, 254);
+            }
+            h4{
+                color: #d5f0eb;
+            }
         .img1{
             width:80%;
         }
@@ -53,14 +63,11 @@
         }
 
         &:hover{
-            background: #06987d;
-            color: rgb(255, 255, 255);
-            h1{
-                color: rgb(253, 255, 254);
+           h1, h4{
+                color: #707070;
             }
-            h4{
-                color: #d5f0eb;
-            }
+            background: #ffffffbf;
+            color: rgb(41, 41, 41);
             cursor: pointer;
         }
     }
@@ -71,12 +78,12 @@
 
     .card-box{
         flex-direction: column;
-        margin-top: -14%;
+        margin-top: -12%;
         .card{
             margin: auto;
-            margin-bottom: .5rem;
+            margin-bottom: 1.5rem;
             width: 85%;
-            margin-top: .5rem;
+            margin-top: 1.5rem;
             scale: 95%;
             .img1{
                 width:50%;

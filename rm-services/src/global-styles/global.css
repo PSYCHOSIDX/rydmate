@@ -4,7 +4,11 @@
 }
 
 body {
-  background-color: black;
+  background: #00FFA3;
   max-width: 1600px;
   margin: auto;
+}
+
+html {
+  background: #02b070;
 }/*# sourceMappingURL=global.css.map */
