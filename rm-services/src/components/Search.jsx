@@ -25,7 +25,7 @@ const Search = () => {
                   <button  className='go-btn'> Go </button>
                 </div>
                 <div className="search-card">
-                  <h1>Search <br/> Register In <br/>Rider Program</h1>
+                  <h1> Register In <br/>Rider Program</h1>
                   <h4>Join our program to offer rides</h4>
                   <button className='go-btn'> Go </button>
                 </div>
