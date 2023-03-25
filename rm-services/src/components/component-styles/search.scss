@@ -4,11 +4,11 @@ body{
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Poppins:wght@200&family=Unbounded:wght@200&display=swap');
 .search-holder{
-    background-color: #323232;
+    background-color: #32323200;
 }
 
 .search-top{
-   
+    background-color: #32323200;
     overflow-x: hidden;
     .search-img{
         margin: auto;
@@ -19,7 +19,7 @@ body{
 }
 
 .search-bottom{
-    
+    background-color: #32323200;
     margin-top: -30%;   
     .search-text{
         
@@ -36,7 +36,7 @@ body{
         justify-content: center;
         z-index: 0;
         .search-card{
-            box-shadow: rgba(255, 255, 255, 0.2) 0px 7px 29px 0px;
+            box-shadow: rgba(0, 0, 0, 0.542) 0px 7px 29px 0px;
             margin: 1.5rem;
             h1{
                 font-size: 2rem;
@@ -45,17 +45,17 @@ body{
 
             h4{
                 font-size: 1rem;
-                color: #282828;
+                color: #989898;
             }
             
-            background: rgb(255, 255, 255);
+            background: rgb(0, 89, 82);
             padding: 2rem 3.2rem;
             border-radius: 1rem;
 
             .go-btn{
                 all: unset;
-                background-color: #000000;
-                color: rgb(255, 255, 255);
+                background-color: #ffffff;
+                color: rgb(6, 118, 100);
                 padding: .6rem 1.5rem;
                 text-align: center;
                 font-weight: bolder;
@@ -81,10 +81,17 @@ body{
         }
        
         .search-bottom{
-            margin-top: -60%;
+            margin-top: -65%;
            .card-holder{
             flex-direction: column;
-            
+            .search-card{
+                h1{
+                    font-size: 1.2rem;
+                }
+                h4{
+                    font-size: .7rem;
+                }
+            }
            }
     
         }
@@ -95,7 +102,7 @@ body{
 @media screen and (max-width: 500px) {
 
     .search-holder{
-        margin-bottom: 165%;
+        margin-bottom: 135%;
         .search-top{
        
             .search-img{
@@ -111,7 +118,7 @@ body{
             justify-content: center;
             flex-direction: column;
     
-            margin-top: -105%;
+            margin-top: -100%;
         }
     }
    

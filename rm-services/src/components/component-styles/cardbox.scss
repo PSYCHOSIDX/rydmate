@@ -2,7 +2,7 @@
 
 
 .card-box{
-    background-image: linear-gradient(145deg,rgb(64, 145, 114),#00FFA3,rgb(179, 177, 177));
+    background-image: linear-gradient(145deg,rgba(64, 145, 114, 0.496),#00ffa293,rgba(179, 177, 177, 0.496));
     display: flex;
     margin: auto;
     margin-top: -4%;
@@ -40,7 +40,7 @@
         }
 
 
-        background: #06987d;
+        background: #1f1f1f;
             color: rgb(255, 255, 255);
             h1{
                 color: rgb(253, 255, 254);

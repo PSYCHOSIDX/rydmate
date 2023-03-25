@@ -20,7 +20,7 @@ const Search = () => {
                   <button  className='go-btn'> Go </button>
                 </div>
                 <div className="search-card">
-                  <h1>Search <br/> Signup / <br/> Login</h1>
+                  <h1>Signup / <br/> Login</h1>
                   <h4>register / login to access services</h4>
                   <button  className='go-btn'> Go </button>
                 </div>

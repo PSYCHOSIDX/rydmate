@@ -4,10 +4,11 @@ body {
 }
 
 .search-holder {
-  background-color: #323232;
+  background-color: rgba(50, 50, 50, 0);
 }
 
 .search-top {
+  background-color: rgba(50, 50, 50, 0);
   overflow-x: hidden;
 }
 .search-top .search-img {
@@ -17,6 +18,7 @@ body {
 }
 
 .search-bottom {
+  background-color: rgba(50, 50, 50, 0);
   margin-top: -30%;
 }
 .search-bottom .search-text {
@@ -33,9 +35,9 @@ body {
   z-index: 0;
 }
 .search-bottom .card-holder .search-card {
-  box-shadow: rgba(255, 255, 255, 0.2) 0px 7px 29px 0px;
+  box-shadow: rgba(0, 0, 0, 0.542) 0px 7px 29px 0px;
   margin: 1.5rem;
-  background: rgb(255, 255, 255);
+  background: rgb(0, 89, 82);
   padding: 2rem 3.2rem;
   border-radius: 1rem;
 }
@@ -45,12 +47,12 @@ body {
 }
 .search-bottom .card-holder .search-card h4 {
   font-size: 1rem;
-  color: #282828;
+  color: #989898;
 }
 .search-bottom .card-holder .search-card .go-btn {
   all: unset;
-  background-color: #000000;
-  color: rgb(255, 255, 255);
+  background-color: #ffffff;
+  color: rgb(6, 118, 100);
   padding: 0.6rem 1.5rem;
   text-align: center;
   font-weight: bolder;
@@ -69,15 +71,21 @@ body {
     margin-left: -150%;
   }
   .search-holder .search-bottom {
-    margin-top: -60%;
+    margin-top: -65%;
   }
   .search-holder .search-bottom .card-holder {
     flex-direction: column;
   }
+  .search-holder .search-bottom .card-holder .search-card h1 {
+    font-size: 1.2rem;
+  }
+  .search-holder .search-bottom .card-holder .search-card h4 {
+    font-size: 0.7rem;
+  }
 }
 @media screen and (max-width: 500px) {
   .search-holder {
-    margin-bottom: 165%;
+    margin-bottom: 135%;
   }
   .search-holder .search-top .search-img {
     zoom: 100%;
@@ -89,7 +97,7 @@ body {
     display: flex;
     justify-content: center;
     flex-direction: column;
-    margin-top: -105%;
+    margin-top: -100%;
   }
 }
 @media screen and (max-width: 320px) {

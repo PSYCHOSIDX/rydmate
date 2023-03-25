@@ -27,7 +27,7 @@ const CardBox = () => {
             <img src={art3} alt="secure" className='img3' />
         </div>
 
-    </div>s
+    </div>
       
     </>
   )
