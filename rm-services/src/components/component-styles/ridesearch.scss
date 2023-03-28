@@ -1,16 +1,16 @@
-body{
-    background-color: black;
-}
+
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Poppins:wght@200&family=Unbounded:wght@200&display=swap');
 
 
 .search-holder{
     height: 32rem;
+    
 }
 
 .search-top{
     overflow-x: hidden;
+    
     .search-img{
         margin: auto;
         width: 100%;
@@ -23,6 +23,7 @@ body{
     
     margin-top: -30%;
     .search-text{
+        
         margin: auto;
         text-align: center;
         color: #ffffff;
@@ -32,7 +33,7 @@ body{
     .form-holder{
         margin: auto;
         max-width: 1080px;
-        margin-top: 10em;
+        margin-top: 5em;
         
         display: flex;
         justify-content: center;
@@ -68,49 +69,69 @@ body{
 
 
 @media screen and (max-width: 800px){
+    .search-holder{
+        margin-bottom:0%;
     
     .search-top{
         .search-img{
          zoom: 100%;
          width: fit-content;
-         margin-left: -30%;
+         height: 20%;
+         margin-left: -90%;
         }
     }
 
     .search-bottom{
-        margin-top: -50%;
+        margin-top: -45%;
         .form-holder{
             flex-direction: column;
             margin: 1rem;
+            .auto{
+                margin-left: 10%;
+            }
+            .search-btn{
+                margin-left: 4%;
+            }
         }
 
+        .mapbox{
+            margin-top: -100rem;
+        }
     }
+
+
+}
 }
 
 @media screen and (max-width: 500px) {
 
-    .form-holder{
-        max-width:60%;
-    }
-    .search-top{
-        .search-img{
-         zoom: 100%;
-         width: fit-content;
-         margin-left: -140%;
+    .search-holder{
+        .search-top{
+            .search-img{
+             zoom: 100%;
+             width: fit-content;
+            
+            }
+        }
+    
+        .search-bottom{
+            display: flex;
+            margin-top: -100%;
+            flex-direction: column;
+            
+            
+            .mapbox{
+                margin-top: 5px;
+                padding-top: 0px;
+            }
         }
     }
-
-    .search-bottom{
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-
-        margin-top: -100%;
-    }
+   
+  
   
 }
 
-@media screen and (max-width:1000px) {
+@media screen and (max-width:900px) {
     .form-holder{
         width: 90%;
         margin: auto;
@@ -275,11 +296,7 @@ body{
 }
 
 
-@media screen and (max-width:1200px){
-    .ride-results{
-        margin-top: -13%;
-    }
-}
+
 
 @media screen and (max-width:800px) {
     .auto{
@@ -299,6 +316,9 @@ body{
             margin:1rem;
         }
     }
+
+
+   
 }
 
 

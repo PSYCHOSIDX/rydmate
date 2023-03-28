@@ -25,6 +25,11 @@ const RideSearch = () => {
 
       getRides();
   }, [ridesCollectionRef]);
+
+
+
+
+  
    
   const center = {lat:15.280347,lng:73.980065};
 
