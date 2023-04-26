@@ -17,7 +17,7 @@ const RideSearch = () => {
   const [rides , setRides]= useState([]);
   const ridesCollectionRef = collection(db,"rides");
 
-  useEffect(()=>{
+  useEffect( ()=>{
       const getRides =  async ()=> {
           const dbdata = await getDocs(ridesCollectionRef);
           setRides(dbdata.docs.map((doc) => ({ ...doc.data()})));
@@ -175,24 +175,28 @@ function clearRoute(){
         {rides.map((rides) => {
           
           return  ( 
-          
+
+
+// Ride Card        
     <div className="ride-card">
                     
     <h2 id="loc">{rides.start_loc} to {rides.end_loc}</h2>
-      <h5 id="dis">Distance {rides.distance} km</h5>
+      <h5 id="dis">Distance {rides.total_distance} km</h5>
       <div className="line"> .</div>
 
       <h2 id="name">{rides.rider_name}</h2>
       <h2 className='type'>Vehicle type </h2>
       <h3 id='type'>{rides.vtype}</h3>
 
+      <h2 className='type'>Vehicle No </h2>
+      <h3 id='type'>{rides.vnumber}</h3>
       <h2 id='seat'>Seats Available {rides.seats}</h2>
 
       <h5 id='cost'>Cost Per Km</h5>
       <h2 id='realcost'>{rides.cost_per_seat}</h2>
 
       <input type="button" value='Join' className='ride-join'/>
-</div>
+    </div>
           );
               })
               
