@@ -1,10 +1,13 @@
 body{
     background-color: #00FFA3;
+    margin-left: auto
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Poppins:wght@200&family=Unbounded:wght@200&display=swap');
 .search-holder{
     background-color: #32323200;
+    margin: auto;
+    margin: auto;
 }
 
 .search-top{
@@ -24,20 +27,22 @@ body{
     .search-text{
         
         margin: auto;
-        margin-top: 20%;
+        margin-top: 5%;
         text-align: center;
         color: #ffffff;
         font-weight: bolder;
     }
     
     .card-holder{
-        margin-top: 7%;
+        margin-top: 2%;
+        margin-bottom: 7%;
         display: flex;
         justify-content: center;
         z-index: 0;
         .search-card{
             box-shadow: rgba(0, 0, 0, 0.542) 0px 7px 29px 0px;
             margin: 1.5rem;
+            margin-bottom: 2rem;
             h1{
                 font-size: 2rem;
                 color: #43E383;
@@ -72,7 +77,7 @@ body{
 
 @media screen and (max-width: 800px){
     .search-holder{
-        margin-bottom: 90%;
+        margin-bottom: 20%;
         .search-top{
             .search-img{
              height: 60vh;
@@ -102,7 +107,7 @@ body{
 @media screen and (max-width: 500px) {
 
     .search-holder{
-        margin-bottom: 135%;
+        margin-bottom: 20%;
         .search-top{
        
             .search-img{
@@ -129,7 +134,7 @@ body{
 @media screen and (max-width:320px) {
   
   .search-holder{
-    margin-bottom: 290%;
+    margin-bottom: 20%;
 
     .search-top{
        
@@ -142,3 +147,4 @@ body{
       }
   }
 }
+
