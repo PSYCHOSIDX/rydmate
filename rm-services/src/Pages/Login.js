@@ -15,14 +15,25 @@ const Login = () => {
   const [password, setPassword]= useState("");
   const [error, setError] = useState("");
   
-  const { signin } = UserAuth();
+  const { signin , googleSignIn} = UserAuth();
+
+    const handleGoogleSignIn = async() =>{
+      setError('');
+      try{
+        await googleSignIn();
+        navigate('/');
+      } catch(e){
+        setError(e.message);
+        console.log(e.message);
+      }
+    }
 
     const handleSubmit = async (e) => {
       e.preventDefault();
       setError('');
       try{
          await signin(email, password);
-         navigate('/')
+         navigate('/');
       } 
       catch(e){
         setError(e.message);
@@ -63,6 +74,7 @@ const Login = () => {
       <br/>
       <GoogleButton
       className="google-button"
+      onClick={handleGoogleSignIn}
       type="dark"/>
 
      
