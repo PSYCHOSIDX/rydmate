@@ -1,22 +1,25 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Poppins:wght@200&family=Unbounded:wght@200&display=swap");
 #title-stand {
-  color: #134537;
+  color: #289777;
   font-weight: bold;
   padding-left: 3rem;
   padding-top: 2rem;
-  background-color: #d5f0eb;
+  background-color: #f6f6f6;
   margin-top: -2%;
+  cursor: pointer;
 }
 
 .card-box {
-  background-color: #d5f0eb;
+  background-color: #f6f6f6;
   display: flex;
   justify-content: center;
+  cursor: pointer;
   margin-top: -3%;
 }
 .card-box h2 {
   color: white;
   margin-top: 2rem;
+  cursor: pointer;
 }
 .card-box .card {
   width: 26%;
@@ -25,32 +28,38 @@
   height: fit-content;
   padding: 1.4rem;
   margin: 4.4rem;
+  cursor: pointer;
   margin-right: 0;
   margin-left: 1rem;
   border-radius: 1rem;
-  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  box-shadow: rgba(13, 128, 106, 0.19) 0px 10px 10px, rgba(10, 115, 106, 0.23) 0px 4px 4px;
   padding-left: 2.8rem;
   max-height: 19rem;
   -webkit-backdrop-filter: blur(0.5rem);
           backdrop-filter: blur(0.5rem);
-  background: #027461;
-  color: rgb(255, 255, 255);
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.7490196078);
+  color: rgb(64, 64, 64);
 }
 .card-box .card h1 {
   font-size: 1.5rem;
   font-weight: 800;
   color: #09c08c;
+  cursor: pointer;
 }
 .card-box .card h4 {
   font-size: 0.8rem;
   color: rgb(76, 155, 132);
   font-weight: 300;
+  cursor: pointer;
 }
 .card-box .card h1 {
-  color: rgb(253, 255, 254);
+  color: #259c86;
+  cursor: pointer;
 }
 .card-box .card h4 {
-  color: #d5f0eb;
+  color: #259c86;
+  cursor: pointer;
 }
 .card-box .card .img1 {
   width: 40%;
@@ -66,12 +75,13 @@
   width: 32%;
 }
 .card-box .card:hover {
-  background: rgba(255, 255, 255, 0.7490196078);
+  background: rgba(16, 146, 122, 0.7490196078);
   color: rgb(41, 41, 41);
   cursor: pointer;
+  box-shadow: rgba(13, 128, 106, 0.19) 0px 10px 10px, rgba(10, 115, 106, 0.23) 0px 4px 4px;
 }
 .card-box .card:hover h1, .card-box .card:hover h4 {
-  color: #707070;
+  color: #ffffff;
 }
 
 @media screen and (max-width: 800px) {

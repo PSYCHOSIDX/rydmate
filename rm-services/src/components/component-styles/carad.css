@@ -4,12 +4,14 @@
   width: auto;
   margin: auto;
   justify-content: center;
+  cursor: pointer;
 }
 .offer-ad .text {
   margin: auto;
   color: white;
   width: 50%;
   scale: 92%;
+  cursor: pointer;
 }
 .offer-ad .text h1 {
   font-weight: bold;

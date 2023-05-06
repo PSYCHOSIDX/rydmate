@@ -1,23 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Poppins:wght@200&family=Unbounded:wght@200&display=swap');
 
 #title-stand{
-    color: #134537;
+    color: #289777;
     font-weight: bold;
     padding-left: 3rem;
     padding-top: 2rem;
-    background-color: #d5f0eb;
+    background-color: #f6f6f6;
     margin-top: -2%;
+    cursor: pointer;
 }
 
 .card-box{
-    background-color: #d5f0eb;
+    background-color: #f6f6f6;
     display: flex;
     justify-content: center;
-    
+    cursor: pointer;
    margin-top: -3%;
     h2{
         color: white;
         margin-top: 2rem;
+        cursor: pointer;
     }
     .card{
         width:26%;
@@ -25,35 +27,39 @@
         height: fit-content;
         padding: 1.4rem;
         margin: 4.4rem;
-       
+        cursor: pointer;
         margin-right: 0;
         margin-left: 1rem;
         border-radius: 1rem;
-        box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+        box-shadow: rgba(13, 128, 106, 0.19) 0px 10px 10px, rgba(10, 115, 106, 0.23) 0px 4px 4px;
         padding-left: 2.8rem;
         max-height: 19rem;
         backdrop-filter: blur(.5rem);
-
+        cursor: pointer;
         h1{
             font-size: 1.5rem;
             font-weight: 800;
             color: #09c08c;
+            cursor: pointer;
         }
 
         h4{
             font-size: .8rem;
             color: rgb(76, 155, 132);
             font-weight: 300;
+            cursor: pointer;
         }
 
 
-        background: #027461;
-            color: rgb(255, 255, 255);
+        background: #ffffffbf;
+            color: rgb(64, 64, 64);
             h1{
-                color: rgb(253, 255, 254);
+                color: #259c86;
+                cursor: pointer;
             }
             h4{
-                color: #d5f0eb;
+                color: #259c86;
+                cursor: pointer;
             }
         .img1{
             width:40%;
@@ -71,11 +77,12 @@
 
         &:hover{
            h1, h4{
-                color: #707070;
+                color: #ffffff;
             }
-            background: #ffffffbf;
+            background: #10927abf;
             color: rgb(41, 41, 41);
             cursor: pointer;
+            box-shadow: rgba(13, 128, 106, 0.19) 0px 10px 10px, rgba(10, 115, 106, 0.23) 0px 4px 4px;
         }
     }
 }
