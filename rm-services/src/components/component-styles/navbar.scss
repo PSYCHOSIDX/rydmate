@@ -2,6 +2,11 @@
 
 $bluex:#000000;
 
+.username{
+    color: white;
+    margin: 1rem;
+    font-size: 1rem;
+}
 
 *{
     font-family: 'Unbounded',sans-serif;
@@ -102,6 +107,10 @@ $bluex:#000000;
 }
 
 @media screen and (max-width:1020px) {
+
+    .username{
+        margin: 1.5rem;
+    }
     .container{
         width: 100%;
         margin-top: -.5srem;
@@ -124,8 +133,11 @@ $bluex:#000000;
     .container{
         width: 120%;
         display: block;
+      
         
     }
+
+    .username{ display: none;}
     .n{
         margin-left: 80%;
         width:20%;

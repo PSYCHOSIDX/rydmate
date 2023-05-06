@@ -4,11 +4,14 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import NavbarBasic from "../components/NavbarBasic.jsx";
 import FormText from "react-bootstrap/esm/FormText.js";
-import { Link } from "react-router-dom";
+import { Link , useNavigate} from "react-router-dom";
 import { UserAuth } from "../context/UserAuthContext.js";
+import Alert from 'react-bootstrap/Alert';
+
+
 
 const SignUp = () => {
-  
+  const navigate = useNavigate()
   const [email, setEmail] = useState("");
   const [password, setPassword]= useState("");
   const [error, setError] = useState("");
@@ -20,6 +23,7 @@ const SignUp = () => {
       setError('');
       try{
          await createUser(email, password);
+         navigate('/login')
       } 
       catch(e){
         setError(e.message);
@@ -35,6 +39,12 @@ const SignUp = () => {
 
         <div className="sign-holder">
         {/* {error && <Alert variant="danger"> {error}</Alert>}  */}
+          {error &&  <Alert variant="danger" onClose={() => setError(false)} dismissible>
+        <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
+        <p>
+          {error}
+        </p>
+      </Alert>}
 
         <Form xs="auto" className="sign-form" onSubmit={handleSubmit}>
           

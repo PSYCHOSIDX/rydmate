@@ -11,7 +11,7 @@ function NavbarLogin(){
     <>
       <Navbar className='custom-nav'>
       <Container className='container'>
-        <Navbar.Brand href="#home">
+        <Navbar.Brand href="/">
           <img className='logo' src={logo} alt="RydMate" />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" className='n' />
@@ -20,8 +20,8 @@ function NavbarLogin(){
             {/* <Nav.Link href="#home" className='nav-link link'>Home</Nav.Link>
             <Nav.Link href="#services" className='nav-link link'>Services</Nav.Link>
             <Nav.Link href="#about" className=' nav-link link'>About Us</Nav.Link> */}
-            <Link to="" className='link'>
-            <button className='btn-contact'> Login </button>
+            <Link to="/login" className='link'>
+            <button  className='btn-contact'> Login </button>
             </Link>
             
           </Nav>

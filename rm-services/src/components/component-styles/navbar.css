@@ -1,4 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Poppins:wght@200&family=Unbounded:wght@200&display=swap");
+.username {
+  color: white;
+  margin: 1rem;
+  font-size: 1rem;
+}
+
 * {
   font-family: "Unbounded", sans-serif;
 }
@@ -93,6 +99,9 @@
 }
 
 @media screen and (max-width: 1020px) {
+  .username {
+    margin: 1.5rem;
+  }
   .container {
     width: 100%;
     margin-top: -0.5srem;
@@ -112,6 +121,9 @@
   .container {
     width: 120%;
     display: block;
+  }
+  .username {
+    display: none;
   }
   .n {
     margin-left: 80%;

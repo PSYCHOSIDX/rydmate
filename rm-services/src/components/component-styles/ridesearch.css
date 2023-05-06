@@ -45,12 +45,12 @@
   border-radius: 0.4rem;
   margin: 0.3rem;
   color: white;
-  background-color: #00FFA3;
+  background-color: black;
   border: none;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
 }
 .search-bottom .form-holder .search-btn:hover {
-  background-color: black;
+  background-color: #177251;
 }
 
 @media screen and (max-width: 800px) {
@@ -117,7 +117,7 @@
   background-color: #003830;
   border: 1px solid rgb(3, 62, 53);
   padding: 2rem;
-  width: 99%;
+  width: 100%;
   margin: auto;
   margin-top: -2%;
   font-family: "Poppins", sans-serif;
@@ -141,7 +141,7 @@
 }
 
 .card-results {
-  background-color: #072a1d;
+  background-color: rgba(7, 42, 29, 0.2980392157);
   display: flex;
   justify-content: center;
   justify-self: center;
@@ -160,7 +160,7 @@
 }
 .card-results .ride-card {
   background-color: rgb(18, 19, 18);
-  width: 24rem;
+  width: 23rem;
   border-radius: 1rem;
   padding: 2rem;
   margin: auto;
@@ -215,7 +215,7 @@
   font-size: 1rem;
 }
 .card-results .ride-card .ride-join {
-  background-color: #00FFA3;
+  background-color: #41aa84;
   font-size: 1rem;
   font-weight: bolder;
   text-align: center;

@@ -1,13 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Poppins:wght@200&family=Unbounded:wght@200&display=swap');
 
+#title-stand{
+    color: #134537;
+    font-weight: bold;
+    padding-left: 3rem;
+    padding-top: 2rem;
+    background-color: #d5f0eb;
+    margin-top: -2%;
+}
 
 .card-box{
-    background-image: linear-gradient(145deg,rgba(64, 145, 114, 0.496),#00ffa293,rgba(179, 177, 177, 0.496));
+    background-color: #d5f0eb;
     display: flex;
-    margin: auto;
-    margin-top: -4%;
     justify-content: center;
-
+    
+   margin-top: -3%;
     h2{
         color: white;
         margin-top: 2rem;
@@ -40,7 +47,7 @@
         }
 
 
-        background: #1f1f1f;
+        background: #027461;
             color: rgb(255, 255, 255);
             h1{
                 color: rgb(253, 255, 254);
@@ -49,17 +56,17 @@
                 color: #d5f0eb;
             }
         .img1{
-            width:80%;
+            width:40%;
         }
         .img2{
-            width:66%
+            width:35%
         }
         img{
             width: 65%;
             padding: .3rem;
         }
         .img3{
-            width:62%;
+            width:32%;
         }
 
         &:hover{
@@ -78,7 +85,6 @@
 
     .card-box{
         flex-direction: column;
-        margin-top: -12%;
         .card{
             margin: auto;
             margin-bottom: 1.5rem;
@@ -91,7 +97,7 @@
             }
 
             .img2{
-                width:38%
+                width:40%
             }
             img{
                 width:35%;
@@ -102,4 +108,35 @@
            
         }
     }
+}
+
+@media screen and (max-width:800px) {
+    .card-box{
+        flex-direction: column;
+        margin-top: -10%;}
+}
+
+@media screen and (max-width:800px) {
+    #title-stand{
+        font-size: 1.4rem;
+       padding: 4%;
+       padding-left: 7%;
+        margin-top: 61%;}
+}
+
+@media screen and (max-width:560px) {
+    #title-stand{
+        font-size: 1.4rem;
+       padding: 4%;
+       padding-left: 7%;
+        margin-top: 93%;}
+}
+
+@media screen and (max-width:360px) {
+    #title-stand{
+        font-size: 1.3rem;
+       padding: 4%;
+       padding-left: 7%;
+        margin-top: 183%;
+    margin-bottom: -1%;}
 }

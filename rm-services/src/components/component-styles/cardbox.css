@@ -1,10 +1,18 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Poppins:wght@200&family=Unbounded:wght@200&display=swap");
+#title-stand {
+  color: #134537;
+  font-weight: bold;
+  padding-left: 3rem;
+  padding-top: 2rem;
+  background-color: #d5f0eb;
+  margin-top: -2%;
+}
+
 .card-box {
-  background-image: linear-gradient(145deg, rgba(64, 145, 114, 0.496), rgba(0, 255, 162, 0.5764705882), rgba(179, 177, 177, 0.496));
+  background-color: #d5f0eb;
   display: flex;
-  margin: auto;
-  margin-top: -4%;
   justify-content: center;
+  margin-top: -3%;
 }
 .card-box h2 {
   color: white;
@@ -25,7 +33,7 @@
   max-height: 19rem;
   -webkit-backdrop-filter: blur(0.5rem);
           backdrop-filter: blur(0.5rem);
-  background: #1f1f1f;
+  background: #027461;
   color: rgb(255, 255, 255);
 }
 .card-box .card h1 {
@@ -45,17 +53,17 @@
   color: #d5f0eb;
 }
 .card-box .card .img1 {
-  width: 80%;
+  width: 40%;
 }
 .card-box .card .img2 {
-  width: 66%;
+  width: 35%;
 }
 .card-box .card img {
   width: 65%;
   padding: 0.3rem;
 }
 .card-box .card .img3 {
-  width: 62%;
+  width: 32%;
 }
 .card-box .card:hover {
   background: rgba(255, 255, 255, 0.7490196078);
@@ -69,7 +77,6 @@
 @media screen and (max-width: 800px) {
   .card-box {
     flex-direction: column;
-    margin-top: -12%;
   }
   .card-box .card {
     margin: auto;
@@ -83,12 +90,43 @@
     padding: 0.5rem;
   }
   .card-box .card .img2 {
-    width: 38%;
+    width: 40%;
   }
   .card-box .card img {
     width: 35%;
   }
   .card-box .card .img3 {
     width: 38%;
+  }
+}
+@media screen and (max-width: 800px) {
+  .card-box {
+    flex-direction: column;
+    margin-top: -10%;
+  }
+}
+@media screen and (max-width: 800px) {
+  #title-stand {
+    font-size: 1.4rem;
+    padding: 4%;
+    padding-left: 7%;
+    margin-top: 61%;
+  }
+}
+@media screen and (max-width: 560px) {
+  #title-stand {
+    font-size: 1.4rem;
+    padding: 4%;
+    padding-left: 7%;
+    margin-top: 93%;
+  }
+}
+@media screen and (max-width: 360px) {
+  #title-stand {
+    font-size: 1.3rem;
+    padding: 4%;
+    padding-left: 7%;
+    margin-top: 183%;
+    margin-bottom: -1%;
   }
 }/*# sourceMappingURL=cardbox.css.map */
