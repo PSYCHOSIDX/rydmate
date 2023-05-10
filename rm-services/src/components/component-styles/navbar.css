@@ -2,7 +2,18 @@
 .username {
   color: white;
   margin: 1rem;
-  font-size: 1rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.profile {
+  width: 3rem;
+  height: 3rem;
+  margin: 0.2em;
+  margin-right: 0.5rem;
+  border-radius: 2rem;
+  cursor: pointer;
+  color: white;
 }
 
 * {
@@ -99,6 +110,9 @@
 }
 
 @media screen and (max-width: 1020px) {
+  .profile {
+    margin: auto;
+  }
   .username {
     margin: 1.5rem;
   }
@@ -115,6 +129,9 @@
   }
 }
 @media screen and (max-width: 480px) {
+  .profile {
+    margin: auto;
+  }
   .btn-contact {
     padding: 0.6rem 1.2rem;
   }

@@ -20,7 +20,7 @@ const RideSearch = () => {
   useEffect( ()=>{
       const getRides =  async ()=> {
           const dbdata = await getDocs(ridesCollectionRef);
-          setRides(dbdata.docs.map((doc) => ({ ...doc.data()})));
+          setRides(dbdata.docs.map((doc) => ({ ...doc.data(), id:doc.id})));
       }
 
       getRides();
@@ -34,8 +34,8 @@ const RideSearch = () => {
   const center = {lat:15.280347,lng:73.980065};
 
   const {isLoaded} = useJsApiLoader({
-    googleMapsApiKey: 'AIzaSyD6JvemEJL-6CVcynPrTEEuOUG7fesOvGY',
-    libraries:['places']
+    googleMapsApiKey: process.env.REACT_APP_GMAPS_KEY,
+    libraries:["places"]
   })
 
   const [map, setMap]= useState(/**@type google.maps.Map */null);

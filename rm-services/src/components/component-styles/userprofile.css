@@ -1,0 +1,27 @@
+.user-title {
+  font-weight: bolder;
+  font-family: sans-serif;
+  color: rgb(37, 186, 124);
+}
+
+.icon {
+  color: white;
+  width: 3.8%;
+  height: 3.8%;
+  border: 1px solid white;
+  padding: 0.3rem;
+  border-radius: 2rem;
+  margin-right: 0.5rem;
+  margin-top: 0.3rem;
+}
+.icon:hover {
+  color: rgb(55, 206, 156);
+}
+
+@media screen and (max-width: 1020px) {
+  .icon {
+    width: 2.8rem;
+    height: 2.8rem;
+    margin: auto;
+  }
+}/*# sourceMappingURL=userprofile.css.map */

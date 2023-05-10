@@ -220,16 +220,16 @@
   font-weight: bolder;
   text-align: center;
   font-family: "Poppins";
-  padding: 0.5rem 5rem;
+  padding: 0.5rem 8rem;
   margin: auto;
   color: rgb(255, 255, 255);
   border-radius: 1rem;
-  margin-left: 0.7rem;
+  margin-left: 0.3rem;
   border: none;
 }
 .card-results .ride-card .ride-join:hover {
   background-color: #ffffff;
-  color: rgb(64, 64, 64);
+  color: rgb(48, 47, 47);
 }
 
 @media screen and (max-width: 800px) {

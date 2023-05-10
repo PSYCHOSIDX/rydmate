@@ -57,12 +57,12 @@ const Login = () => {
     <h1 className="sign-text"> Login </h1>
       <Form.Group className="mb-3 none" controlId="formBasicEmail">
         <Form.Label>Email address</Form.Label>
-        <Form.Control onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Enter email" />
+        <Form.Control onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Enter email"  required/>
       </Form.Group>
 
       <Form.Group className="mb-3 none" controlId="formBasicPassword">
         <Form.Label>Password</Form.Label>
-        <Form.Control onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Password" />
+        <Form.Control onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Password" required/>
       </Form.Group>
     
       <Button size="lg" className="mb-3 sign-btn" type="submit"  >

@@ -5,7 +5,19 @@ $bluex:#000000;
 .username{
     color: white;
     margin: 1rem;
-    font-size: 1rem;
+    font-size: .9rem;
+    cursor: pointer;
+}
+
+.profile{
+    width: 3rem;
+    height: 3rem;
+    margin: .2em;
+    margin-right: .5rem;
+    border-radius: 2rem;
+    
+    cursor: pointer;
+    color: white;
 }
 
 *{
@@ -107,7 +119,9 @@ $bluex:#000000;
 }
 
 @media screen and (max-width:1020px) {
-
+    .profile{
+        margin: auto;
+    }
     .username{
         margin: 1.5rem;
     }
@@ -126,7 +140,9 @@ $bluex:#000000;
 }
 
 @media screen and (max-width:480px){
-  
+    .profile{
+        margin: auto;
+    }
     .btn-contact{
         padding: .6rem 1.2rem;
     }

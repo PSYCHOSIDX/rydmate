@@ -6,6 +6,7 @@ import SignUp from "./Pages/SignUp";
 import Rides from "./Pages/Rides"
 import { AuthContextProvider } from "./context/UserAuthContext";
 import ProtectedRoutes from "./components/ProtectedRoutes";
+import ErrorPage from "./Pages/ErrorPage";
 
 
 const App = () => {
@@ -21,6 +22,7 @@ const App = () => {
             
             <Route path='/rides'  element={<ProtectedRoutes> <Rides/> </ProtectedRoutes>} />
             
+            <Route path='*'  element={<ErrorPage/>} />
         </Routes>
         </AuthContextProvider>
           

@@ -275,16 +275,16 @@
                     font-weight: bolder;
                     text-align: center;
                     font-family: 'Poppins';
-                    padding: .5rem 5rem;
+                    padding: .5rem 8rem;
                     margin: auto;
                     color: rgb(255, 255, 255);
                     border-radius: 1rem;
-                    margin-left: .7rem;
+                    margin-left: .3rem;
                     border: none;
 
                     &:hover{
                         background-color: #ffffff;
-                        color: rgb(64, 64, 64);
+                        color: rgb(48, 47, 47);
                     }
                 }
             }
