@@ -1,7 +1,7 @@
 import React from 'react'
 import '../components/component-styles/search.css'
 import  search from '../assets/search-new.svg'
-import Link from 'react-router-dom'
+import {Link} from 'react-router-dom'
 
 
 
