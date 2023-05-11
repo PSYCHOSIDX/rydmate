@@ -15,13 +15,16 @@ const Login = () => {
   const [password, setPassword]= useState("");
   const [error, setError] = useState("");
   
-  const { signin , googleSignIn} = UserAuth();
+  
+  const { signin , googleSignIn, user} = UserAuth();
+
+  (user && navigate('/'))
 
     const handleGoogleSignIn = async() =>{
       setError('');
       try{
         await googleSignIn();
-        navigate('/');
+        
       } catch(e){
         setError(e.message);
         console.log(e.message);
