@@ -34,7 +34,7 @@ const RideSearch = () => {
   const center = {lat:15.280347,lng:73.980065};
 
   const {isLoaded} = useJsApiLoader({
-    googleMapsApiKey: process.env.REACT_APP_GMAPS_KEY,
+    googleMapsApiKey: "AIzaSyD6JvemEJL-6CVcynPrTEEuOUG7fesOvGY",
     libraries:["places"]
   })
 
