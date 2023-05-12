@@ -59,10 +59,11 @@ body {
   all: unset;
   background-color: #ffffff;
   color: rgb(6, 118, 100);
-  padding: 0.6rem 1.5rem;
+  padding: 0.4rem 2.9rem;
   text-align: center;
   font-weight: bolder;
   border-radius: 1rem;
+  margin-left: -0.4rem;
 }
 .search-bottom .card-holder .search-card .go-btn:hover {
   background-color: #43E383;
@@ -88,6 +89,9 @@ body {
   .search-holder .search-bottom .card-holder .search-card h4 {
     font-size: 0.7rem;
   }
+  .search-holder .search-bottom .card-holder .search-card .go-btn {
+    margin-left: -3.9%;
+  }
 }
 @media screen and (max-width: 500px) {
   .search-holder {
@@ -104,6 +108,9 @@ body {
     justify-content: center;
     flex-direction: column;
     margin-top: -100%;
+  }
+  .search-holder .search-bottom .search-card .go-btn {
+    margin-left: -6rem;
   }
 }
 @media screen and (max-width: 320px) {

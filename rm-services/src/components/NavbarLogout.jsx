@@ -25,13 +25,19 @@ function Profile() {
        {user.photoURL ? <img onClick={handleShow} src={user.photoURL} alt='' className='profile'/> : <FaRegUser onClick={handleShow} className='icon'/>} 
       
 
-      <Offcanvas show={show} onHide={handleClose} >
+      <Offcanvas show={show} onHide={handleClose} id='sidebar'>
         <Offcanvas.Header closeButton>
           <Offcanvas.Title className='user-title'> USER PROFILE </Offcanvas.Title>
         </Offcanvas.Header>
-
+    <br/>
         <Offcanvas.Body>
-          
+        {user.photoURL ? <img src={user.photoURL} alt='' className='profile'/> : <FaRegUser  className='icon'/>}
+          <h4> <b>Name</b> </h4>
+          <h5>{user.displayName}</h5> 
+          <br/>
+          <h4><b>Email</b></h4>
+          <h5>{user.email}</h5>
+       
         </Offcanvas.Body>
 
       </Offcanvas>

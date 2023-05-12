@@ -14,7 +14,9 @@ const SignUp = () => {
   const navigate = useNavigate()
   const [email, setEmail] = useState("");
   const [password, setPassword]= useState("");
+  const [displayName, setDisplayName]= useState("");
   const [error, setError] = useState("");
+  const [phoneNo, setPhoneNo]= useState("");
   
   const { createUser } = UserAuth();
 
@@ -22,7 +24,7 @@ const SignUp = () => {
       e.preventDefault();
       setError('');
       try{
-         await createUser(email, password);
+         await createUser(email, password, displayName, phoneNo);
          navigate('/login')
       } 
       catch(e){
@@ -50,15 +52,25 @@ const SignUp = () => {
           
               <h1 className="sign-text"> Sign Up </h1>
 
+              <Form.Group className="mb-3 none" controlId="formBasicEmail">
+                    <Form.Label>Email address</Form.Label>
+                    <Form.Control onChange={(e) => setDisplayName(e.target.value)} type="name" placeholder="Enter Name" required/>
+                  </Form.Group>
+                  <Form.Group className="mb-3 none" controlId="formBasicPassword">
+                    <Form.Label>Phone Number</Form.Label>
+                    <Form.Control onChange={(e) => setPhoneNo(e.target.value)} type="tel" name="phoneNumber" id="phoneNumber"  pattern="[0-9]{10}" placeholder="Enter Phone Number " required />
+                  </Form.Group>
                   <Form.Group className="mb-3 none" controlId="formBasicEmail">
                     <Form.Label>Email address</Form.Label>
-                    <Form.Control onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Enter email" required/>
+                    <Form.Control onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Enter Email" required/>
                   </Form.Group>
 
                   <Form.Group className="mb-3 none" controlId="formBasicPassword">
                     <Form.Label>Password</Form.Label>
-                    <Form.Control onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Password" required />
+                    <Form.Control onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Enter Password" required />
                   </Form.Group>
+
+                 
             
                   <Button size="lg" className="mb-3 sign-btn" type="submit"  >
                     submit

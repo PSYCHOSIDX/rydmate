@@ -62,10 +62,11 @@ body{
                 all: unset;
                 background-color: #ffffff;
                 color: rgb(6, 118, 100);
-                padding: .6rem 1.5rem;
+                padding: .4rem 2.9rem;
                 text-align: center;
                 font-weight: bolder;
                 border-radius: 1rem;
+                margin-left: -.4rem;
                 &:hover{
                     background-color: #43E383;
                 }
@@ -97,6 +98,10 @@ body{
                 h4{
                     font-size: .7rem;
                 }
+
+                .go-btn{
+                    margin-left: -3.9%;
+                }
             }
            }
     
@@ -125,7 +130,14 @@ body{
             flex-direction: column;
     
             margin-top: -100%;
+            .search-card{
+                .go-btn{
+                    margin-left: -6rem;
+                }
+            }
         }
+
+      
     }
    
  

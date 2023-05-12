@@ -16,7 +16,7 @@ const Home = () => {
   return (
     <>
     {user ? <NavbarLogout/> : <NavbarLogin/>}
-    
+    {}
     <Search/>
     <CardBox/>
     <OfferAd/>

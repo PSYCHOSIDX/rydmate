@@ -16,6 +16,7 @@
   margin-top: -30%;
 }
 .search-bottom .search-text {
+  font-family: "Unbounded", sans-serif;
   margin: auto;
   text-align: center;
   color: #ffffff;
@@ -37,6 +38,8 @@
   margin: 0.3rem;
   border: none;
   font-weight: bolder;
+  font-family: "Unbounded", sans-serif;
+  font-size: 96%;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
 }
 .search-bottom .form-holder .search-btn {
@@ -66,6 +69,8 @@
   }
   .search-holder .search-bottom {
     margin-top: -45%;
+    font-family: "Unbounded", sans-serif;
+    font-size: 96%;
   }
   .search-holder .search-bottom .form-holder {
     flex-direction: column;
@@ -91,6 +96,8 @@
     display: flex;
     margin-top: -100%;
     flex-direction: column;
+    font-family: "Unbounded", sans-serif;
+    font-size: 96%;
   }
   .search-holder .search-bottom .mapbox {
     margin-top: 5px;
