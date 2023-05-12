@@ -22,7 +22,7 @@ function Profile() {
   return (
     <>
          <h5 onClick={handleShow} className='username' ><b>{user && user.email}</b>  </h5>
-       {user.photoURL ? <img onClick={handleShow} src={user.photoURL} alt='' className='profile'/> :  <FaRegUser onClick={handleShow} className='icon'/>} 
+       {user.photoURL ? <img onClick={handleShow} src={user.photoURL} alt='' className='profile'/> : <FaRegUser onClick={handleShow} className='icon'/>} 
       
 
       <Offcanvas show={show} onHide={handleClose} >
