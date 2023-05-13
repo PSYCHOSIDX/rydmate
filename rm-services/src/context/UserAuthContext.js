@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState} from "react";
 import { auth, db } from "../firebaseConfig";
-import {setDoc, doc} from "firebase/firestore";
+import {setDoc, doc, collection} from "firebase/firestore";
 
 import {createUserWithEmailAndPassword , 
             signInWithEmailAndPassword, 
@@ -14,7 +14,7 @@ const UserContext = createContext();
 
 export const AuthContextProvider = ({children}) => {
         const [user, setUser] = useState({})
-    
+    const userDb = collection(db, "users");
 
 
         const createUser = (email, password, displayName, phoneNo) => {
@@ -23,7 +23,7 @@ export const AuthContextProvider = ({children}) => {
             .then(async (result) =>{
                 console.log(result.user);
                 const ref =doc(db, "users", result.user.uid);
-                const docRef = await setDoc(ref, {displayName,phoneNo})
+                await setDoc(ref, {displayName,phoneNo})
                 .then((e) =>{
                
                         alert('Account Created Successfully');
@@ -44,8 +44,21 @@ const signin = (email, password) => {
 }
 
 const googleSignIn = (email, password) =>{
-    const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider);
+    const provider = new GoogleAuthProvider()
+    
+    signInWithPopup(auth, provider)
+    .then(async (result) =>{
+        const userRef =result.user.uid;
+        await setDoc(doc(userDb, userRef), {
+            displayName: result.user.displayName,
+            email: result.user.email,
+            photoURL: result.user.photoURL
+        })
+        .catch((error)=> {
+            console.log(error.message);
+        })
+    })
+    ;;
 }
 
 const logout = () => {
