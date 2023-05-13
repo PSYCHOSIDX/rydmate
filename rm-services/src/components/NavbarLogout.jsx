@@ -80,7 +80,7 @@ function StaticExample() {
 }
 
 
-// This is profile finction this contains all sidebar data
+// This is profile finction this contains all sidebar
 
 
 function Profile() {
@@ -94,43 +94,46 @@ function Profile() {
   const [fireUser, setFireUser]= useState([]);
   
   
-  useEffect(() => {
-    const {user} = UserAuth;
-    const userEmail = user.email;
-    const q = query(collection(db, 'users'), where('email', '==', userEmail))
-    onSnapshot(q, (querySnapshot) => {
-      setFireUser(querySnapshot.docs.map(doc => ({
-        id: doc.id,
-        data: doc.data()
-      })))
-    })
-    
-  },[])
-
-
-
   // useEffect(() => {
-  //   const colletionRef = collection(db, 'users');
+  //   const {user} = UserAuth;
   //   const userEmail = user.email;
+  //   alert(userEmail)
+  //   const q = query(collection(db, 'users'), where('email', '==', 'xyx'))
+  //   onSnapshot(q, (querySnapshot) => {
+  //     setFireUser(querySnapshot.docs.map(doc => ({
+  //       id: doc.id,
+  //       data: doc.data()
+  //     })))
+  //   })
     
-  //   const q = query(colletionRef,where('email', '==', true && userEmail) );
+  // },[])
 
-  //   setLoading(true);
+
+
+  useEffect(() => {
+    const {user} =UserAuth();
+    const colletionRef = collection(db, 'users');
+    var {userEmail} = user.email;
+    alert(userEmail);
     
-  //   const unsub = onSnapshot(q, (querySnapshot) => {
-  //     const items = [];
-  //     querySnapshot.forEach((doc) => {
-  //       items.push(doc.data());
-  //     });
-  //     setFireUser(items);
-  //     setLoading(false);
-  //   });
-  //   return () => {
-  //     unsub();
-  //   };
+    const q = query(colletionRef,where('email', '==', 'siddheshkamath40@gmail.com') );
 
-  //   // eslint-disable-next-line
-  // }, []);
+  
+    
+    const unsub = onSnapshot(q, (querySnapshot) => {
+      const items = [];
+      querySnapshot.forEach((doc) => {
+        items.push(doc.data());
+      });
+      setFireUser(items);
+      
+    });
+    return () => {
+      unsub();
+    };
+
+    // eslint-disable-next-line
+  }, []);
  
   return (
     
@@ -149,23 +152,23 @@ function Profile() {
           
         <Offcanvas.Body>
       
-       {fire.data.photoURL ? <img src={user.photoURL} alt='' className='profile'/> : <FaRegUser  className='icon'/>}
+       {fire.photoURL ? <img src={user.photoURL} alt='' className='profile'/> : <FaRegUser  className='icon'/>}
           <h4> <b>Name</b> </h4>
-          <h5>{fire.data.displayName}</h5> 
+          <h5>{fire.displayName}</h5> 
           <br/>
           <h4><b>Email</b></h4>
-          <h5>{fire.data.email}</h5>
+          <h5>{fire.email}</h5>
      
-          {fire.data.phoneNo ? 
+          {fire.phoneNo ? 
           <div>
           <h4> <b>Phone Number</b> </h4>
-          <h5>{fire.data.phoneNo}</h5> 
+          <h5>{fire.phoneNo}</h5> 
           <br/>
           <h4><b>Age</b></h4>
-          <h5>{fire.data.age}</h5>
+          <h5>{fire.age}</h5>
           <br/>
           <h4><b>Gender</b></h4>
-          <h5>{fire.data.gender}</h5>
+          <h5>{fire.gender}</h5>
           </div>
           
           : <StaticExample/>}
