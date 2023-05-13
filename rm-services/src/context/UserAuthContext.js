@@ -1,14 +1,15 @@
 import { createContext, useContext, useEffect, useState} from "react";
 import { auth, db } from "../firebaseConfig";
-import {setDoc, doc, collection} from "firebase/firestore";
+import {setDoc, doc, collection, } from "firebase/firestore";
 
 import {createUserWithEmailAndPassword , 
             signInWithEmailAndPassword, 
             signOut,
             onAuthStateChanged, 
             GoogleAuthProvider,
-            signInWithPopup
-       } from "firebase/auth"
+            signInWithPopup,
+            
+       } from "firebase/auth";
 
 const UserContext = createContext();
 
