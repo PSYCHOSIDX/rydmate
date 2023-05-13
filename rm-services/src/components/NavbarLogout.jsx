@@ -1,5 +1,5 @@
 
-import React , {useEffect}from 'react'
+import React from 'react'
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -11,30 +11,35 @@ import { UserAuth } from '../context/UserAuthContext';
 import { useState } from 'react';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import {FaRegUser} from 'react-icons/fa'
+
 // eslint-disable-next-line
-import { collection, query, where ,onSnapshot, doc, updateDoc, collectionGroup, } from "firebase/firestore";
+import { 
+   doc, 
+   updateDoc
+  } from "firebase/firestore";
+
 import { db } from '../firebaseConfig';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 
+// eslint-disable-next-line
 function StaticExample() {
   const {user} = UserAuth();
   
   const [phoneNoPara, setPhoneNo]= useState("");
-  const [Age, setAge] = useState("");
-  const [sex, setSex]= useState("");
   const userId = user.uid;
 
   const handleUpdate = async (e) => {
     e.preventDefault()
-    const DocRef = doc(db, 'users', userId)
+    const DocRef = doc(db,'users', userId)
     try{
       await updateDoc(DocRef, {
-        age: Age,
-        phoneNo: phoneNoPara,
-        gender:sex
+
+        phoneNumber: phoneNoPara,
+      
       })
+
       alert('Your profile is ready')
     } catch (err) {
       alert(err)
@@ -45,9 +50,8 @@ function StaticExample() {
 
   return (
     <div
-      className="modal show"
-      style={{ display: 'block', position: 'initial' }}
-    >
+      className="modal show"style={{ display: 'block', position: 'initial' }}>
+
       <Modal.Dialog>
         <Modal.Header closeButton>
           <Modal.Title id='modal-text'>Please Complete Your Profile</Modal.Title>
@@ -55,22 +59,16 @@ function StaticExample() {
 
         <Modal.Body>
         <Form xs="auto" className="sign-form" onSubmit={handleUpdate}>
-          <Form.Group className="mb-3 none" controlId="formBasicEmail">
-                <Form.Label>Age</Form.Label>
-                <Form.Control onChange={(e) => setAge(e.target.value)} type="number" placeholder="Enter Age" required/>
-              </Form.Group>
+        
+     
               <Form.Group className="mb-3 none" controlId="formBasicPassword">
                 <Form.Label>Phone Number</Form.Label>
                 <Form.Control onChange={(e) => setPhoneNo(e.target.value)} type="tel" name="phoneNumber" id="phoneNumber"  pattern="[0-9]{10}" placeholder="Enter Phone Number " required />
               </Form.Group>
-              <Form.Group className="mb-3 none" controlId="formBasicEmail">
-                <Form.Label>Gender</Form.Label>
-                <Form.Control onChange={(e) => setSex(e.target.value)} type="text" placeholder="Enter Gender" required/>
-              </Form.Group>
+            
 
               <Button variant="primary" type='submit'>Save changes</Button>
-
-    </Form>
+          </Form>
         </Modal.Body>
 
 
@@ -91,96 +89,50 @@ function Profile() {
   const handleShow = () => setShow(true);
 
   const {user} = UserAuth();
-  const [fireUser, setFireUser]= useState([]);
-  
-  
-  // useEffect(() => {
-  //   const {user} = UserAuth;
-  //   const userEmail = user.email;
-  //   alert(userEmail)
-  //   const q = query(collection(db, 'users'), where('email', '==', 'xyx'))
-  //   onSnapshot(q, (querySnapshot) => {
-  //     setFireUser(querySnapshot.docs.map(doc => ({
-  //       id: doc.id,
-  //       data: doc.data()
-  //     })))
-  //   })
-    
-  // },[])
 
 
-
-  useEffect(() => {
-    const {user} =UserAuth();
-    const colletionRef = collection(db, 'users');
-    var {userEmail} = user.email;
-    alert(userEmail);
-    
-    const q = query(colletionRef,where('email', '==', 'siddheshkamath40@gmail.com') );
-
-  
-    
-    const unsub = onSnapshot(q, (querySnapshot) => {
-      const items = [];
-      querySnapshot.forEach((doc) => {
-        items.push(doc.data());
-      });
-      setFireUser(items);
-      
-    });
-    return () => {
-      unsub();
-    };
-
-    // eslint-disable-next-line
-  }, []);
- 
   return (
-    
     <>
-         <h5 onClick={handleShow} className='username' ><b>{user && user.email}</b>  </h5>
-       {user.photoURL ? <img onClick={handleShow} src={user.photoURL} alt='' className='profile'/> : <FaRegUser onClick={handleShow} className='icon'/>} 
+         <h5 onClick={handleShow} className='username' >
+          <b>{user && user.email}</b> 
+         </h5>
+
+         {user.photoURL ? <img onClick={handleShow} src={user.photoURL} alt='' className='profile'/> : 
+         <FaRegUser onClick={handleShow} className='icon'/>} 
       
 
-      <Offcanvas show={show} onHide={handleClose} id='sidebar'>
+        <Offcanvas show={show} onHide={handleClose} id='sidebar'>
         <Offcanvas.Header closeButton>
           <Offcanvas.Title className='user-title'> USER PROFILE </Offcanvas.Title>
         </Offcanvas.Header>
-    <br/>
+        <br/>
     
-        {fireUser.map((fire) => (
+        {/* {fireUser.map((fire) => ( */}
           
         <Offcanvas.Body>
       
-       {fire.photoURL ? <img src={user.photoURL} alt='' className='profile'/> : <FaRegUser  className='icon'/>}
+       {
+          user.photoURL ? <img src={user.photoURL} alt='' className='profile'/> : <FaRegUser  className='icon'/>}
           <h4> <b>Name</b> </h4>
-          <h5>{fire.displayName}</h5> 
+          <h5>{user.displayName}</h5> 
           <br/>
           <h4><b>Email</b></h4>
-          <h5>{fire.email}</h5>
+          <h5>{user.email}</h5>
      
-          {fire.phoneNo ? 
+          {/* {user.phoneNumber ? 
+          
           <div>
-          <h4> <b>Phone Number</b> </h4>
-          <h5>{fire.phoneNo}</h5> 
-          <br/>
-          <h4><b>Age</b></h4>
-          <h5>{fire.age}</h5>
-          <br/>
-          <h4><b>Gender</b></h4>
-          <h5>{fire.gender}</h5>
+            <h4> <b>Phone Number</b> </h4>
+          <h5>{user.phoneNumber}</h5> 
+          
           </div>
           
-          : <StaticExample/>}
-        </Offcanvas.Body>
+          : <StaticExample/>
+          
+          } */}
 
-    
-    
-        ))
-        }
-       
-       
-        
+        </Offcanvas.Body>
+     
 
       </Offcanvas>
     </>
@@ -196,9 +148,6 @@ function InfoPage() {
     </>
   );
 }
-
-
-
 
 
 function NavbarLogout(){
@@ -222,7 +171,7 @@ function NavbarLogout(){
       <Navbar className='custom-nav'>
       <Container className='container'>
         <Navbar.Brand href="/">
-          <img className='logo' src={logo} alt="RydMate" />
+        <img className='logo' src={logo} alt="RydMate" />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" className='n' />
         <Navbar.Collapse id="basic-navbar-nav">
