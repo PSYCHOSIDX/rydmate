@@ -95,6 +95,7 @@ function Profile() {
   
   
   useEffect(() => {
+    const {user} = UserAuth;
     const userEmail = user.email;
     const q = query(collection(db, 'users'), where('email', '==', userEmail))
     onSnapshot(q, (querySnapshot) => {
