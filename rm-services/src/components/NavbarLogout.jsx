@@ -11,6 +11,7 @@ import { UserAuth } from '../context/UserAuthContext';
 import { useState } from 'react';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import {FaRegUser} from 'react-icons/fa'
+import Example from "../components/UpdateModal"
 
 // eslint-disable-next-line
 import { 
@@ -118,7 +119,7 @@ function Profile() {
           <br/>
           <h4><b>Email</b></h4>
           <h5>{user.email}</h5>
-     
+          <Example/>
           {/* {user.phoneNumber ? 
           
           <div>

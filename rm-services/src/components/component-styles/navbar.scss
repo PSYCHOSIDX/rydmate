@@ -16,8 +16,8 @@ $bluex:#000000;
 
 #sidebar{
     font-family: 'Poppins',sans-serif;
-    background-color: #414141;
-    color: white;
+    background-color: #d5d5d5;
+    color: rgb(33, 33, 33);
     
     h4{
         font-size: 1.5rem;
@@ -49,9 +49,10 @@ $bluex:#000000;
 .custom-nav{
     width: 100%;
     background-color: #000000;
+ 
 }
 .container{
- 
+   
     width: 100%;
     background-color: #000000;
     filter: blur(50%);

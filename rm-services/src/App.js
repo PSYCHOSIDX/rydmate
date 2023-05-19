@@ -7,6 +7,7 @@ import Rides from "./Pages/Rides"
 import { AuthContextProvider } from "./context/UserAuthContext";
 import ProtectedRoutes from "./components/ProtectedRoutes";
 import ErrorPage from "./Pages/ErrorPage";
+import EmergencyPage from "./Pages/EmergencyPage";
 
 
 const App = () => {
@@ -21,6 +22,8 @@ const App = () => {
             <Route path='/'  element={<Home/>} />
             
             <Route path='/rides'  element={<ProtectedRoutes> <Rides/> </ProtectedRoutes>} />
+
+            <Route path='/emergency'  element={<ProtectedRoutes> <EmergencyPage/> </ProtectedRoutes>} />
             
             <Route path='*'  element={<ErrorPage/>} />
         </Routes>

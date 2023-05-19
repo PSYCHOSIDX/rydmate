@@ -1,0 +1,71 @@
+.emergency-component{
+    background: rgb(0, 0, 0);
+    padding-bottom: 2rem;
+    padding: 4%;
+    padding-bottom: 6%;
+    cursor: pointer;
+    h3{
+        margin-left: 1.2rem;
+        margin-right: 1.2rem;
+        font-size: 1.2rem;
+        color: rgba(251, 251, 251, 0.523);
+        margin-top: 1rem;
+        margin-bottom: 2rem;
+    }
+    
+    h1{
+        margin: auto;
+        margin-left: 1.2rem;
+        color: #069f60;
+    }
+
+    h6{
+        margin-left: 1.2rem;
+        margin-top: 2%;
+        color: #ffffff;
+        font-size: 2.5rem;
+    }
+
+    .contact{
+        display: flex;
+        background-color: #ffffff;
+        box-shadow: rgba(255, 255, 255, 0.232) 0px 4px 20px 0px;
+        color: rgb(0, 0, 0);
+        margin: 1.2rem;
+        padding: 2rem 4rem;
+        border-radius: .8rem;
+        &:hover{
+            background-color: #146749;
+            color: #ffffff;
+        }
+    }
+
+
+    #btn-add{
+        background-color: #019f68;
+        color: rgb(255, 255, 255);
+        border: 0ch;
+        margin-left: 1.2rem;
+        padding: 1.2rem 5rem;
+        font-size: 1.5rem;
+        width: 97%;
+
+        &:hover{
+            background-color: #146749;
+        }
+    }
+}
+
+@media screen and (max-width:600px) {
+
+    .emergency-component{
+        h3{
+            font-size: 1rem;
+        }
+
+    #btn-add{
+        width: 90%;
+        font-size: 1rem;
+    }
+    }
+}

@@ -39,7 +39,6 @@ export const AuthContextProvider = ({children}) => {
 
 
 
-
 const signin = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password);
 }
@@ -53,7 +52,9 @@ const googleSignIn = (email, password) =>{
         await setDoc(doc(userDb, userRef), {
             displayName: result.user.displayName,
             email: result.user.email,
-            photoURL: result.user.photoURL
+            photoURL: result.user.photoURL,
+            phoneNumber: result.user.phoneNumber,
+           
         })
         .catch((error)=> {
             console.log(error.message);

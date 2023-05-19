@@ -5,9 +5,9 @@ import { UserAuth } from '../context/UserAuthContext';
 import { updateDoc, doc } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
 import Form from 'react-bootstrap/Form';
-import '../components/component-styles/userprofile.css'
+import '../components/component-styles/emergency.css'
 
-function Example() {
+function EContacts() {
     
   
   const [show, setShow] = useState(false);
@@ -17,10 +17,10 @@ function Example() {
 
   const {user} = UserAuth();
   
-  // const [displayName, setDisplayName]= useState("");
-  // const [email, setEmail]= useState("");
-  const [phoneNumberData, setPhoneNumber]= useState("");
-  
+
+  const [phoneNo, setPhoneNo]= useState("");
+  const [name, setName]= useState("");
+
   const userId = user.uid;
 
   const handleUpdate = async (e) => {
@@ -28,7 +28,8 @@ function Example() {
     const DocRef = doc(db,'users', userId)
     try{
       await updateDoc(DocRef, {
-        phoneNumber: phoneNumberData,
+        emergencyPhoneNo: phoneNo,
+        emergencyName: name,
       
       })
 
@@ -40,25 +41,31 @@ function Example() {
   }
   return (
     <>
-      <Button id='update-button' onClick={handleShow}>
-        Update
+      <Button id='btn-add' onClick={handleShow}>
+        Add Contact
       </Button>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Update Details</Modal.Title>
+          <Modal.Title>Create Emergency Contact</Modal.Title>
         </Modal.Header>
         <Modal.Body>
         <Form xs="auto" className="sign-form" onSubmit={handleUpdate}>
         
+        <Form.Group className="mb-3 none" controlId="formBasicPassword">
+          <Form.Label>Name</Form.Label>
+          <Form.Control onChange={(e) => setName(e.target.value)} type="text" id="phoneNumber"   placeholder="Enter Name " required />
+        </Form.Group>
+      
      
         <Form.Group className="mb-3 none" controlId="formBasicPassword">
           <Form.Label>Phone Number</Form.Label>
-          <Form.Control onChange={(e) => setPhoneNumber(e.target.value)} type="tel" name="phoneNumber" id="phoneNumber"  pattern="[0-9]{10}" placeholder="Enter Phone Number " required />
+          <Form.Control onChange={(e) => setPhoneNo(e.target.value)} type="tel" name="phoneNumber" id="phoneNumber"  pattern="[0-9]{10}" placeholder="Enter Phone Number " required />
         </Form.Group>
       
 
-        <Button variant="success" type='submit'>Save changes</Button>
+        <Button variant="success" type='submit'>Add Contact</Button>
+        
     </Form>
         </Modal.Body>
         <Modal.Footer>
@@ -72,4 +79,4 @@ function Example() {
   );
 }
 
-export default Example
+export default EContacts
