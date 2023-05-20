@@ -114,7 +114,7 @@ function Profile() {
 
         <Offcanvas show={show} onHide={handleClose} id='sidebar'>
         <Offcanvas.Header closeButton>
-          <Offcanvas.Title className='user-title'> User Profile </Offcanvas.Title>
+          <Offcanvas.Title className='user-title'> USER PROFILE  </Offcanvas.Title>
         </Offcanvas.Header>
         <br/>
     
