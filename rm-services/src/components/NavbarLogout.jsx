@@ -133,7 +133,9 @@ function Profile() {
 
           <Link className='link' to='/emergency'>
 
-          <Button variant="success" id='update-button' type="submit" > Emergency Contacts 
+          <Button variant="success" id='update-button'
+ type="submit" value="Emergency Contacts"> 
+Emergency Contacts 
 <Button/>
           </Link>
           
