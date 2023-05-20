@@ -65,6 +65,7 @@
   padding: 1.2rem 5rem;
   font-size: 1.5rem;
   width: 97%;
+margin-bottom:1rem;
 }
 .emergency-component #btn-add:hover {
   background-color: #146749;
