@@ -73,7 +73,7 @@ margin-bottom:1rem;
 
 @media screen and (max-width: 600px) {
   .emergency-component {
-    padding: -2%;
+   
   }
   .emergency-component h3 {
     font-size: 1rem;
@@ -85,6 +85,8 @@ margin-bottom:1rem;
   }
   .emergency-component .contact {
     flex-direction: column;
+padding : 2rem 3rem;
+
   }
   .emergency-component .contact .details {
     width: 100%;
