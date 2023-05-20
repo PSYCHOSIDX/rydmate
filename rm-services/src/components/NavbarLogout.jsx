@@ -133,10 +133,8 @@ function Profile() {
 
           <Link className='link' to='/emergency'>
 
-          <Button variant="success" id='update-button'
- type="submit" value="Emergency Contacts"> 
-Emergency Contacts 
-<Button/>
+          <Button href='' id='update-button'
+ type="submit" value="Emergency Contacts"/> 
           </Link>
           
           <button onClick={handleLogout} className='btn-contact' id='visible'> Logout </button>
