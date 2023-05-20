@@ -15,12 +15,26 @@
   font-size: 1.4rem;
   font-weight: bolder;
   margin-top: 1rem;
-margin-left : -0.8rem;
+margin-left : -0.2rem;
 }
 #update-button:hover {
   background: #232323;
 }
 
+
+#update-button-x {
+  background: #13b054;
+  width: 92%;
+  border: none;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.4rem;
+  font-weight: bolder;
+  margin-top: 1rem;
+margin-left : -1.2rem;
+}
+#update-button-x:hover {
+  background: #232323;
+}
 .icon {
   color: white;
   width: 3.8%;
