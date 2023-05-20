@@ -114,7 +114,7 @@ function Profile() {
 
         <Offcanvas show={show} onHide={handleClose} id='sidebar'>
         <Offcanvas.Header closeButton>
-          <Offcanvas.Title className='user-title'> USER PROFILE </Offcanvas.Title>
+          <Offcanvas.Title className='user-title'> User Profile </Offcanvas.Title>
         </Offcanvas.Header>
         <br/>
     
@@ -132,7 +132,7 @@ function Profile() {
           <Example/>
 
           <Link className='link' to='/emergency'>
-          <Button as="input" id='update-button' type="submit" value="Emergency Contacts" />
+          <Button id='update-button' value="Emergency Contacts" />
           </Link>
           
           <button onClick={handleLogout} className='btn-contact' id='visible'> Logout </button>
