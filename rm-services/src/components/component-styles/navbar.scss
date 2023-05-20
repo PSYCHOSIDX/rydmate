@@ -2,6 +2,14 @@
 
 $bluex:#000000;
 
+#visible{
+    display: block;
+    width: 75%;
+    border-radius: none;
+    font-size: 1.2rem;
+    margin-left: -.3rem;
+    margin-top: 1rem;
+}
 
 #modal-text{
     color: #000000;
@@ -97,7 +105,7 @@ $bluex:#000000;
     background-color:$bluex ;
     padding: .4rem 2rem;
     font-size: 1.2rem;
-    border-radius: 12px;
+    border-radius: 6px;
     border: 2px solid #00FFA3;
     color: #00FFA3;
     font-weight: bold;
@@ -161,9 +169,11 @@ $bluex:#000000;
 @media screen and (max-width:480px){
     .profile{
         margin: auto;
+        margin-right: 0;
     }
     .btn-contact{
-        padding: .6rem 1.2rem;
+        padding: .6rem 2rem;
+        display: none;
     }
     .container{
         width: 120%;

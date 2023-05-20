@@ -90,7 +90,17 @@ function Profile() {
   const handleShow = () => setShow(true);
 
   const {user} = UserAuth();
-
+  const {logout} = UserAuth();
+  const navigate = useNavigate();
+ 
+  const handleLogout = async () => {
+    try{
+      await logout();
+      navigate('/')
+    } catch(e) {
+      console.log(e.message);
+    }
+  }
 
   return (
     <>
@@ -113,13 +123,15 @@ function Profile() {
         <Offcanvas.Body>
       
        {
-          user.photoURL ? <img src={user.photoURL} alt='' className='profile'/> : <FaRegUser  className='icon'/>}
+          user.photoURL ? <img src={user.photoURL} alt='' className='profile'/> : <FaRegUser  className='icon' id='icon' />}
           <h4> <b>Name</b> </h4>
           <h5>{user.displayName}</h5> 
           <br/>
           <h4><b>Email</b></h4>
           <h5>{user.email}</h5>
           <Example/>
+
+          <button onClick={handleLogout} className='btn-contact' id='visible'> Logout </button>
           {/* {user.phoneNumber ? 
           
           <div>

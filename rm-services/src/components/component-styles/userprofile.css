@@ -9,12 +9,12 @@
 
 #update-button {
   background: #25ba7c;
-  width: 90%;
+  width: 92%;
   border: none;
   font-family: "Poppins", sans-serif;
   font-size: 1.4rem;
   font-weight: bolder;
-  margin-top: 0.6rem;
+  margin-top: 1rem;
 }
 
 .icon {
@@ -24,15 +24,32 @@
   border: 1px solid white;
   padding: 0.3rem;
   border-radius: 2rem;
-  margin-right: 0.5rem;
-  margin-top: 0.3rem;
+  margin: 0.8rem;
 }
 .icon:hover {
   color: rgb(55, 206, 156);
 }
 
+#icon {
+  color: rgb(26, 26, 26);
+  width: 3.8%;
+  height: 3.8%;
+  border: 1px solid rgb(0, 0, 0);
+  padding: 0.3rem;
+  border-radius: 2rem;
+  margin: 0.8rem;
+}
+#icon:hover {
+  color: rgb(55, 206, 156);
+}
+
 @media screen and (max-width: 1020px) {
   .icon {
+    width: 2.8rem;
+    height: 2.8rem;
+    margin: auto;
+  }
+  #icon {
     width: 2.8rem;
     height: 2.8rem;
     margin: auto;

@@ -21,7 +21,7 @@ function NavbarLogin(){
             <Nav.Link href="#services" className='nav-link link'>Services</Nav.Link>
             <Nav.Link href="#about" className=' nav-link link'>About Us</Nav.Link> */}
             <Link to="/login" className='link'>
-            <button  className='btn-contact'> Login </button>
+            <button  className='btn-contact' id='visible'> Login </button>
             </Link>
             
           </Nav>
