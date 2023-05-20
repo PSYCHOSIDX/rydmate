@@ -73,7 +73,7 @@ margin-bottom:1rem;
 
 @media screen and (max-width: 600px) {
   .emergency-component {
-    padding: 0%;
+    padding: -2%;
   }
   .emergency-component h3 {
     font-size: 1rem;
