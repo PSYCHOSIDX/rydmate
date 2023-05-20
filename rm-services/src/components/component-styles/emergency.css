@@ -37,6 +37,26 @@
   background-color: #146749;
   color: #ffffff;
 }
+.emergency-component .contact .details {
+  width: 70%;
+}
+.emergency-component .contact .button-set {
+  display: flex;
+  text-align: center;
+  width: 20%;
+}
+.emergency-component #del-button {
+  background: #13b054;
+  width: 92%;
+  border: none;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.4rem;
+  font-weight: bolder;
+  margin-top: 1rem;
+}
+.emergency-component #del-button:hover {
+  background: #232323;
+}
 .emergency-component #btn-add {
   background-color: #019f68;
   color: rgb(255, 255, 255);
@@ -51,11 +71,24 @@
 }
 
 @media screen and (max-width: 600px) {
+  .emergency-component {
+    padding: 0%;
+  }
   .emergency-component h3 {
     font-size: 1rem;
   }
   .emergency-component #btn-add {
     width: 90%;
     font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+  .emergency-component .contact {
+    flex-direction: column;
+  }
+  .emergency-component .contact .details {
+    width: 100%;
+  }
+  .emergency-component .contact .button-set {
+    width: 80%;
   }
 }/*# sourceMappingURL=emergency.css.map */

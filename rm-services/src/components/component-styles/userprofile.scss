@@ -9,13 +9,17 @@
 }
 
 #update-button{
-    background: #25ba7c;
+    background: #13b054;
     width: 92%;
     border: none;
     font-family: 'Poppins',sans-serif;
     font-size: 1.4rem;
     font-weight: bolder;
     margin-top: 1rem;
+
+    &:hover{
+        background: #232323;
+    }
 }
 
 .icon{

@@ -131,6 +131,10 @@ function Profile() {
           <h5>{user.email}</h5>
           <Example/>
 
+          <Link className='link' to='/emergency'>
+          <Button as="input" id='update-button' type="submit" value="Emergency Contacts" />
+          </Link>
+          
           <button onClick={handleLogout} className='btn-contact' id='visible'> Logout </button>
           {/* {user.phoneNumber ? 
           
