@@ -26,7 +26,7 @@ const RideSearch = () => {
       setRides(ridesList);
     };
     fetchData();
-  }, );
+  }, []);
 
   useEffect( ()=>{
       const getRides =  async ()=> {
@@ -169,9 +169,9 @@ function clearRoute(){
             <h2>Rides Found</h2>
 
         <DropdownButton id="dropdown-basic-button" title="Sort By:Default">
-            <Dropdown.Item href="#/action-1">Cost : low to high</Dropdown.Item>
-            <Dropdown.Item href="#/action-2">cost : high to  low</Dropdown.Item>
-            <Dropdown.Item href="#/action-3">vehicle type</Dropdown.Item>
+            <Dropdown.Item href="#/action-1"><b>cost : </b>low to high</Dropdown.Item>
+            <Dropdown.Item href="#/action-2"> <b> cost : </b> high to  low</Dropdown.Item>
+            <Dropdown.Item href="#/action-3"> <b> vehicle type</b></Dropdown.Item>
         </DropdownButton>
          
         </div>
