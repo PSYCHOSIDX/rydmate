@@ -80,7 +80,7 @@ async function calculateRoute(){
   }) 
 
   setDirectionsResponse(result)
-  setDistance(result.routes[4].distance.text)
+  setDistance(result.routes[4])
 
 }
 
