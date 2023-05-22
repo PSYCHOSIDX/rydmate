@@ -17,6 +17,17 @@ const RideSearch = () => {
   const [rides , setRides]= useState([]);
   const ridesCollectionRef = collection(db,"rides");
 
+
+  useEffect(() => {
+    const fetchData = async () => {
+      
+      const ridesSnapshot = await getDocs(ridesCollectionRef);
+      const  ridesList= ridesSnapshot.docs.map(doc => doc.data());
+      setRides(ridesList);
+    };
+    fetchData();
+  }, );
+
   useEffect( ()=>{
       const getRides =  async ()=> {
           const dbdata = await getDocs(ridesCollectionRef);
@@ -69,7 +80,7 @@ async function calculateRoute(){
   }) 
 
   setDirectionsResponse(result)
-  setDistance(result.routes[4].legs[0].distance.text)
+  setDistance(result.routes[4].distance.text)
 
 }
 
@@ -100,11 +111,16 @@ function clearRoute(){
             <div className='form-holder'>
                
 
-                <Autocomplete className='auto'>
+                <Autocomplete className='auto' options={{
+                  componentRestrictions: {country : "ind"}
+                }}
+                >
                    <input type="text" placeholder='📍From' className='phold'  ref={originRef}/>
                 </Autocomplete>
 
-                <Autocomplete className='auto'>
+                <Autocomplete className='auto' options={{
+                  componentRestrictions: {country : "ind"}
+                }}>
                   <input type="text" placeholder='📍To' className='phold' ref={destinationRef}/>
                 </Autocomplete>
                   <div className="hide">
@@ -172,7 +188,7 @@ function clearRoute(){
     <Container className='gridbox'>
       <Row text-center className='gridrow'>
 
-        {rides.map((rides) => {
+        {rides.map((ride) => {
           
           return  ( 
 
@@ -180,22 +196,22 @@ function clearRoute(){
 // Ride Card        
     <div className="ride-card">
                     
-    <h2 id="loc">{rides.start_loc} to {rides.end_loc}</h2>
-      <h5 id="dis">Distance {rides.total_distance} km</h5>
-      <div className="line"> .</div>
+          <h2 id="loc">{ride.start_loc} to {ride.end_loc}</h2>
+            <h5 id="dis">Distance {ride.total_distance} km</h5>
+            <div className="line"> .</div>
 
-      <h2 id="name">{rides.rider_name}</h2>
-      <h2 className='type'>Vehicle type </h2>
-      <h3 id='type'>{rides.vtype}</h3>
+            <h2 id="name">{ride.rider_name}</h2>
+            <h2 className='type'>Vehicle type </h2>
+            <h3 id='type'>{ride.vtype}</h3>
 
-      <h2 className='type'>Vehicle No </h2>
-      <h3 id='type'>{rides.vnumber}</h3>
-      <h2 id='seat'>Seats Available {rides.seats}</h2>
+            <h2 className='type'>Vehicle No </h2>
+            <h3 id='type'>{ride.vnumber}</h3>
+            <h2 id='seat'>Seats Available {ride.seats}</h2>
 
-      <h5 id='cost'>Cost Per Km</h5>
-      <h2 id='realcost'>{rides.cost_per_seat}</h2>
+            <h5 id='cost'>Cost Per Km</h5>
+            <h2 id='realcost'>{ride.cost_per_seat}</h2>
 
-      <input type="button" value='Join' className='ride-join'/>
+            <input type="button" value='Join' className='ride-join'/>
     </div>
           );
               })

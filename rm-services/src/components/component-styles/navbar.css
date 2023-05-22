@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Poppins:wght@200&family=Unbounded:wght@200&display=swap");
 #visible {
   display: block;
-  width: 77%;
+  width: 75%;
   border-radius: none;
   font-size: 1.2rem;
   margin-left: -0.3rem;
@@ -64,7 +64,7 @@
 }
 
 .logo {
-  width: 96%;
+  width: 100%;
   margin: auto;
   padding-top: 1rem;
 }
@@ -160,7 +160,7 @@
     margin-right: 0;
   }
   .btn-contact {
-    padding: 0.6rem 1.6rem;
+    padding: 0.6rem 2rem;
     display: none;
   }
   .container {

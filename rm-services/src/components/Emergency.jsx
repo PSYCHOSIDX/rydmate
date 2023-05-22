@@ -43,7 +43,7 @@ const Emergency = () => {
     <h1> Emergency Setup</h1>
     <h3>Please setup your emergency contact on this page and note in case of an emergency these contacts will be prompted for your safety !</h3>
                 
-   { emergencies == ''  &&
+   { emergencies === ''  &&
       <h6> NO CONTACTS ADDED ! <br/> <br /> </h6>
    
   }
