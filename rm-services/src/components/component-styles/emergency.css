@@ -65,7 +65,6 @@
   padding: 1.2rem 5rem;
   font-size: 1.5rem;
   width: 97%;
-margin-bottom:1rem;
 }
 .emergency-component #btn-add:hover {
   background-color: #146749;
@@ -73,7 +72,7 @@ margin-bottom:1rem;
 
 @media screen and (max-width: 600px) {
   .emergency-component {
-   
+    padding: 0%;
   }
   .emergency-component h3 {
     font-size: 1rem;
@@ -81,12 +80,10 @@ margin-bottom:1rem;
   .emergency-component #btn-add {
     width: 90%;
     font-size: 1rem;
-    margin-bottom: 4.5rem;
+    margin-bottom: 1rem;
   }
   .emergency-component .contact {
     flex-direction: column;
-padding : 2rem 3rem;
-
   }
   .emergency-component .contact .details {
     width: 100%;

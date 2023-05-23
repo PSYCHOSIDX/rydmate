@@ -6,6 +6,7 @@ import { updateDoc, doc } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
 import Form from 'react-bootstrap/Form';
 import '../components/component-styles/userprofile.css'
+import RealAlert from './RealAlert';
 
 function Example() {
     
@@ -20,19 +21,22 @@ function Example() {
   // const [displayName, setDisplayName]= useState("");
   // const [email, setEmail]= useState("");
   const [phoneNumberData, setPhoneNumber]= useState("");
-  
+  const [showalert, setShowAlert]=useState(false);
   const userId = user.uid;
 
   const handleUpdate = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
+    
     const DocRef = doc(db,'users', userId)
     try{
+      setShowAlert(true); setTimeout(()=> {
+        setShowAlert(false);
+     }
+     ,3000);
       await updateDoc(DocRef, {
         phoneNumber: phoneNumberData,
-      
       })
-
-      alert('Your profile is ready')
+      
     } catch (err) {
       alert(err)
     }   
@@ -40,7 +44,7 @@ function Example() {
   }
   return (
     <>
-      <Button id='update-button' onClick={handleShow}>
+      <Button id='update-button'  onClick={handleShow}>
         Update
       </Button>
 
@@ -49,6 +53,8 @@ function Example() {
           <Modal.Title>Update Details</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+
+        {showalert ? <RealAlert message="Account Updated Successfuly" /> : null}
         <Form xs="auto" className="sign-form" onSubmit={handleUpdate}>
         
      
@@ -61,12 +67,7 @@ function Example() {
         <Button variant="success" type='submit'>Save changes</Button>
     </Form>
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-         
-        </Modal.Footer>
+     
       </Modal>
     </>
   );

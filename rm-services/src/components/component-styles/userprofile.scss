@@ -76,3 +76,11 @@
         margin: auto;
     }
 }
+
+@media screen and (max-width:650px) {
+
+    #update-button-x{
+        margin-left: -1rem;
+    }
+  
+}

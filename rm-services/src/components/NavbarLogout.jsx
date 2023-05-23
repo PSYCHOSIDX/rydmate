@@ -23,6 +23,7 @@ import { db } from '../firebaseConfig';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
+import RealAlert from './RealAlert';
 
 // eslint-disable-next-line
 function StaticExample() {
@@ -39,9 +40,10 @@ function StaticExample() {
 
         phoneNumber: phoneNoPara,
       
-      })
+      });
+      alert(<RealAlert alertmessage='Account Updated'/>);
+      
 
-      alert('Your profile is ready')
     } catch (err) {
       alert(err)
     }    
@@ -132,12 +134,11 @@ function Profile() {
           <Example/>
 
           <Link className='link' to='/emergency'>
-
-          <Button as="input" id='update-button-x'
- type="button" value="Emergency Contacts"/> 
+              <Button as="input" id='update-button-x' type="button" value="Emergency Contacts"/> 
           </Link>
           
           <button onClick={handleLogout} className='btn-contact' id='visible'> Logout </button>
+          
           {/* {user.phoneNumber ? 
           
           <div>
