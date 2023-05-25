@@ -26,7 +26,7 @@ const RideSearch = () => {
       setRides(ridesList);
     };
     fetchData();
-  }, []);
+  }, );
 
   useEffect( ()=>{
       const getRides =  async ()=> {

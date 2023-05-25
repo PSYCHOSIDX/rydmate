@@ -7,6 +7,8 @@ import { getDocs,collection, deleteDoc, query, where} from 'firebase/firestore'
 import {Button} from 'react-bootstrap'
 
 
+
+
 const Emergency = () => {
   const {user} = UserAuth();
   const userId = user.uid
@@ -21,8 +23,6 @@ const Emergency = () => {
     };
     fetchData();
   }, [userId]);
-
-
 
   async function deleteEmergency(emergencyName)
   {
@@ -62,11 +62,11 @@ const Emergency = () => {
             
             </div>
 
-            <div className="button-set">
+           <div className="button-set">
             
-          <Button  id='del-button' onClick={()=> deleteEmergency(emergency.emergencyName)}>
-            Delete
-          </Button>
+              <Button  id='del-button' onClick={()=> deleteEmergency(emergency.emergencyName)}>
+                Delete
+              </Button>
         
             </div>
 
@@ -79,7 +79,9 @@ const Emergency = () => {
       }
                 
         <EContacts/>
-    </div>
+
+       
+    </div>s
      
     </>
   )
