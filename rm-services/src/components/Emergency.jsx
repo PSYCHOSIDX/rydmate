@@ -13,6 +13,11 @@ const Emergency = () => {
   const {user} = UserAuth();
   const userId = user.uid
   const [emergencies, setEmergencies] = useState([]);
+  let emegerncyList = [];
+  
+
+ 
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,8 +38,17 @@ const Emergency = () => {
       deleteDoc(doc.ref);
     });
 
-    alert('Emergency Contact Removed')
+    alert('Emergency Contact Removed');
   }
+
+  emergencies.map(emergency=>(
+    emegerncyList.push('+91'+emergency.emergencyPhoneNo))
+    )
+
+
+
+
+
 
   
   return (
@@ -47,10 +61,7 @@ const Emergency = () => {
       <h6> NO CONTACTS ADDED ! <br/> <br /> </h6>
    
   }
-     
-   
-    
-
+  
     {
     emergencies.map(emergency => (
        
@@ -77,11 +88,14 @@ const Emergency = () => {
       ))  
       
       }
-                
+       
         <EContacts/>
 
+        <Button  id='align' onClick={''}>
+                Raise Emergency
+        </Button>
        
-    </div>s
+    </div>
      
     </>
   )

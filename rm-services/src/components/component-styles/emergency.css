@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Poppins:wght@200&family=Unbounded:wght@200&display=swap");
 .emergency-component {
   background: rgb(0, 0, 0);
   padding-bottom: 2rem;
@@ -33,10 +34,6 @@
   padding: 2rem 4rem;
   border-radius: 0.8rem;
 }
-.emergency-component .contact:hover {
-  background-color: #146749;
-  color: #ffffff;
-}
 .emergency-component .contact .details {
   width: 70%;
 }
@@ -55,6 +52,22 @@
   margin-top: 1rem;
 }
 .emergency-component #del-button:hover {
+  background: #232323;
+}
+.emergency-component #align {
+  margin: auto;
+  background: #ea421c;
+  width: 97%;
+  font-family: "Unbounded", sans-serif;
+  margin: auto;
+  margin-left: 1.2rem;
+  margin-top: 1rem;
+  border: none;
+  font-size: 1.4rem;
+  font-weight: bolder;
+  padding: 1rem;
+}
+.emergency-component #align:hover {
   background: #232323;
 }
 .emergency-component #btn-add {
