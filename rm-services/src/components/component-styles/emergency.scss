@@ -58,7 +58,7 @@
     width: 92%;
     border: none;
     font-family: 'Poppins',sans-serif;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     font-weight: bolder;
     margin-top: 1rem;
 
@@ -69,16 +69,16 @@
 
     #align{
     margin: auto;
-    background: #ea421c;
+    background: #1c8aea;
     width: 97%;
-    font-family: 'Unbounded', sans-serif;
+
     margin: auto;
     margin-left: 1.2rem;
     margin-top: 1rem;
     border: none;
    
     font-size: 1.4rem;
-    font-weight: bolder;
+   
     padding: 1rem;
     
 
@@ -104,8 +104,16 @@
 
 @media screen and (max-width:600px) {
 
+  
 
     .emergency-component{
+        #align{
+            width: 90%;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            background: #1c8aea;
+        }
+
         h3{
             font-size: 1rem;
         }

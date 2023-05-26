@@ -15,6 +15,20 @@ const Emergency = () => {
   const [emergencies, setEmergencies] = useState([]);
   let emegerncyList = [];
   
+// const accountSid = process.env.REACT_APP_ACCOUNT_SID;
+// const authToken = process.env.REACT_APP_AUTH_TOKEN;
+// const client = require('twilio')(accountSid, authToken);
+
+// const handleClick = async () => {
+//   client.messages
+//   .create({
+//      body: 'This is the ship that made the Kessel Run in fourteen parsecs?',
+//      from: '+15017122661',
+//      to: '+15558675310'
+//    })
+//   .then(message => console.log(message.sid));;
+  
+// }
 
  
 
@@ -29,6 +43,8 @@ const Emergency = () => {
     fetchData();
   }, [userId]);
 
+
+
   async function deleteEmergency(emergencyName)
   {
     const emergenciesRef = collection(db, `users/${userId}/emergency`);
@@ -41,13 +57,9 @@ const Emergency = () => {
     alert('Emergency Contact Removed');
   }
 
-  emergencies.map(emergency=>(
-    emegerncyList.push('+91'+emergency.emergencyPhoneNo))
-    )
-
-
-
-
+  // emergencies.map(emergency=>(
+  //   emegerncyList.push('+91'+emergency.emergencyPhoneNo))
+  //   )
 
 
   
@@ -91,8 +103,8 @@ const Emergency = () => {
        
         <EContacts/>
 
-        <Button  id='align' onClick={''}>
-                Raise Emergency
+        <Button  id='align' >
+        <b >⚠</b> Raise Emergency
         </Button>
        
     </div>
