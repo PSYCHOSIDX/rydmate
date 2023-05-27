@@ -1,0 +1,50 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Poppins:wght@200&family=Unbounded:wght@200&display=swap");
+.car-card {
+  font-family: "Poppins", sans-serif;
+  width: 80%;
+  margin: 0;
+  margin: auto;
+  color: rgb(28, 189, 152);
+  padding: 1rem;
+  margin-top: 0.2rem;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+.car-card .list-group-flush {
+  border-radius: 0.4rem;
+  border: none;
+  font-family: "Poppins", sans-serif;
+}
+.car-card .car-image {
+  -o-object-fit: cover;
+     object-fit: cover;
+  max-width: 400px;
+  height: 340px;
+  border-radius: 0.5rem;
+}
+.car-card .car-title {
+  font-size: 1.5rem;
+  font-weight: bolder;
+  margin-left: 0.5rem;
+  color: rgb(8, 168, 139);
+}
+.car-card .car-pay {
+  background-color: rgb(5, 167, 137);
+  width: 100%;
+  border: black;
+  font-size: 1.3rem;
+  margin: auto;
+  margin-top: 0.6rem;
+}
+.car-card .car-pay:hover {
+  background-color: rgb(0, 0, 0);
+}
+
+@media screen and (max-width: 700px) {
+  .car-card {
+    flex-direction: column;
+    width: 97%;
+  }
+  .car-card .car-image {
+    margin: auto;
+  }
+}/*# sourceMappingURL=join.css.map */

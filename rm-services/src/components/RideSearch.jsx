@@ -212,7 +212,7 @@ function clearRoute(){
             <h2 id='realcost'>{ride.cost_per_seat}</h2>
 
             <input type="button" value='Join' className='ride-join'/>
-    </div>
+    </div>  
           );
               })
               
