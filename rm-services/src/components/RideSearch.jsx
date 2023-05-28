@@ -210,8 +210,26 @@ function clearRoute(){
 
             <h5 id='cost'>Cost Per Km</h5>
             <h2 id='realcost'>{ride.cost_per_seat}</h2>
+            
+            <Link to='/join' 
+            
+            state={{data:{
+              ride_name: ride.rider_name,
+              vtype: ride.vtype,
+              vnumber: ride.vnumber,
+              seats: ride.seats,
+              cost_per_seat:ride.cost_per_seat,
+              start_loc: ride.start_loc,
+              end_loc:ride.end_loc,
+              total_distance:ride.total_distance,
+              ride_id:ride.ride_id,
+              departure_time:ride.departure_time
+            }}}
 
+            className='link'>
             <input type="button" value='Join' className='ride-join'/>
+            </Link>
+            
     </div>  
           );
               })

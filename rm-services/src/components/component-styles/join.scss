@@ -10,6 +10,7 @@
     color: rgb(28, 189, 152);
     
     padding: 1rem;
+    
     margin-top: .2rem;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 
@@ -17,12 +18,16 @@
         border-radius: .4rem;
         border: none;
         font-family: 'Poppins', sans-serif;
+        border: 1px solid rgb(24, 178, 106);
+        padding: .5rem;
     }
     .car-image{
         object-fit: cover;
         max-width: 400px;
         height: 340px;
         border-radius: .5rem;
+        margin-left: 1rem;
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     }
     .car-title{
         font-size: 1.5rem;
@@ -35,9 +40,10 @@
         background-color: rgb(5, 167, 137);
         width: 100%;
         border: black;
-        font-size: 1.3rem;
+        font-size: 1.1rem;
         margin: auto;
         margin-top: .6rem;
+        padding: 1rem;
         &:hover{
             background-color: rgb(0, 0, 0);
         }

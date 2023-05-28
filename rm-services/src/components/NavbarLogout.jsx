@@ -24,6 +24,9 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import RealAlert from './RealAlert';
+import { RiMenu2Line} from 'react-icons/ri';
+
+
 
 // eslint-disable-next-line
 function StaticExample() {
@@ -108,12 +111,12 @@ function Profile() {
     <>
          <h5 onClick={handleShow} className='username' >
           <b>{user && user.email}</b> 
+          
          </h5>
 
-         {user.photoURL ? <img onClick={handleShow} src={user.photoURL} alt='' className='profile'/> : 
+         {user.photoURL ? <img onClick={handleShow} src={user.photoURL} alt='' className='profile'/>  : 
          <FaRegUser onClick={handleShow} className='icon'/>} 
-      
-
+       
         <Offcanvas show={show} onHide={handleClose} id='sidebar'>
         <Offcanvas.Header closeButton>
           <Offcanvas.Title className='user-title'> USER PROFILE  </Offcanvas.Title>
@@ -165,6 +168,8 @@ function InfoPage() {
       {[' '].map((placement, idx) => (
         <Profile key={idx} placement={placement} name={placement} />
       ))}
+
+      
     </>
   );
 }
@@ -199,9 +204,12 @@ function NavbarLogout(){
            
            <InfoPage/>
 
+
             <Link to="" className='link'>
             <button onClick={handleLogout} className='btn-contact'> Logout </button>
             </Link>
+
+            
             
           </Nav>
         </Navbar.Collapse>
