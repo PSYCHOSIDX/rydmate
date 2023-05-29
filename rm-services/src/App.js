@@ -11,6 +11,7 @@ import EmergencyPage from "./Pages/EmergencyPage";
 import JoinPage from "./Pages/JoinPage";
 
 
+
 const App = () => {
   return (
     
@@ -29,6 +30,8 @@ const App = () => {
             <Route path='/join'  element={<ProtectedRoutes> <JoinPage/> </ProtectedRoutes>} />
             
             <Route path='*'  element={<ErrorPage/>} />
+
+            
         </Routes>
         </AuthContextProvider>
           

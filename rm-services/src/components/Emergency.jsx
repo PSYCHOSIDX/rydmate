@@ -13,6 +13,8 @@ const Emergency = () => {
   const {user} = UserAuth();
   const userId = user.uid
   const [emergencies, setEmergencies] = useState([]);
+  const[number, setNumber] = useState();
+  const [body, setBody] = useState();
   //let emegerncyList = [];
   
 // const accountSid = process.env.REACT_APP_ACCOUNT_SID;
@@ -31,6 +33,28 @@ const Emergency = () => {
 // }
 
  
+const onSubmit = async (e) => {
+  console.log('triggered');
+  await e.preventDefault();
+
+  const res = await fetch("../../api/sendMessage", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ to:'+917028193277' , body: 'hi from localhost' }),
+  });
+
+  const data = await res.json();
+
+  if (data.success) {
+    await setNumber("");
+    await setBody("");
+  } else {
+    await setNumber("An Error has occurred.");
+    await setBody("An Error has occurred.");
+  }
+};
 
 
   useEffect(() => {
@@ -103,7 +127,7 @@ const Emergency = () => {
        
         <EContacts/>
 
-        <Button  id='align' >
+        <Button  id='align' onClick={onSubmit}>
         <b >⚠</b> Raise Emergency
         </Button>
        

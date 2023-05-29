@@ -39,7 +39,8 @@ const RideSearch = () => {
 
 
   const center = {lat:15.280347,lng:73.980065};
-    
+
+
   const [map, setMap]= useState(/**@type google.maps.Map */null);
   const [directionsResponse, setDirectionsResponse]=useState(null);
   const [distance, setDistance]= useState('')
