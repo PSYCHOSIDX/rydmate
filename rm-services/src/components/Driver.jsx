@@ -146,36 +146,43 @@ const Driver = () => {
           />
         </Form.Group>
         <Form.Group className='mb-3'>
-          <Form.Label>Vehicle Type</Form.Label>
-          <Form.Control
-            type='text'
-            value={vehicleType}
-            onChange={(e) => setVehicleType(e.target.value)}
-            placeholder='Enter vehicle type'
-            required
-          />
-        </Form.Group>
-        <Form.Group className='mb-3'>
-          <Form.Label>Aadhar Number</Form.Label>
-          <Form.Control
-            type='text'
-            value={aadharNumber}
-            onChange={(e) => setAadharNumber(e.target.value)}
-            placeholder='Enter Aadhar number'
-            required
-          />
-        </Form.Group>
+  <Form.Label>Vehicle Type</Form.Label>
+  <Form.Select
+    value={vehicleType}
+    onChange={(e) => setVehicleType(e.target.value)}
+    required
+  >
+    <option value="">Select vehicle type</option>
+    <option value="bike">Bike</option>
+    <option value="suv">SUV</option>
+    <option value="hatchback">Hatchback</option>
+  </Form.Select>
+</Form.Group>
+<Form.Group className='mb-3'>
+    <Form.Label>Aadhar Number</Form.Label>
+    <Form.Control
+      type='text'
+      value={aadharNumber}
+      onChange={(e) => setAadharNumber(e.target.value)}
+      placeholder='Enter Aadhar number'
+      pattern="[0-9]{12}"
+      title="Aadhar number should be a 12-digit number"
+      required
+    />
+  </Form.Group>
 
         <Form.Group className='mb-3'>
-          <Form.Label>Vehicle Capacity</Form.Label>
-          <Form.Control
-            type='text'
-            value={vehicleCapacity}
-            onChange={(e) => setVehicleCapacity(e.target.value)}
-            placeholder='Enter vehicle capacity'
-            required
-          />
-        </Form.Group>
+    <Form.Label>Vehicle Capacity</Form.Label>
+    <Form.Control
+      type='text'
+      value={vehicleCapacity}
+      onChange={(e) => setVehicleCapacity(e.target.value)}
+      placeholder='Enter vehicle capacity'
+      pattern="[0-9]+"
+      title="Vehicle capacity should be a valid number"
+      required
+    />
+  </Form.Group>
 
         {/* Car Image */}
         <Form.Group className='mb-3'>
