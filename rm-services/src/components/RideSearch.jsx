@@ -214,7 +214,7 @@ function clearRoute(){
             <Link to='/join' 
             
             state={{data:{
-              ride_name: ride.rider_name,
+              rider_name: ride.rider_name,
               vtype: ride.vtype,
               vnumber: ride.vnumber,
               seats: ride.seats,
