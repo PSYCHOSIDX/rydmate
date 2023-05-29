@@ -4,11 +4,12 @@ $bluex:#000000;
 
 #visible{
     display: block;
-    width: 82%;
+    width: 90%;
     border-radius: none;
     font-size: 1.1rem;
     margin-top: 1rem;
     margin-left: 0%;
+    margin-right: .5rem;
 }
 
 #modal-text{
@@ -38,7 +39,8 @@ $bluex:#000000;
 .profile{
     width: 3rem;
     height: 3rem;
-    margin: .2em;
+    margin: .2rem;
+    margin-right: 1rem;
     margin-right: .5rem;
     border-radius: 2rem;
     

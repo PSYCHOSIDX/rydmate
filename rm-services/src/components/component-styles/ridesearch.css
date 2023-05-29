@@ -166,8 +166,9 @@
   background-color: rgba(0, 115, 255, 0);
 }
 .card-results .ride-card {
-  background-color: rgb(40, 40, 40);
+  background: linear-gradient(45deg, rgb(249, 249, 249), rgb(253, 253, 253));
   width: 23rem;
+  color: #000000;
   border-radius: 1rem;
   padding: 2rem;
   margin: auto;
@@ -176,9 +177,7 @@
   font-family: "Poppins", sans-serif;
 }
 .card-results .ride-card #loc {
-  color: white;
-  font-weight: bolder;
-  font-size: 2rem;
+  font-size: 1rem;
 }
 .card-results .ride-card #dis {
   color: #00FFA3;
@@ -189,14 +188,12 @@
   height: 0.1rem;
 }
 .card-results .ride-card #name {
-  color: white;
   font-weight: bolder;
   font-family: "Poppins", sans-serif;
   font-size: 1.6rem;
   margin-top: 1rem;
 }
 .card-results .ride-card .type {
-  color: #ffffff;
   font-family: "Poppins", sans-serif;
   font-size: 0.8rem;
   font-weight: bold;
@@ -208,12 +205,10 @@
   font-weight: bold;
 }
 .card-results .ride-card #seat {
-  font-size: 1rem;
-  color: white;
+  font-size: 0.8rem;
   font-weight: bolder;
 }
 .card-results .ride-card #cost {
-  color: #ffffff;
   font-size: 0.8rem;
 }
 .card-results .ride-card #realcost {
@@ -223,20 +218,21 @@
 }
 .card-results .ride-card .ride-join {
   background-color: #31d096;
+  color: #ffffff;
   font-size: 1.3rem;
   font-weight: bolder;
   text-align: center;
   font-family: "Poppins";
-  padding: 0.5rem 8rem;
+  padding: 0.4rem 8rem;
   margin: auto;
-  color: rgb(255, 255, 255);
-  border-radius: 1rem;
-  margin-left: 0.3rem;
+  border-radius: 0.8rem;
+  width: 100%;
   border: none;
 }
 .card-results .ride-card .ride-join:hover {
   background-color: #ffffff;
-  color: rgb(48, 47, 47);
+  color: rgb(0, 0, 0);
+  border: 1px solid black;
 }
 
 @media screen and (max-width: 800px) {
@@ -244,8 +240,11 @@
     margin-left: 2rem;
     width: 100%;
   }
-  .ride-results {
+  .card-results {
     margin-top: 0.2rem;
+  }
+  .card-results .ride-card .ride-join {
+    margin-left: -1rem;
   }
   .ride-head {
     margin-top: 0px;
@@ -270,11 +269,11 @@
 .mapbox {
   width: 100%;
   margin: auto;
-  margin-top: -8rem;
+  margin-top: -9rem;
   background-color: #005b39;
   padding: 0.5rem;
 }
 .mapbox .gmap {
   margin: auto;
-  border-radius: 10rem;
+  border-radius: 5rem;
 }/*# sourceMappingURL=ridesearch.css.map */

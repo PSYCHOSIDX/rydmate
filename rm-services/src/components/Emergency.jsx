@@ -41,7 +41,7 @@ const Emergency = () => {
       setEmergencies(emergencyList);
     };
     fetchData();
-  }, [userId]);
+  });
 
 
 

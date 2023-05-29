@@ -1,11 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Poppins:wght@200&family=Unbounded:wght@200&display=swap");
 #visible {
   display: block;
-  width: 82%;
+  width: 90%;
   border-radius: none;
   font-size: 1.1rem;
   margin-top: 1rem;
   margin-left: 0%;
+  margin-right: 0.5rem;
 }
 
 #modal-text {
@@ -35,7 +36,8 @@
 .profile {
   width: 3rem;
   height: 3rem;
-  margin: 0.2em;
+  margin: 0.2rem;
+  margin-right: 1rem;
   margin-right: 0.5rem;
   border-radius: 2rem;
   cursor: pointer;
