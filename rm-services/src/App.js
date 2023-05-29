@@ -9,7 +9,7 @@ import ProtectedRoutes from "./components/ProtectedRoutes";
 import ErrorPage from "./Pages/ErrorPage";
 import EmergencyPage from "./Pages/EmergencyPage";
 import JoinPage from "./Pages/JoinPage";
-
+import DriverDetails from "./Pages/DriverDetails";
 
 const App = () => {
   return (
@@ -25,6 +25,7 @@ const App = () => {
             <Route path='/rides'  element={<ProtectedRoutes> <Rides/> </ProtectedRoutes>} />
 
             <Route path='/emergency'  element={<ProtectedRoutes> <EmergencyPage/> </ProtectedRoutes>} />
+            <Route path='/driver'  element={<DriverDetails/>} />
 
             <Route path='/join'  element={<ProtectedRoutes> <JoinPage/> </ProtectedRoutes>} />
             
