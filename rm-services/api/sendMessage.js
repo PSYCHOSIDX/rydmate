@@ -10,7 +10,7 @@
 
     client.messages.create({
         from: process.env.REACT_APP_TWILIO_PH,
-        to: req.body.emegerncyList,
+        to: req.body.to,
         body: req.body.body,
       })
       .then(() => {
