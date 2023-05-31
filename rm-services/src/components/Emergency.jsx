@@ -38,12 +38,15 @@ const onSubmit = async (e) => {
   await e.preventDefault();
 
   const res = await fetch("../../api/sendMessage", {
+    
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ to: {emegerncyList} , body: 'RydMate Emergency Alert Needs Your Help ' }),
-  });
+   
+  }
+   );
 
   const data = await res.json();
 
@@ -54,6 +57,8 @@ const onSubmit = async (e) => {
     await setNumber("An Error has occurred.");
     await setBody("An Error has occurred.");
   }
+
+  console.log(emegerncyList)
 };
 
 
