@@ -132,7 +132,7 @@ function LaunchEmergency() {
           <Button variant="secondary" onClick={handleClose}>
             Cancel
           </Button>
-          <Button variant="danger" onClick={ workTwilio }>
+          <Button variant="danger" onClick={ workTwilio && handleClose}>
             Raise Emergency
           </Button>
         </Modal.Footer>
