@@ -19,7 +19,6 @@ const Emergency = () => {
   const[number, setNumber] = useState();
   const [body, setBody] = useState();
   let emegerncyList = [];
-//    })
 
   const [lat, setLat] = useState('');
   const [long, setLong] = useState('');
