@@ -1,10 +1,13 @@
-import React, {useEffect,useState} from 'react'
-import '../components/component-styles/emergency.css'
-import EContacts from './AddEmergencyContacts'
-import { UserAuth } from '../context/UserAuthContext'
+import React, {useEffect,useState,Component} from 'react';
+import '../components/component-styles/emergency.css';
+import EContacts from './AddEmergencyContacts';
+import { UserAuth } from '../context/UserAuthContext';
 import { db } from '../firebaseConfig';
-import { getDocs,collection, deleteDoc, query, where} from 'firebase/firestore'
-import {Button} from 'react-bootstrap'
+import { getDocs,collection, deleteDoc, query, where} from 'firebase/firestore';
+import {Button} from 'react-bootstrap';
+import {render} from 'react-dom';
+
+
 
 
 
@@ -16,23 +19,31 @@ const Emergency = () => {
   const[number, setNumber] = useState();
   const [body, setBody] = useState();
   let emegerncyList = [];
-  
-// const accountSid = process.env.REACT_APP_ACCOUNT_SID;
-// const authToken = process.env.REACT_APP_AUTH_TOKEN;
-// const client = require('twilio')(accountSid, authToken);
-
-// const handleClick = async () => {
-//   client.messages
-//   .create({
-//      body: 'This is the ship that made the Kessel Run in fourteen parsecs?',
-//      from: '+15017122661',
-//      to: '+15558675310'
 //    })
-//   .then(message => console.log(message.sid));;
-  
-// }
 
- 
+  const [lat, setLat] = useState('');
+  const [long, setLong] = useState('');
+
+  async function getCurrentLiveLocation() {
+    return new Promise((resolve, reject) => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          position => {
+            const { latitude, longitude } = position.coords;
+            resolve({ latitude, longitude });
+            setLat(latitude);
+            setLong(longitude);
+          },
+          error => {
+            reject(error);
+          }
+        );
+      } else {
+        reject(new Error("Geolocation is not supported by this browser."));
+      }
+    });
+  }
+
 const onSubmit = async (e) => {
   console.log('triggered');
   await e.preventDefault();
@@ -43,12 +54,13 @@ const onSubmit = async (e) => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ to: emegerncyList , body: ' RydMate Emergency Alert \n'+ user.displayName +'with email id '+user.email+'\n Needs Your Help , please inform your nearest police station' }),
+    body: JSON.stringify({ to: emegerncyList , body: ' RydMate Emergency Alert \n'+ user.displayName +' with email id '+user.email+'\nNeeds Your Help , please inform your nearest police station\n User Last Live Co-ordinates are : Latitude :'+lat+' Longitude :' +long }),
    
   }
    );
 
   const data = await res.json();
+ 
 
   if (data.success) {
     await setNumber("");
@@ -63,6 +75,7 @@ const onSubmit = async (e) => {
 
 
   useEffect(() => {
+    getCurrentLiveLocation();
     const fetchData = async () => {
       const emergencyCollection = collection(db, `users/${userId}/emergency`);
       const emergencySnapshot = await getDocs(emergencyCollection);
@@ -89,6 +102,7 @@ const onSubmit = async (e) => {
   useEffect(()=>{
     emergencies.map(emergency=>(
       emegerncyList.push('+91'+emergency.emergencyPhoneNo))
+      
       )
   },[emergencies,emegerncyList])
  
@@ -135,7 +149,7 @@ const onSubmit = async (e) => {
        
         <EContacts/>
 
-        <Button  id='align' onClick={onSubmit}>
+        <Button  id='align' onClick={ onSubmit}>
         <b >⚠</b> Raise Emergency
         </Button>
        
