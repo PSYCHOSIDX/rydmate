@@ -122,7 +122,7 @@ function LaunchEmergency() {
         <b > ⚠ </b> Raise Emergency
         </Button>
 
-      <Modal size="lg" show={showx} onHide={handleClose} animation={false}>
+      <Modal size="lg" show={showx} onHide={handleClose} animation={true} centered>
         <Modal.Header closeButton>
           <Modal.Title>Emergency Confirmation </Modal.Title>
         </Modal.Header>
