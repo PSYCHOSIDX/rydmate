@@ -1,17 +1,17 @@
 import React from 'react'
-import Driver from '../components/Driver'
+import RiderInfo from '../components/RiderInfo'
 import NavbarLogout from '../components/NavbarLogout'
 import Footer from '../components/Footer'
 
-const DriverDetails = () => {
+const Rider = () => {
   return (
     <>
     <NavbarLogout/>
-    <Driver/>
+    <RiderInfo/>
     {/* <Footer/> */}
     </>
         
   )
 }
 
-export default DriverDetails
+export default Rider
