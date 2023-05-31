@@ -90,7 +90,7 @@ const onSubmit = async (e) => {
     emergencies.map(emergency=>(
       emegerncyList.push('+91'+emergency.emergencyPhoneNo))
       )
-  },[])
+  },[emergencies,emegerncyList])
  
 
 
