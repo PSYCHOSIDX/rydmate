@@ -74,7 +74,7 @@ const workTwilio = async (e) => {
 
 
   useEffect(() => {
-    setTimeout(getCurrentLiveLocation, 8000);
+    setTimeout(getCurrentLiveLocation, 5000);
     
     const fetchData = async () => {
       const emergencyCollection = collection(db, `users/${userId}/emergency`);
@@ -132,7 +132,7 @@ function LaunchEmergency() {
           <Button variant="secondary" onClick={handleClose}>
             Cancel
           </Button>
-          <Button variant="danger" onClick={ workTwilio && handleClose }>
+          <Button variant="danger" onClick={ workTwilio }>
             Raise Emergency
           </Button>
         </Modal.Footer>
