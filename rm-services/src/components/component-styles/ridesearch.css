@@ -180,11 +180,11 @@
   font-size: 1rem;
 }
 .card-results .ride-card #dis {
-  color: #00AEAE;
+  color: #00FFA3;
   font-size: 0.8rem;
 }
 .card-results .ride-card .line {
-  background-color: #00AEAE;
+  background-color: #00FFA3;
   height: 0.1rem;
 }
 .card-results .ride-card #name {
@@ -199,7 +199,7 @@
   font-weight: bold;
 }
 .card-results .ride-card #type {
-  color: #00AEAE;
+  color: #00FFA3;
   font-family: "Poppins", sans-serif;
   font-size: 1rem;
   font-weight: bold;
@@ -212,7 +212,7 @@
   font-size: 0.8rem;
 }
 .card-results .ride-card #realcost {
-  color: #00AEAE;
+  color: #00FFA3;
   font-weight: bolder;
   font-size: 1rem;
 }

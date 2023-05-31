@@ -9,7 +9,6 @@ $bluex:#000000;
     font-size: 1.1rem;
     margin-top: 1rem;
     margin-left: 0%;
-    margin-right: .5rem;
 }
 
 #modal-text{
@@ -115,6 +114,7 @@ $bluex:#000000;
     margin: .2rem;
     margin-left: 1rem;
     text-shadow: 1px 1px #ffffff6c;
+    margin-right: 1rem;
     &:active{
         background-color: rgb(165, 165, 165);
     }
@@ -179,6 +179,7 @@ $bluex:#000000;
         padding: .6rem 1rem;
         font-size: .8rem;
         display: none;
+        margin-left: -8%;
     }
     .container{
         width: 120%;

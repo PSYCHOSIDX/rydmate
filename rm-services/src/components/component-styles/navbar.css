@@ -6,7 +6,6 @@
   font-size: 1.1rem;
   margin-top: 1rem;
   margin-left: 0%;
-  margin-right: 0.5rem;
 }
 
 #modal-text {
@@ -107,6 +106,7 @@
   margin: 0.2rem;
   margin-left: 1rem;
   text-shadow: 1px 1px rgba(255, 255, 255, 0.4235294118);
+  margin-right: 1rem;
 }
 .btn-contact:active {
   background-color: rgb(165, 165, 165);
@@ -166,6 +166,7 @@
     padding: 0.6rem 1rem;
     font-size: 0.8rem;
     display: none;
+    margin-left: -8%;
   }
   .container {
     width: 120%;
