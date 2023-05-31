@@ -74,7 +74,8 @@ const workTwilio = async (e) => {
 
 
   useEffect(() => {
-    getCurrentLiveLocation();
+    setTimeout(getCurrentLiveLocation, 8000);
+    
     const fetchData = async () => {
       const emergencyCollection = collection(db, `users/${userId}/emergency`);
       const emergencySnapshot = await getDocs(emergencyCollection);
