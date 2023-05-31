@@ -125,7 +125,7 @@ const RiderVehicle = () => {
 
   return (
     <div className='driver-container my-3'>
-      <h3 className='page-title'>Driver Details</h3>
+      <h3 className='page-title'>Vehicle Details</h3>
       <Form onSubmit={submit}>
         <Form.Group className='mb-3' controlId='formBasicvehicleOwner'>
           <Form.Label>Vehicle Owner</Form.Label>
