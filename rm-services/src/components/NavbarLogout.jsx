@@ -134,6 +134,11 @@ function Profile({ name, ...props }) {
           <br/>
           <h4><b>Email</b></h4>
           <h5>{user.email}</h5>
+
+
+ <Link className='link' to='/'>
+              <Button as="input" id='update-button-x' type="button" value="Home"/> 
+          </Link>
           <Example/>
 
           <Link className='link' to='/emergency'>
