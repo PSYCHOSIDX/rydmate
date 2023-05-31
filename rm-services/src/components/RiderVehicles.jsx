@@ -73,11 +73,11 @@ const RiderVehicle = () => {
     e.preventDefault();
 
     try {
-      // Get the current user's UID
-      const currentUserUid = authContext.user ? authContext.user.uid : null;
+
+        const currentUserUid = authContext.user ? authContext.user.uid : null;
 
       if (currentUserUid) {
-        // Upload car image
+
         const carImageUrl = carImage
           ? await uploadFile(carImage, setCarUploadProgress)
           : null;
@@ -90,8 +90,8 @@ const RiderVehicle = () => {
       } else if (vehicleType === 'bike') {
         costPerKm = 3;
       }
-        // Create a new document in the "details" collection under "users"
-        await addDoc(collection(db, 'users', currentUserUid, 'riderprogram', currentUserUid,'vehicleinfo'), {
+
+      await addDoc(collection(db, 'users', currentUserUid, 'riderprogram', currentUserUid,'vehicleinfo'), {
           vehicleOwner,
           vehicleName,
           vehicleRegId,
@@ -103,7 +103,7 @@ const RiderVehicle = () => {
           verified_vehicle:false,
         });
 
-        // Reset the form fields
+
         setVehicleOwner('');
         setVehicleName('');
         setVehicleRegId('');
@@ -112,7 +112,6 @@ const RiderVehicle = () => {
         setVehicleCapacity('');
         setCarImage(null);
 
-        // Reset the progress bar
         setCarUploadProgress(0);
 
         console.log('Form submitted successfully!');
@@ -128,7 +127,6 @@ const RiderVehicle = () => {
     <div className='driver-container my-3'>
       <h3 className='page-title'>Driver Details</h3>
       <Form onSubmit={submit}>
-        {/* Form fields */}
         <Form.Group className='mb-3' controlId='formBasicvehicleOwner'>
           <Form.Label>Vehicle Owner</Form.Label>
           <Form.Control
@@ -195,7 +193,6 @@ const RiderVehicle = () => {
           />
         </Form.Group>
 
-        {/* Car Image */}
         <Form.Group className='mb-3'>
           <Form.Label>Car Image</Form.Label>
           <Form.Control type='file' onChange={handleCarImageChange} required/>

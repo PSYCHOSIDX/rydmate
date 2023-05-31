@@ -11,8 +11,10 @@ import {
   uploadBytesResumable,
   getDownloadURL,
 } from 'firebase/storage';
+import { useNavigate} from "react-router-dom";
 
 const RiderInfo = () => {
+  const navigate = useNavigate()
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -107,6 +109,7 @@ const RiderInfo = () => {
         setAadharUploadProgress(0);
 
         console.log('Form submitted successfully!');
+        navigate('/vehicleinfo')
       } else {
         console.error('User not found.');
       }
@@ -119,7 +122,7 @@ const RiderInfo = () => {
     <div className='driver-container my-3'>
       <h3 className='page-title'>Riders Details</h3>
       <Form onSubmit={submit}>
-        {/* Form fields */}
+
         <Form.Group className='mb-3' controlId='formBasicName'>
           <Form.Label>Name</Form.Label>
           <Form.Control
