@@ -1,4 +1,4 @@
-import React, {useEffect,useState,Component} from 'react';
+import React, {useEffect,useState} from 'react';
 import '../components/component-styles/emergency.css';
 import EContacts from './AddEmergencyContacts';
 import { UserAuth } from '../context/UserAuthContext';
@@ -6,7 +6,7 @@ import { db } from '../firebaseConfig';
 import { getDocs,collection, deleteDoc, query, where} from 'firebase/firestore';
 import {Button} from 'react-bootstrap';
 import {render} from 'react-dom';
-
+import { Modal } from 'react-bootstrap';
 
 
 
@@ -53,7 +53,7 @@ const onSubmit = async (e) => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ to: emegerncyList , body: ' RydMate Emergency Alert \n'+ user.displayName +' with email id '+user.email+'\nNeeds Your Help , please inform your nearest police station\n User Last Live Co-ordinates are : Latitude :'+lat+' Longitude :' +long }),
+    body: JSON.stringify({ to: emegerncyList , body: ' RydMate Emergency Alert \n'+ user.displayName +' with email id '+user.email+'\nNeeds Your Help , please inform your nearest police station\nUsers Last Live Co-ordinates are : \n Latitude : '+lat+'\n Longitude : ' +long }),
    
   }
    );
@@ -103,7 +103,43 @@ const onSubmit = async (e) => {
       emegerncyList.push('+91'+emergency.emergencyPhoneNo))
       
       )
-  },[emergencies,emegerncyList])
+  },[emergencies,emegerncyList]);
+
+  const [showx, setShow] = useState(false);
+  
+function LaunchEmergency() {
+
+  
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  return (
+    <>
+       
+
+      <Button  id='align' onClick={handleShow}>
+        <b > ⚠ </b> Raise Emergency
+        </Button>
+
+      <Modal size="lg" show={showx} onHide={handleClose} animation={false}>
+        <Modal.Header closeButton>
+          <Modal.Title>Emergency Confirmation </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure you want to raise an <b>Emergency Alert</b> ?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Cancel
+          </Button>
+          <Button variant="danger" onClick={ onSubmit && handleClose }>
+            Raise Emergency
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </>
+  );
+}
+
  
 
 
@@ -148,10 +184,8 @@ const onSubmit = async (e) => {
        
         <EContacts/>
 
-        <Button  id='align' onClick={ onSubmit}>
-        <b >⚠</b> Raise Emergency
-        </Button>
-       
+        
+       <LaunchEmergency/>
     </div>
      
     </>
