@@ -131,7 +131,7 @@ function LaunchEmergency() {
           <Button variant="secondary" onClick={handleClose}>
             Cancel
           </Button>
-          <Button variant="danger" onClick={ onSubmit && handleClose }>
+          <Button variant="danger" onClick={ onSubmit & handleClose }>
             Raise Emergency
           </Button>
         </Modal.Footer>
