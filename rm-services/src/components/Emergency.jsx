@@ -43,7 +43,7 @@ const onSubmit = async (e) => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ to: {emegerncyList} , body: 'RydMate Emergency Alert Needs Your Help ' }),
+    body: JSON.stringify({ to: emegerncyList , body: 'RydMate Emergency Alert Needs Your Help ' }),
    
   }
    );
