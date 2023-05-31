@@ -1,20 +1,7 @@
 
-  "import/no-anonymous-default-export" :
-   ["error", {
-    "allowArray": false,
-    "allowArrowFunction": false,
-    "allowAnonymousClass": false,
-    "allowAnonymousFunction": false,
-    "allowCallExpression": true, // The true value here is for backward compatibility
-    "allowNew": false,
-    "allowLiteral": false,
-    "allowObject": false
-  }]
-
-
   const client = require("twilio")(
     process.env.REACT_APP_ACCOUNT_SID,
-    process.env.REACT_APP_AUTH_TOKEN
+    process.env.REACT_APP_AUTH_TOKEN,
   );
   export default async (req, res) => 
   {
