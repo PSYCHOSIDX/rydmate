@@ -15,7 +15,7 @@ const Emergency = () => {
   const [emergencies, setEmergencies] = useState([]);
   const[number, setNumber] = useState();
   const [body, setBody] = useState();
-  //let emegerncyList = [];
+  let emegerncyList = [];
   
 // const accountSid = process.env.REACT_APP_ACCOUNT_SID;
 // const authToken = process.env.REACT_APP_AUTH_TOKEN;
@@ -42,7 +42,7 @@ const onSubmit = async (e) => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ to:'+917028193277' , body: 'hi from localhost' }),
+    body: JSON.stringify({ to: emegerncyList , body: 'RydMate Emergency Alert'+user.displayName +'Needs Your Help ' }),
   });
 
   const data = await res.json();
@@ -81,9 +81,12 @@ const onSubmit = async (e) => {
     alert('Emergency Contact Removed');
   }
 
-  // emergencies.map(emergency=>(
-  //   emegerncyList.push('+91'+emergency.emergencyPhoneNo))
-  //   )
+  useEffect(()=>{
+    emergencies.map(emergency=>(
+      emegerncyList.push('+91'+emergency.emergencyPhoneNo))
+      )
+  },[])
+ 
 
 
   

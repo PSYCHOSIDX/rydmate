@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route} from "react-router-dom";
+import { Routes, Route, redirect} from "react-router-dom";
 import Home from './Pages/Home'
 import Login from './Pages/Login'
 import SignUp from "./Pages/SignUp";
@@ -29,7 +29,8 @@ const App = () => {
 
             <Route path='/join'  element={<ProtectedRoutes> <JoinPage/> </ProtectedRoutes>} />
             
-            {/* <Route path='*'  element={<ErrorPage/>} /> */}
+            <Route path="/404"  element={<ErrorPage/>} />
+
 
             
         </Routes>
