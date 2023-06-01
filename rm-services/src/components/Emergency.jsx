@@ -70,7 +70,7 @@ const onSubmit = async (e) => {
 
 
   useEffect(() => {
-    setTimeout(getCurrentLiveLocation, 5000);
+    
     
     const fetchData = async () => {
       const emergencyCollection = collection(db, `users/${userId}/emergency`);
@@ -79,6 +79,8 @@ const onSubmit = async (e) => {
       setEmergencies(emergencyList);
     };
     fetchData();
+
+    setTimeout(getCurrentLiveLocation, 15000);
   });
 
 
