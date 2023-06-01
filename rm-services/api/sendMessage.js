@@ -3,6 +3,7 @@
     process.env.REACT_APP_ACCOUNT_SID,
     process.env.REACT_APP_AUTH_TOKEN,
   );
+
   export default async (req, res) => 
   {
     res.statusCode = 200;
@@ -11,7 +12,7 @@
     client.messages.create({
         from: process.env.REACT_APP_TWILIO_PH,
         to: req.body.to,
-        body: req.body.body,
+        body: req.body.body
       })
       .then(() => {
         res.send(JSON.stringify({ success: true }));
