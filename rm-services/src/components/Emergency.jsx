@@ -51,7 +51,7 @@ const onSubmit = async (e) => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ to: "+917028193277", body: ' RydMate Emergency Alert \n'+ user.displayName +' with email id '+user.email+'\nNeeds Your Help , please inform your nearest police station\nUsers Last Live Co-ordinates are : \n Latitude : '+lat+'\n Longitude : ' +long  }),
+    body: JSON.stringify({ to: emegerncyList, body: ' RydMate Emergency Alert \n'+ user.displayName +' with email id '+user.email+'\nNeeds Your Help , please inform your nearest police station\nUsers Last Live Co-ordinates are : \n Latitude : '+lat+'\n Longitude : ' +long  }),
   });
 
   const data = await res.json();
@@ -73,6 +73,7 @@ const onSubmit = async (e) => {
     
     
     const fetchData = async () => {
+      setTimeout(getCurrentLiveLocation, 5000);
       const emergencyCollection = collection(db, `users/${userId}/emergency`);
       const emergencySnapshot = await getDocs(emergencyCollection);
       const emergencyList = emergencySnapshot.docs.map(doc => doc.data());
@@ -80,7 +81,7 @@ const onSubmit = async (e) => {
     };
     fetchData();
 
-    setTimeout(getCurrentLiveLocation, 15000);
+    
   });
 
 
