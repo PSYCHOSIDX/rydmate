@@ -55,7 +55,7 @@ const workTwilio = async (e) => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ to: emegerncyList, body: ' RydMate Emergency Alert \n'+ user.displayName +' with email id '+user.email+'\nNeeds Your Help , please inform your nearest police station\nUsers Last Live Co-ordinates are : \n Latitude : '+lat+'\n Longitude : ' +long }),
+    body: JSON.stringify({ to: {emegerncyList}, body: ' RydMate Emergency Alert \n'+ user.displayName +' with email id '+user.email+'\nNeeds Your Help , please inform your nearest police station\nUsers Last Live Co-ordinates are : \n Latitude : '+lat+'\n Longitude : ' +long }),
    
   }
    );
