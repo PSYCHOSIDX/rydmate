@@ -5,7 +5,6 @@ import { UserAuth } from '../context/UserAuthContext';
 import { db } from '../firebaseConfig';
 import { getDocs,collection, deleteDoc, query, where} from 'firebase/firestore';
 import {Button} from 'react-bootstrap';
-import {render} from 'react-dom';
 import { Modal } from 'react-bootstrap';
 
 
@@ -43,7 +42,7 @@ const Emergency = () => {
     });
   }
 
-const workTwilio = async (e) => {
+const onSubmit = async (e) => {
   console.log('triggered');
   
   console.log(emegerncyList);
@@ -56,7 +55,6 @@ const workTwilio = async (e) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ to:'+919011672956', body: ' RydMate Emergency Alert \n'+ user.displayName +' with email id '+user.email+'\nNeeds Your Help , please inform your nearest police station\nUsers Last Live Co-ordinates are : \n Latitude : '+lat+'\n Longitude : ' +long }),
-   
   }
    );
 
@@ -134,7 +132,7 @@ function LaunchEmergency() {
             Cancel
           </Button>
 
-          <Button variant="danger" onClick={workTwilio}>
+          <Button variant="danger" onClick={onSubmit}>
             Raise Emergency
           </Button>
           
