@@ -1,52 +1,74 @@
-import React, { useState } from 'react';
-import '../components/component-styles/driverpage.css';
+import React, { useState, useEffect, useRef } from 'react';
+import './component-styles/ridesearch.css';
+import { useJsApiLoader, Autocomplete } from '@react-google-maps/api';
+import { db } from '../firebaseConfig';
+import { addDoc, collection, doc, getDocs, collectionGroup } from 'firebase/firestore';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { UserAuth } from '../context/UserAuthContext';
-import { collection, addDoc } from 'firebase/firestore';
-import { db } from '../firebaseConfig';
 
 const Ride = () => {
   const [source, setSource] = useState('');
   const [destination, setDestination] = useState('');
   const [timestamp, setTimestamp] = useState('');
   const [vehicleCapacity, setVehicleCapacity] = useState('');
-
-
+  const [riderName, setRiderName] = useState('');
   const authContext = UserAuth();
 
+  useEffect(() => {
+    const fetchRiderName = async () => {
+        const currentUserUid = authContext.user ? authContext.user.uid : null;
+
+        try {
+            const riderInfoCollectionRef = collectionGroup(db, 'riderinfo');
+            const querySnapshot = await getDocs(riderInfoCollectionRef);
+      
+            querySnapshot.forEach((doc) => {
+              if (doc.ref.path.includes(`users/${currentUserUid}/riderprogram`)) {
+                const riderInfoData = doc.data();
+                const riderName = riderInfoData.name;
+                setRiderName(riderName);
+                console.log(riderName)
+              }
+            });
+          } catch (error) {
+            console.error('Error fetching rider name:', error);
+          }
+        };
+    fetchRiderName();
+  }, [authContext.user]);
+
+  const { isLoaded } = useJsApiLoader({
+    googleMapsApiKey: process.env.REACT_APP_GMAPS_KEY,
+    libraries: ['places'],
+  });
+
+  const originRef = useRef();
+  const destinationRef = useRef();
+
+  if (!isLoaded) {
+    return <p style={{ textAlign: 'center' }}> Loading... </p>;
+  }
+  
   const submit = async (e) => {
     e.preventDefault();
-
     try {
-      // Get the current user's UID
       const currentUserUid = authContext.user ? authContext.user.uid : null;
 
       if (currentUserUid) {
-        // Create a new ride object
         const ride = {
           start_loc: source,
           end_loc: destination,
           departure_time: timestamp,
           createdAt: new Date(),
-          rider_name: authContext.user.displayName,
-          ride_status:"active",
-          seats:vehicleCapacity,
-
-          // ride_id:2,
-          // cost_per_seat:100,
-          // toal_cost:400,
-          // total_distance:67,
-          // user_id:1,
-          // vnumber:"GA 01 M 2345",
-          // vtype:"SUV"
-
+          rider_name: riderName,
+          ride_status: 'active',
+          seats: vehicleCapacity,
+          user_id: authContext.user.uid,
         };
 
-        // Save the ride object in Firestore
         const rideRef = await addDoc(collection(db, 'rides'), ride);
 
-        // Reset the form fields
         setSource('');
         setDestination('');
         setTimestamp('');
@@ -63,61 +85,71 @@ const Ride = () => {
   };
 
   return (
-    <div className='driver-container my-3'>
-      <h3 className='page-title'>Post A Ride</h3>
-      <Form onSubmit={submit}>
-        {/* Source */}
-        <Form.Group className='mb-3'>
-          <Form.Label>Source</Form.Label>
-          <Form.Control
-            type='text'
-            value={source}
-            onChange={(e) => setSource(e.target.value)}
-            placeholder='📍From'
-            required
-          />
-        </Form.Group>
-
-        {/* Destination */}
-        <Form.Group className='mb-3'>
-          <Form.Label>Destination</Form.Label>
-          <Form.Control
-            type='text'
-            value={destination}
-            onChange={(e) => setDestination(e.target.value)}
-            placeholder='📍To'
-            required
-          />
-        </Form.Group>
-
-        {/* Timestamp */}
-        <Form.Group className='mb-3'>
-          <Form.Label>departure time</Form.Label>
-          <Form.Control
-            type='datetime-local'
-            value={timestamp}
-            onChange={(e) => setTimestamp(e.target.value)}
-            required
-          />
-        </Form.Group>
-        <Form.Group className='mb-3'>
-    <Form.Label>Vehicle Capacity</Form.Label>
-    <Form.Control
-      type='text'
-      value={vehicleCapacity}
-      onChange={(e) => setVehicleCapacity(e.target.value)}
-      placeholder='Enter seats available'
-      pattern="[0-9]+"
-      title="Vehicle capacity should be a valid number"
-      required
-    />
-  </Form.Group>
-
-        <Button size='lg' variant='success' className='driver-btn' type='submit'>
-          Post Ride
-        </Button>
-      </Form>
-    </div>
+    <>
+      <div className='driver-container my-3'>
+        <h3 className='page-title'>Post A Ride</h3>
+        <Form onSubmit={submit}>
+          <Form.Group className='mb-3'>
+            <Form.Label>Source</Form.Label>
+            <Autocomplete
+              className='auto'
+              options={{
+                componentRestrictions: { country: 'ind' },
+              }}
+            >
+              <input
+                type='text'
+                placeholder='📍From'
+                className='phold'
+                ref={originRef}
+                onChange={(e) => setSource(e.target.value)}
+              />
+            </Autocomplete>
+          </Form.Group>
+          <Form.Group className='mb-3'>
+            <Form.Label>Destination</Form.Label>
+            <Autocomplete
+              className='auto'
+              options={{
+                componentRestrictions: { country: 'ind' },
+              }}
+            >
+              <input
+                type='text'
+                placeholder='📍To'
+                className='phold'
+                ref={destinationRef}
+                onChange={(e) => setDestination(e.target.value)}
+              />
+            </Autocomplete>
+          </Form.Group>
+          <Form.Group className='mb-3'>
+            <Form.Label>Vehicle Capacity</Form.Label>
+            <Form.Control
+              type='number'
+              min='1'
+              max='9'
+              value={vehicleCapacity}
+              onChange={(e) => setVehicleCapacity(e.target.value)}
+              placeholder='Enter vehicle capacity'
+              required
+            />
+          </Form.Group>
+          <Form.Group className='mb-3'>
+            <Form.Label>Timestamp</Form.Label>
+            <Form.Control
+              type='datetime-local'
+              value={timestamp}
+              onChange={(e) => setTimestamp(e.target.value)}
+              required
+            />
+          </Form.Group>
+          <Button size='lg' variant='success' className='driver-btn' type='submit'>
+            Post Ride
+          </Button>
+        </Form>
+      </div>
+    </>
   );
 };
 
