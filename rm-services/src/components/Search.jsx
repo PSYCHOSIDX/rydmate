@@ -35,7 +35,7 @@ const Search = () => {
                 <div className="search-card">
                   <h1> Register In <br/>Rider Program</h1>
                   <h4>Join our program to offer rides</h4>
-                  <Link className='link' to='/riderprogram'>
+                  <Link className='link' to='/join'>
                   <button className='go-btn'> Go </button>
                   </Link>
                 </div>
