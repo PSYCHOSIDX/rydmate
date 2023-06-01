@@ -1,17 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../components/component-styles/driverpage.css';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import { UserAuth } from '../context/UserAuthContext';
-import { addDoc, collection } from 'firebase/firestore';
+import { addDoc, collection, getDocs, updateDoc } from 'firebase/firestore';
 import { storage, db } from '../firebaseConfig';
 import {
   ref,
   uploadBytesResumable,
   getDownloadURL,
 } from 'firebase/storage';
+
 import { useNavigate} from "react-router-dom";
+
 
 const RiderInfo = () => {
   const navigate = useNavigate()
@@ -70,12 +72,47 @@ const RiderInfo = () => {
   };
 
   const authContext = UserAuth();
+  const currentUserUid = authContext.user ? authContext.user.uid : null;
+
+  useEffect(() => {
+    const fetchRiderInfo = async () => {
+      try {
+        if (currentUserUid) {
+          const riderInfoCollectionRef = collection(
+            db,
+            'users',
+            currentUserUid,
+            'riderprogram',
+            currentUserUid,
+            'riderinfo'
+          );
+          const riderInfoSnapshot = await getDocs(riderInfoCollectionRef);
+
+          if (!riderInfoSnapshot.empty) {
+            const riderInfoData = riderInfoSnapshot.docs[0].data();
+            setName(riderInfoData.name);
+            setEmail(riderInfoData.email);
+            setPhoneNumber(riderInfoData.phoneNumber);
+            setAadharNumber(riderInfoData.aadharNumber);
+            setLicenseNumber(riderInfoData.licenseNumber);
+            setLicenseImage(riderInfoData.licenseImageUrl);
+            setAadharImage(riderInfoData.aadharImageUrl);
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching rider info:', error);
+      }
+    };
+
+    fetchRiderInfo();
+  }, [currentUserUid]);
+
 
   const submit = async (e) => {
     e.preventDefault();
 
     try {
-      const currentUserUid = authContext.user ? authContext.user.uid : null;
+      // const currentUserUid = authContext.user ? authContext.user.uid : null;
 
       if (currentUserUid) {
         const licenseImageUrl = licenseImage
@@ -86,17 +123,34 @@ const RiderInfo = () => {
           : null;
 
           const riderInfoCollectionRef = collection(db, 'users', currentUserUid, 'riderprogram',currentUserUid, 'riderinfo');
+          const riderInfoSnapshot = await getDocs(riderInfoCollectionRef);
 
-          await addDoc(riderInfoCollectionRef, {
-            name,
-            email,
-            phoneNumber,
-            aadharNumber,
-            licenseNumber,
-            licenseImageUrl,
-            aadharImageUrl,
-            verified_rider: false,
-          });
+          if (riderInfoSnapshot.empty) {
+            await addDoc(riderInfoCollectionRef, {
+              name,
+              email,
+              phoneNumber,
+              aadharNumber,
+              licenseNumber,
+              licenseImageUrl,
+              aadharImageUrl,
+              verified_rider: false,
+            });
+          } else {
+
+            const riderInfoDocRef = riderInfoSnapshot.docs[0].ref;
+            await updateDoc(riderInfoDocRef, {
+              name,
+              email,
+              phoneNumber,
+              aadharNumber,
+              licenseNumber,
+              licenseImageUrl,
+              aadharImageUrl,
+              verified_rider: false,
+            });
+          }
+          
 
         setName('');
         setEmail('');
@@ -122,7 +176,6 @@ const RiderInfo = () => {
     <div className='driver-container my-3'>
       <h3 className='page-title'>Riders Details</h3>
       <Form onSubmit={submit}>
-
         <Form.Group className='mb-3' controlId='formBasicName'>
           <Form.Label>Name</Form.Label>
           <Form.Control
