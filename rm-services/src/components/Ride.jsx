@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import './component-styles/ridesearch.css';
 import { useJsApiLoader, Autocomplete } from '@react-google-maps/api';
 import { db } from '../firebaseConfig';
-import { addDoc, collection, doc, getDocs, collectionGroup } from 'firebase/firestore';
+import { addDoc, collection, getDocs, updateDoc, doc } from 'firebase/firestore';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { UserAuth } from '../context/UserAuthContext';
@@ -13,30 +13,49 @@ const Ride = () => {
   const [timestamp, setTimestamp] = useState('');
   const [vehicleCapacity, setVehicleCapacity] = useState('');
   const [riderName, setRiderName] = useState('');
+  const [vehicleOptions, setVehicleOptions] = useState([]);
+  const [selectedVehicle, setSelectedVehicle] = useState('');
   const authContext = UserAuth();
+  const currentUserUid = authContext.user ? authContext.user.uid : null;
 
   useEffect(() => {
     const fetchRiderName = async () => {
-        const currentUserUid = authContext.user ? authContext.user.uid : null;
+      try {
+        const riderInfoCollectionRef = collection(db, 'users', currentUserUid, 'riderprogram', currentUserUid, 'riderinfo');
+        const riderInfoSnapshot = await getDocs(riderInfoCollectionRef);
 
-        try {
-            const riderInfoCollectionRef = collectionGroup(db, 'riderinfo');
-            const querySnapshot = await getDocs(riderInfoCollectionRef);
-      
-            querySnapshot.forEach((doc) => {
-              if (doc.ref.path.includes(`users/${currentUserUid}/riderprogram`)) {
-                const riderInfoData = doc.data();
-                const riderName = riderInfoData.name;
-                setRiderName(riderName);
-                console.log(riderName)
-              }
-            });
-          } catch (error) {
-            console.error('Error fetching rider name:', error);
-          }
-        };
+        if (!riderInfoSnapshot.empty) {
+          const riderInfoData = riderInfoSnapshot.docs[0].data();
+          const riderName = riderInfoData.name;
+          setRiderName(riderName);
+        }
+      } catch (error) {
+        console.error('Error fetching rider name:', error);
+      }
+    };
+
     fetchRiderName();
-  }, [authContext.user]);
+  }, [currentUserUid]);
+
+  useEffect(() => {
+    const fetchVerifiedVehicles = async () => {
+      try {
+        const vehiclesInfoCollectionRef = collection(db,'users', currentUserUid, 'riderprogram', currentUserUid,  'vehicleinfo');
+        const querySnapshot = await getDocs(vehiclesInfoCollectionRef);
+        if (!querySnapshot.empty) {
+          const verifiedVehicles = querySnapshot.docs
+            .filter((doc) => doc.data().verified_vehicle === true)
+            .map((doc) => doc.data());
+
+          setVehicleOptions(verifiedVehicles);
+        }
+      } catch (error) {
+        console.error('Error fetching verified vehicles:', error);
+      }
+    };
+
+    fetchVerifiedVehicles();
+  }, [currentUserUid]);
 
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: process.env.REACT_APP_GMAPS_KEY,
@@ -49,13 +68,23 @@ const Ride = () => {
   if (!isLoaded) {
     return <p style={{ textAlign: 'center' }}> Loading... </p>;
   }
-  
+
   const submit = async (e) => {
     e.preventDefault();
     try {
       const currentUserUid = authContext.user ? authContext.user.uid : null;
 
-      if (currentUserUid) {
+      if (currentUserUid && selectedVehicle) {
+        const maxcap= selectedVehicle.vehicleCapacity;
+        const capacity = parseInt(vehicleCapacity, 10);
+
+        // console.log(maxcap)
+        // console.log(capacity)
+
+        if (isNaN(capacity) || capacity > maxcap) {
+          console.error('Invalid capacity entered.');
+          return;
+        }
         const ride = {
           start_loc: source,
           end_loc: destination,
@@ -64,20 +93,28 @@ const Ride = () => {
           rider_name: riderName,
           ride_status: 'active',
           seats: vehicleCapacity,
+          vehicle_name: selectedVehicle.vehicleName,
+          vehicle_number: selectedVehicle.vehicleNumber,
+          vehicle_type: selectedVehicle.vehicleType,
           user_id: authContext.user.uid,
         };
 
         const rideRef = await addDoc(collection(db, 'rides'), ride);
+        const rideId = rideRef.id;
+
+      await updateDoc(doc(db, 'rides', rideId), { ride_id: rideId });
+
 
         setSource('');
         setDestination('');
         setTimestamp('');
         setVehicleCapacity('');
+        setSelectedVehicle('');
 
         console.log('Ride posted successfully!');
         console.log('Ride ID:', rideRef.id);
       } else {
-        console.error('User not found.');
+        console.error('User not found or no vehicle selected.');
       }
     } catch (error) {
       console.error('Error posting ride:', error);
@@ -144,6 +181,17 @@ const Ride = () => {
               required
             />
           </Form.Group>
+          <Form.Group className='mb-3'>
+            <Form.Label>Vehicle Name</Form.Label>
+            <Form.Control as='select' required onChange={(e) => setSelectedVehicle(vehicleOptions[e.target.selectedIndex - 1])}>
+              <option value=''>Select a vehicle</option>
+              {vehicleOptions.map((option, index) => (
+                <option key={index} value={option.vehicleName}>
+                  {option.vehicleName}
+                </option>
+              ))}
+            </Form.Control>
+          </Form.Group>
           <Button size='lg' variant='success' className='driver-btn' type='submit'>
             Post Ride
           </Button>
@@ -154,3 +202,5 @@ const Ride = () => {
 };
 
 export default Ride;
+
+
