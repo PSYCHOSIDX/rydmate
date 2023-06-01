@@ -97,6 +97,7 @@ const Ride = () => {
           vehicle_number: selectedVehicle.vehicleNumber,
           vehicle_type: selectedVehicle.vehicleType,
           user_id: authContext.user.uid,
+          ride_otp: 4444,
         };
 
         const rideRef = await addDoc(collection(db, 'rides'), ride);
@@ -129,7 +130,6 @@ const Ride = () => {
           <Form.Group className='mb-3'>
             <Form.Label>Source</Form.Label>
             <Autocomplete
-              className='auto'
               options={{
                 componentRestrictions: { country: 'ind' },
               }}
@@ -137,7 +137,7 @@ const Ride = () => {
               <input
                 type='text'
                 placeholder='📍From'
-                className='phold'
+                className='form-control'
                 ref={originRef}
                 onChange={(e) => setSource(e.target.value)}
               />
@@ -146,7 +146,6 @@ const Ride = () => {
           <Form.Group className='mb-3'>
             <Form.Label>Destination</Form.Label>
             <Autocomplete
-              className='auto'
               options={{
                 componentRestrictions: { country: 'ind' },
               }}
@@ -154,7 +153,7 @@ const Ride = () => {
               <input
                 type='text'
                 placeholder='📍To'
-                className='phold'
+                className='form-control'
                 ref={destinationRef}
                 onChange={(e) => setDestination(e.target.value)}
               />
