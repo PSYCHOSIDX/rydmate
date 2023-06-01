@@ -95,8 +95,8 @@ const RiderInfo = () => {
             setPhoneNumber(riderInfoData.phoneNumber);
             setAadharNumber(riderInfoData.aadharNumber);
             setLicenseNumber(riderInfoData.licenseNumber);
-            setLicenseImage(riderInfoData.licenseImageUrl);
-            setAadharImage(riderInfoData.aadharImageUrl);
+            // setLicenseImage(riderInfoData.licenseImageUrl);
+            // setAadharImage(riderInfoData.aadharImageUrl);
           }
         }
       } catch (error) {
@@ -236,13 +236,13 @@ const RiderInfo = () => {
 
         <Form.Group className='mb-3'>
           <Form.Label>Driver's License Image</Form.Label>
-          <Form.Control type='file' onChange={handleLicenseImageChange} />
+          <Form.Control type='file' onChange={handleLicenseImageChange} required />
         </Form.Group>
         <ProgressBar now={licenseUploadProgress} label={`${licenseUploadProgress}%`} />
 
         <Form.Group className='mb-3'>
           <Form.Label>Aadhar Card Image</Form.Label>
-          <Form.Control type='file' onChange={handleAadharImageChange} />
+          <Form.Control type='file' onChange={handleAadharImageChange} required />
         </Form.Group>
         <ProgressBar now={aadharUploadProgress} label={`${aadharUploadProgress}%`} />
 
