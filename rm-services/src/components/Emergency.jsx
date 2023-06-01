@@ -44,8 +44,6 @@ const Emergency = () => {
 
 const onSubmit = async (e) => {
   console.log('triggered');
-  
-  console.log(emegerncyList);
   await e.preventDefault();
 
   const res = await fetch("../../api/sendMessage", {
@@ -53,11 +51,10 @@ const onSubmit = async (e) => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ to: "+917028193277,7028193277", body: ' RydMate Emergency Alert \n'+ user.displayName +' with email id '+user.email+'\nNeeds Your Help , please inform your nearest police station\nUsers Last Live Co-ordinates are : \n Latitude : '+lat+'\n Longitude : ' +long  }),
+    body: JSON.stringify({ to: "+917028193277", body: 'hi '}),
   });
 
   const data = await res.json();
- 
 
   if (data.success) {
     await setNumber("");
@@ -67,6 +64,8 @@ const onSubmit = async (e) => {
     await setBody("An Error has occurred.");
   }
 
+  
+  console.log(emegerncyList);
 };
 
 
