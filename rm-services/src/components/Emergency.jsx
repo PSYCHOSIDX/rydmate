@@ -45,6 +45,8 @@ const Emergency = () => {
 
 const workTwilio = async (e) => {
   console.log('triggered');
+  
+  console.log(emegerncyList);
   await e.preventDefault();
 
   const res = await fetch("../../api/sendMessage", {
@@ -69,7 +71,6 @@ const workTwilio = async (e) => {
     await setBody("An Error has occurred.");
   }
 
-  console.log(emegerncyList)
 };
 
 
@@ -132,9 +133,11 @@ function LaunchEmergency() {
           <Button variant="secondary" onClick={handleClose}>
             Cancel
           </Button>
+
           <Button variant="danger" onClick={workTwilio}>
             Raise Emergency
           </Button>
+          
         </Modal.Footer>
       </Modal>
     </>
