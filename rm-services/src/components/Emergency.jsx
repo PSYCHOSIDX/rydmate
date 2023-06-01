@@ -53,7 +53,7 @@ const onSubmit = async (e) => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ to: "+919011672956", body: ' RydMate Emergency Alert \n'+ user.displayName +' with email id '+user.email+'\nNeeds Your Help , please inform your nearest police station\nUsers Last Live Co-ordinates are : \n Latitude : '+lat+'\n Longitude : ' +long , }),
+    body: JSON.stringify({ to: "+919011672956, 7028193277", body: ' RydMate Emergency Alert \n'+ user.displayName +' with email id '+user.email+'\nNeeds Your Help , please inform your nearest police station\nUsers Last Live Co-ordinates are : \n Latitude : '+lat+'\n Longitude : ' +long , }),
   });
 
   const data = await res.json();
