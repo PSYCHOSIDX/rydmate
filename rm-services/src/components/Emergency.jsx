@@ -132,7 +132,7 @@ function LaunchEmergency() {
             Cancel
           </Button>
 
-          <Button variant="danger" onClick={()=> {onSubmit() && handleClose() } }>
+          <Button variant="danger" onClick={onSubmit}>
             Raise Emergency
           </Button>
           
