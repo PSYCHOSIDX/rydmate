@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import './component-styles/ridesearch.css';
 import { useJsApiLoader, Autocomplete } from '@react-google-maps/api';
 import { db } from '../firebaseConfig';
 import { addDoc, collection, getDocs, updateDoc, doc } from 'firebase/firestore';
@@ -15,6 +14,9 @@ const Ride = () => {
   const [riderName, setRiderName] = useState('');
   const [vehicleOptions, setVehicleOptions] = useState([]);
   const [selectedVehicle, setSelectedVehicle] = useState('');
+
+  const [showForm, setShowForm] = useState(false);
+
   const authContext = UserAuth();
   const currentUserUid = authContext.user ? authContext.user.uid : null;
 
@@ -27,7 +29,11 @@ const Ride = () => {
         if (!riderInfoSnapshot.empty) {
           const riderInfoData = riderInfoSnapshot.docs[0].data();
           const riderName = riderInfoData.name;
+          const verified = riderInfoData.verified_rider;
+
           setRiderName(riderName);
+          setShowForm(verified);
+          console.log(verified)
         }
       } catch (error) {
         console.error('Error fetching rider name:', error);
@@ -121,7 +127,9 @@ const Ride = () => {
       console.error('Error posting ride:', error);
     }
   };
-
+  if (!showForm) {
+    return null; // Render nothing if the form should not be shown
+  }
   return (
     <>
       <div className='driver-container my-3'>
@@ -135,6 +143,7 @@ const Ride = () => {
               }}
             >
               <input
+              
                 type='text'
                 placeholder='📍From'
                 className='form-control'
@@ -160,6 +169,25 @@ const Ride = () => {
             </Autocomplete>
           </Form.Group>
           <Form.Group className='mb-3'>
+  <Form.Label>Vehicle Name</Form.Label>
+  <Form.Control
+    as='select'
+    required
+    onChange={(e) => setSelectedVehicle(vehicleOptions[e.target.selectedIndex - 1])}
+  >
+    <option value=''>Select a vehicle</option>
+    {vehicleOptions.length > 0 ? (
+      vehicleOptions.map((option, index) => (
+        <option key={index} value={option.vehicleName}>
+          {option.vehicleName}
+        </option>
+      ))
+    ) : (
+      <option disabled>No verified vehicles yet</option>
+    )}
+  </Form.Control>
+</Form.Group>
+          <Form.Group className='mb-3'>
             <Form.Label>Vehicle Capacity</Form.Label>
             <Form.Control
               type='number'
@@ -180,17 +208,7 @@ const Ride = () => {
               required
             />
           </Form.Group>
-          <Form.Group className='mb-3'>
-            <Form.Label>Vehicle Name</Form.Label>
-            <Form.Control as='select' required onChange={(e) => setSelectedVehicle(vehicleOptions[e.target.selectedIndex - 1])}>
-              <option value=''>Select a vehicle</option>
-              {vehicleOptions.map((option, index) => (
-                <option key={index} value={option.vehicleName}>
-                  {option.vehicleName}
-                </option>
-              ))}
-            </Form.Control>
-          </Form.Group>
+  
           <Button size='lg' variant='success' className='driver-btn' type='submit'>
             Post Ride
           </Button>
@@ -201,5 +219,3 @@ const Ride = () => {
 };
 
 export default Ride;
-
-
