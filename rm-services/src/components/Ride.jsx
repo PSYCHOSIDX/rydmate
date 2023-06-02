@@ -87,7 +87,7 @@ const Ride = () => {
         // console.log(maxcap)
         // console.log(capacity)
 
-        if (isNaN(capacity) || capacity > maxcap) {
+        if (capacity > maxcap) {
           console.error('Invalid capacity entered.');
           return;
         }
@@ -102,6 +102,7 @@ const Ride = () => {
           vehicle_name: selectedVehicle.vehicleName,
           vehicle_number: selectedVehicle.vehicleNumber,
           vehicle_type: selectedVehicle.vehicleType,
+          cost_per_km: selectedVehicle.costPerKm,
           user_id: authContext.user.uid,
           ride_otp: 4444,
         };
@@ -200,7 +201,7 @@ const Ride = () => {
             />
           </Form.Group>
           <Form.Group className='mb-3'>
-            <Form.Label>Timestamp</Form.Label>
+            <Form.Label>Departure date</Form.Label>
             <Form.Control
               type='datetime-local'
               value={timestamp}

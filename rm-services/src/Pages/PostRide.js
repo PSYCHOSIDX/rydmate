@@ -8,7 +8,7 @@ const PostRide = () => {
     <>
     {/* <NavbarLogout/> */}
     <Ride/>
-    <Footer/>
+    {/* <Footer/> */}
     </>
         
   )

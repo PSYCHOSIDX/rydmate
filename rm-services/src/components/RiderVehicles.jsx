@@ -114,6 +114,11 @@ const RiderVehicle = () => {
 
         setCarUploadProgress(0);
 
+        const fileInput = document.getElementById('carImage');
+      if (fileInput) {
+        fileInput.value = '';
+      }
+
         console.log('Form submitted successfully!');
       } else {
         console.error('User not found.');
@@ -194,8 +199,8 @@ const RiderVehicle = () => {
         </Form.Group>
 
         <Form.Group className='mb-3'>
-          <Form.Label>Car Image</Form.Label>
-          <Form.Control type='file' onChange={handleCarImageChange} required/>
+          <Form.Label>Vehicle Image</Form.Label>
+          <Form.Control id="carImage" type='file' onChange={handleCarImageChange} required/>
         </Form.Group>
         <ProgressBar now={carUploadProgress} label={`${carUploadProgress}%`} />
 
