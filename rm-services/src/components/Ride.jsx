@@ -7,6 +7,8 @@ import Form from 'react-bootstrap/Form';
 import { UserAuth } from '../context/UserAuthContext';
 import { useNavigate} from "react-router-dom";
 
+const libraries = ['places'];
+
 const Ride = () => {
   const navigate = useNavigate()
 
@@ -69,7 +71,7 @@ const Ride = () => {
 
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: process.env.REACT_APP_GMAPS_KEY,
-    libraries: ['places'],
+    libraries: libraries,
   });
 
   const originRef = useRef();
