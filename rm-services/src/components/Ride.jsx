@@ -27,6 +27,7 @@ const Ride = () => {
   const currentUserUid = authContext.user ? authContext.user.uid : null;
 
   useEffect(() => {
+    if (currentUserUid) {
     const fetchRiderName = async () => {
       try {
         const riderInfoCollectionRef = collection(db, 'users', currentUserUid, 'riderprogram', currentUserUid, 'riderinfo');
@@ -47,9 +48,11 @@ const Ride = () => {
     };
 
     fetchRiderName();
+  }
   }, [currentUserUid]);
 
   useEffect(() => {
+    if (currentUserUid) {
     const fetchVerifiedVehicles = async () => {
       try {
         const vehiclesInfoCollectionRef = collection(db,'users', currentUserUid, 'riderprogram', currentUserUid,  'vehicleinfo');
@@ -67,6 +70,7 @@ const Ride = () => {
     };
 
     fetchVerifiedVehicles();
+  }
   }, [currentUserUid]);
 
   const { isLoaded } = useJsApiLoader({
