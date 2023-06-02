@@ -5,8 +5,11 @@ import { addDoc, collection, getDocs, updateDoc, doc } from 'firebase/firestore'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { UserAuth } from '../context/UserAuthContext';
+import { useNavigate} from "react-router-dom";
 
 const Ride = () => {
+  const navigate = useNavigate()
+
   const [source, setSource] = useState('');
   const [destination, setDestination] = useState('');
   const [timestamp, setTimestamp] = useState('');
@@ -16,6 +19,7 @@ const Ride = () => {
   const [selectedVehicle, setSelectedVehicle] = useState('');
 
   const [showForm, setShowForm] = useState(false);
+  const [formError, setFormError] = useState('');
 
   const authContext = UserAuth();
   const currentUserUid = authContext.user ? authContext.user.uid : null;
@@ -88,7 +92,7 @@ const Ride = () => {
         // console.log(capacity)
 
         if (capacity > maxcap) {
-          console.error('Invalid capacity entered.');
+          setFormError('Invalid capacity entered.');
           return;
         }
         const ride = {
@@ -118,9 +122,15 @@ const Ride = () => {
         setTimestamp('');
         setVehicleCapacity('');
         setSelectedVehicle('');
+        setFormError('');
+        setSelectedVehicle('');
+
 
         console.log('Ride posted successfully!');
         console.log('Ride ID:', rideRef.id);
+        navigate('/');
+
+        
       } else {
         console.error('User not found or no vehicle selected.');
       }
@@ -198,8 +208,12 @@ const Ride = () => {
               onChange={(e) => setVehicleCapacity(e.target.value)}
               placeholder='Enter vehicle capacity'
               required
-            />
-          </Form.Group>
+              isInvalid={formError !== ''}
+              />
+              <Form.Control.Feedback type='invalid'>
+                {formError}
+              </Form.Control.Feedback>
+            </Form.Group>
           <Form.Group className='mb-3'>
             <Form.Label>Departure date</Form.Label>
             <Form.Control

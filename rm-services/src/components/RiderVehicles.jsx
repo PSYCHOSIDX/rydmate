@@ -11,8 +11,11 @@ import {
   uploadBytesResumable,
   getDownloadURL,
 } from 'firebase/storage';
+import { useNavigate} from "react-router-dom";
+
 
 const RiderVehicle = () => {
+  const navigate = useNavigate()
   const [vehicleOwner, setVehicleOwner] = useState('');
   const [vehicleName, setVehicleName] = useState('');
   const [vehicleRegId, setVehicleRegId] = useState('');
@@ -120,6 +123,7 @@ const RiderVehicle = () => {
       }
 
         console.log('Form submitted successfully!');
+        navigate('/');
       } else {
         console.error('User not found.');
       }
