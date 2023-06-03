@@ -114,6 +114,7 @@ const Ride = () => {
           vehicle_type: selectedVehicle.vehicleType,
           cost_per_km: selectedVehicle.costPerKm,
           user_id: authContext.user.uid,
+          vehicle_image: selectedVehicle.carImageUrl,
           ride_otp: 4444,
         };
 
