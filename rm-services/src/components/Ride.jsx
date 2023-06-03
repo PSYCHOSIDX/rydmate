@@ -120,7 +120,24 @@ const Ride = () => {
 
         const rideRef = await addDoc(collection(db, 'rides'), ride);
         const rideId = rideRef.id;
+        const rideposted = collection(db, 'users', authContext.user.uid,'ridesposted');
 
+        await addDoc(rideposted, {start_loc: source,
+          end_loc: destination,
+          departure_time: timestamp,
+          createdAt: new Date(),
+          rider_name: riderName,
+          ride_status: 'active',
+          seats: vehicleCapacity,
+          vehicle_name: selectedVehicle.vehicleName,
+          vehicle_number: selectedVehicle.vehicleNumber,
+          vehicle_type: selectedVehicle.vehicleType,
+          cost_per_km: selectedVehicle.costPerKm,
+          user_id: authContext.user.uid,
+          vehicle_image: selectedVehicle.carImageUrl,
+          ride_otp: 4444,
+        ride_id: rideId});
+     
       await updateDoc(doc(db, 'rides', rideId), { ride_id: rideId });
 
 

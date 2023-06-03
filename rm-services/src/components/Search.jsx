@@ -80,6 +80,8 @@ const Search = () => {
                     <Link className='link' to='/postride'>
                       <button className='go-btn'>Post Rides</button>
                     </Link>
+                    <br/>
+                    <br/>
                     <Link className='link' to='#'>
                       <button className='go-btn'>View Rides</button>
                     </Link>
