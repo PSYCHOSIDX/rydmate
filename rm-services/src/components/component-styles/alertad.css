@@ -5,7 +5,7 @@
   width: auto;
   margin: auto;
   justify-content: center;
-  background-color: #00FFA3;
+  background-color: #11d78f;
 }
 .alert-ad .text {
   margin: auto;
@@ -28,7 +28,7 @@
   border-radius: 0.7rem;
 }
 .alert-ad .alert-btn:hover {
-  background-color: #5a5b5a;
+  background-color: #000000;
   color: white;
   cursor: pointer;
 }

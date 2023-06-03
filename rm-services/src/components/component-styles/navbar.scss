@@ -2,6 +2,49 @@
 
 $bluex:#000000;
 
+#visible{
+    display: block;
+    width: 82%;
+    border-radius: none;
+    font-size: 1.1rem;
+    margin-top: 1rem;
+    margin-left: 0%;
+}
+
+#modal-text{
+    color: #000000;
+    font-family: sans-serif;
+}
+.username{
+    color: white;
+    margin: 1rem;
+    font-size: .9rem;
+    cursor: pointer;
+}
+
+#sidebar{
+    font-family: 'Poppins',sans-serif;
+    background-color: #ffffff;
+    color: rgb(33, 33, 33);
+    
+    h4{
+        font-size: 1.5rem;
+    }
+    h5{
+        font-size: 1rem;
+    }
+}
+
+.profile{
+    width: 3rem;
+    height: 3rem;
+    margin: .2em;
+    margin-right: .5rem;
+    border-radius: 2rem;
+    
+    cursor: pointer;
+    color: white;
+}
 
 *{
     font-family: 'Unbounded',sans-serif;
@@ -14,9 +57,10 @@ $bluex:#000000;
 .custom-nav{
     width: 100%;
     background-color: #000000;
+ 
 }
 .container{
- 
+   
     width: 100%;
     background-color: #000000;
     filter: blur(50%);
@@ -59,14 +103,15 @@ $bluex:#000000;
 .btn-contact{
     all: unset;
     background-color:$bluex ;
-    padding: .4rem 2rem;
-    font-size: 1.2rem;
-    border-radius: 12px;
+    padding: .4rem 1rem;
+    font-size: 1rem;
+    border-radius: 6px;
     border: 2px solid #00FFA3;
     color: #00FFA3;
     font-weight: bold;
     text-align: center;
     margin: .2rem;
+    margin-left: 1rem;
     text-shadow: 1px 1px #ffffff6c;
     &:active{
         background-color: rgb(165, 165, 165);
@@ -102,6 +147,12 @@ $bluex:#000000;
 }
 
 @media screen and (max-width:1020px) {
+    .profile{
+        margin: auto;
+    }
+    .username{
+        margin: 1.5rem;
+    }
     .container{
         width: 100%;
         margin-top: -.5srem;
@@ -117,15 +168,24 @@ $bluex:#000000;
 }
 
 @media screen and (max-width:480px){
-  
+
+    .profile{
+        margin: auto;
+        margin-right: 0;
+    }
     .btn-contact{
-        padding: .6rem 1.2rem;
+        padding: .6rem 1rem;
+        font-size: .8rem;
+        display: none;
     }
     .container{
         width: 120%;
         display: block;
+      
         
     }
+
+    .username{ display: none;}
     .n{
         margin-left: 80%;
         width:20%;

@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Poppins:wght@200&family=Unbounded:wght@200&display=swap');
+
+.user-title{
+    font-weight: bolder;
+    font-family: sans-serif;
+    color: #069f60;
+    font-weight: bolder;
+    font-size: 2rem;
+}
+
+#update-button{
+    background: #09b677;
+    width: 92%;
+    border: none;
+    font-family: 'Poppins',sans-serif;
+    font-size: 1.4rem;
+    font-weight: bolder;
+    margin-top: 1rem;
+
+    &:hover{
+        background: #232323;
+    }
+}
+
+#update-button-x{
+    background: #09b677;
+    width: 92%;
+    border: none;
+    font-family: 'Poppins',sans-serif;
+    font-size: 1.4rem;
+    font-weight: bolder;
+    margin-top: 1rem;
+
+    &:hover{
+        background: #232323;
+    }
+}
+.icon{
+    color: white;
+    width: 3.8%;
+    height: 3.8%;
+    border: 1px solid white;
+    padding: .3rem;
+    border-radius: 2rem;
+    margin: .8rem;
+    &:hover{
+        color: rgb(55, 206, 156);
+    }
+}
+
+
+#icon{
+    color: rgb(26, 26, 26);
+    width: 3.8%;
+    height: 3.8%;
+    border: 1px solid rgb(0, 0, 0);
+    padding: .3rem;
+    border-radius: 2rem;
+   margin: .8rem;
+    &:hover{
+        color: rgb(55, 206, 156);
+    }
+}
+
+@media screen and (max-width:1020px) {
+
+    .icon{
+        width: 2.8rem;
+        height: 2.8rem;
+        margin: auto;
+    }
+
+    #icon{
+        width: 2.8rem;
+        height: 2.8rem;
+        margin: auto;
+    }
+}
+
+@media screen and (max-width:650px) {
+
+    #update-button-x{
+        margin-left: -1rem;
+    }
+  
+}

@@ -17,20 +17,36 @@ const RideSearch = () => {
   const [rides , setRides]= useState([]);
   const ridesCollectionRef = collection(db,"rides");
 
-  useEffect(()=>{
+
+  useEffect(() => {
+    const fetchData = async () => {
+      
+      const ridesSnapshot = await getDocs(ridesCollectionRef);
+      const  ridesList= ridesSnapshot.docs.map(doc => doc.data());
+      setRides(ridesList);
+    };
+    fetchData();
+  }, );
+
+  useEffect( ()=>{
       const getRides =  async ()=> {
           const dbdata = await getDocs(ridesCollectionRef);
-          setRides(dbdata.docs.map((doc) => ({ ...doc.data()})));
+          setRides(dbdata.docs.map((doc) => ({ ...doc.data(), id:doc.id})));
       }
 
       getRides();
   }, [ridesCollectionRef]);
+
+
+
+
+  
    
   const center = {lat:15.280347,lng:73.980065};
 
   const {isLoaded} = useJsApiLoader({
-    googleMapsApiKey: 'AIzaSyD6JvemEJL-6CVcynPrTEEuOUG7fesOvGY',
-    libraries:['places']
+    googleMapsApiKey: process.env.REACT_APP_GMAPS_KEY,
+    libraries:["places"]
   })
 
   const [map, setMap]= useState(/**@type google.maps.Map */null);
@@ -64,7 +80,7 @@ async function calculateRoute(){
   }) 
 
   setDirectionsResponse(result)
-  setDistance(result.routes[4].legs[0].distance.text)
+  setDistance(result.routes[4])
 
 }
 
@@ -95,11 +111,16 @@ function clearRoute(){
             <div className='form-holder'>
                
 
-                <Autocomplete className='auto'>
+                <Autocomplete className='auto' options={{
+                  componentRestrictions: {country : "ind"}
+                }}
+                >
                    <input type="text" placeholder='📍From' className='phold'  ref={originRef}/>
                 </Autocomplete>
 
-                <Autocomplete className='auto'>
+                <Autocomplete className='auto' options={{
+                  componentRestrictions: {country : "ind"}
+                }}>
                   <input type="text" placeholder='📍To' className='phold' ref={destinationRef}/>
                 </Autocomplete>
                   <div className="hide">
@@ -124,12 +145,12 @@ function clearRoute(){
                 mapContainerStyle={{ width:'90%', height:'25rem',margin:'auto',borderRadius:'.9rem', marginBottom:'1rem'}} 
                  options={{
                   streetViewControl: false,
-                  mapTypeControl: false,
+                 
                   fullscreenControl: false,
-                  zoomControl:false,
+         
                   mapId: "c592e5989eb34504",
                   keyboardShortcuts:false,
-                  
+                  gestureHandling: "greedy",
                   
                  }}
                  onLoad={map => setMap(map)}
@@ -148,9 +169,9 @@ function clearRoute(){
             <h2>Rides Found</h2>
 
         <DropdownButton id="dropdown-basic-button" title="Sort By:Default">
-            <Dropdown.Item href="#/action-1">Cost : low to high</Dropdown.Item>
-            <Dropdown.Item href="#/action-2">cost : high to  low</Dropdown.Item>
-            <Dropdown.Item href="#/action-3">vehicle type</Dropdown.Item>
+            <Dropdown.Item href="#/action-1"><b>cost : </b>low to high</Dropdown.Item>
+            <Dropdown.Item href="#/action-2"> <b> cost : </b> high to  low</Dropdown.Item>
+            <Dropdown.Item href="#/action-3"> <b> vehicle type</b></Dropdown.Item>
         </DropdownButton>
          
         </div>
@@ -167,27 +188,31 @@ function clearRoute(){
     <Container className='gridbox'>
       <Row text-center className='gridrow'>
 
-        {rides.map((rides) => {
+        {rides.map((ride) => {
           
           return  ( 
-          
+
+
+// Ride Card        
     <div className="ride-card">
                     
-    <h2 id="loc">{rides.start_loc} to {rides.end_loc}</h2>
-      <h5 id="dis">Distance {rides.distance} km</h5>
-      <div className="line"> .</div>
+          <h2 id="loc">{ride.start_loc} to {ride.end_loc}</h2>
+            <h5 id="dis">Distance {ride.total_distance} km</h5>
+            <div className="line"> .</div>
 
-      <h2 id="name">{rides.rider_name}</h2>
-      <h2 className='type'>Vehicle type </h2>
-      <h3 id='type'>{rides.vtype}</h3>
+            <h2 id="name">{ride.rider_name}</h2>
+            <h2 className='type'>Vehicle type </h2>
+            <h3 id='type'>{ride.vtype}</h3>
 
-      <h2 id='seat'>Seats Available {rides.seats}</h2>
+            <h2 className='type'>Vehicle No </h2>
+            <h3 id='type'>{ride.vnumber}</h3>
+            <h2 id='seat'>Seats Available {ride.seats}</h2>
 
-      <h5 id='cost'>Cost Per Km</h5>
-      <h2 id='realcost'>{rides.cost_per_seat}</h2>
+            <h5 id='cost'>Cost Per Km</h5>
+            <h2 id='realcost'>{ride.cost_per_seat}</h2>
 
-      <input type="button" value='Join' className='ride-join'/>
-</div>
+            <input type="button" value='Join' className='ride-join'/>
+    </div>
           );
               })
               

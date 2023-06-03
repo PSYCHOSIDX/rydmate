@@ -1,28 +1,17 @@
+import ReactDOM from "react-dom/client";
+
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+
+import {BrowserRouter as Router } from "react-router-dom"
+import App from "./App";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Home from './Pages/Home';
-import Rides from './Pages/Rides';
-
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
 
 
-
-const router =createBrowserRouter([
-{
-  path: "/",
-  element: <Home/>
-},
-{
-  path: "/rides",
-  element: <Rides/>
-},
-]);
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"))
 root.render(
- <RouterProvider router={router} />
+
+  <Router>
+    <App />
+  </Router>
+
 );

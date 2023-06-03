@@ -7,14 +7,30 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "assert": "^2.0.0",
     "bootstrap": "^5.2.3",
+    "buffer": "^6.0.3",
+    "crypto-browserify": "^3.12.0",
     "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "fast-two-sms": "^3.0.0",
     "firebase": "^9.17.2",
+    "fs": "^0.0.1-security",
+    "https-browserify": "^1.0.0",
+    "os-browserify": "^0.3.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.2",
     "react-dom": "^18.2.0",
+    "react-google-button": "^0.7.2",
+    "react-icons": "^4.8.0",
+    "react-router": "^6.10.0",
     "react-router-dom": "^6.8.2",
-    "react-scripts": "^2.1.8",
+    "react-scripts": "5.0.1",
+    "stream-browserify": "^3.0.0",
+    "twilio": "^4.11.1",
+    "unirest": "^0.6.0",
+    "url": "^0.11.0",
+    "util": "^0.12.5",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -40,5 +56,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.21.8"
   }
 }

@@ -4,7 +4,14 @@
 }
 
 body {
-  background-color: black;
+  background: url(../assets/bg2.svg);
   max-width: 1600px;
-  margin: auto;
+  background-size: cover;
+}
+
+@media screen and (min-width: 2000px) {
+  html {
+    margin-left: 20%;
+    margin-right: 10%;
+  }
 }/*# sourceMappingURL=global.css.map */

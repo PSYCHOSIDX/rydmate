@@ -1,16 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Poppins:wght@200&family=Unbounded:wght@200&display=swap');
 
+#title-stand{
+    color: #289777;
+    font-weight: bold;
+    padding-left: 3rem;
+    padding-top: 2rem;
+    background-color: #f6f6f6;
+    margin-top: -2%;
+    cursor: pointer;
+}
 
 .card-box{
-    background-image: linear-gradient(145deg,rgb(64, 145, 114),#00FFA3,rgb(179, 177, 177));
+    background-color: #f6f6f6;
     display: flex;
-    margin: auto;
-    margin-top: -4%;
     justify-content: center;
-
+    cursor: pointer;
+   margin-top: -3%;
     h2{
         color: white;
         margin-top: 2rem;
+        cursor: pointer;
     }
     .card{
         width:26%;
@@ -18,50 +27,62 @@
         height: fit-content;
         padding: 1.4rem;
         margin: 4.4rem;
-        background: #ffffffbf;
+        cursor: pointer;
         margin-right: 0;
         margin-left: 1rem;
         border-radius: 1rem;
-        box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+        box-shadow: rgba(13, 128, 106, 0.19) 0px 10px 10px, rgba(10, 115, 106, 0.23) 0px 4px 4px;
         padding-left: 2.8rem;
         max-height: 19rem;
         backdrop-filter: blur(.5rem);
+        cursor: pointer;
         h1{
             font-size: 1.5rem;
             font-weight: 800;
             color: #09c08c;
+            cursor: pointer;
         }
 
         h4{
             font-size: .8rem;
             color: rgb(76, 155, 132);
             font-weight: 300;
+            cursor: pointer;
         }
 
+
+        background: #ffffffbf;
+            color: rgb(64, 64, 64);
+            h1{
+                color: #259c86;
+                cursor: pointer;
+            }
+            h4{
+                color: #259c86;
+                cursor: pointer;
+            }
         .img1{
-            width:80%;
+            width:40%;
         }
         .img2{
-            width:66%
+            width:35%
         }
         img{
             width: 65%;
             padding: .3rem;
         }
         .img3{
-            width:62%;
+            width:32%;
         }
 
         &:hover{
-            background: #06987d;
-            color: rgb(255, 255, 255);
-            h1{
-                color: rgb(253, 255, 254);
+           h1, h4{
+                color: #ffffff;
             }
-            h4{
-                color: #d5f0eb;
-            }
+            background: #10927abf;
+            color: rgb(41, 41, 41);
             cursor: pointer;
+            box-shadow: rgba(13, 128, 106, 0.19) 0px 10px 10px, rgba(10, 115, 106, 0.23) 0px 4px 4px;
         }
     }
 }
@@ -71,12 +92,11 @@
 
     .card-box{
         flex-direction: column;
-        margin-top: -14%;
         .card{
             margin: auto;
-            margin-bottom: .5rem;
+            margin-bottom: 1.5rem;
             width: 85%;
-            margin-top: .5rem;
+            margin-top: 1.5rem;
             scale: 95%;
             .img1{
                 width:50%;
@@ -84,7 +104,7 @@
             }
 
             .img2{
-                width:38%
+                width:40%
             }
             img{
                 width:35%;
@@ -95,4 +115,35 @@
            
         }
     }
+}
+
+@media screen and (max-width:800px) {
+    .card-box{
+        flex-direction: column;
+        margin-top: -10%;}
+}
+
+@media screen and (max-width:800px) {
+    #title-stand{
+        font-size: 1.4rem;
+       padding: 4%;
+       padding-left: 7%;
+        margin-top: 61%;}
+}
+
+@media screen and (max-width:560px) {
+    #title-stand{
+        font-size: 1.4rem;
+       padding: 4%;
+       padding-left: 7%;
+        margin-top: 93%;}
+}
+
+@media screen and (max-width:360px) {
+    #title-stand{
+        font-size: 1.3rem;
+       padding: 4%;
+       padding-left: 7%;
+        margin-top: 183%;
+    margin-bottom: -1%;}
 }

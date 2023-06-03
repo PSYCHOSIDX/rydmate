@@ -1,4 +1,47 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Poppins:wght@200&family=Unbounded:wght@200&display=swap");
+#visible {
+  display: block;
+  width: 82%;
+  border-radius: none;
+  font-size: 1.1rem;
+  margin-top: 1rem;
+  margin-left: 0%;
+}
+
+#modal-text {
+  color: #000000;
+  font-family: sans-serif;
+}
+
+.username {
+  color: white;
+  margin: 1rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+#sidebar {
+  font-family: "Poppins", sans-serif;
+  background-color: #ffffff;
+  color: rgb(33, 33, 33);
+}
+#sidebar h4 {
+  font-size: 1.5rem;
+}
+#sidebar h5 {
+  font-size: 1rem;
+}
+
+.profile {
+  width: 3rem;
+  height: 3rem;
+  margin: 0.2em;
+  margin-right: 0.5rem;
+  border-radius: 2rem;
+  cursor: pointer;
+  color: white;
+}
+
 * {
   font-family: "Unbounded", sans-serif;
 }
@@ -52,14 +95,15 @@
 .btn-contact {
   all: unset;
   background-color: #000000;
-  padding: 0.4rem 2rem;
-  font-size: 1.2rem;
-  border-radius: 12px;
+  padding: 0.4rem 1rem;
+  font-size: 1rem;
+  border-radius: 6px;
   border: 2px solid #00FFA3;
   color: #00FFA3;
   font-weight: bold;
   text-align: center;
   margin: 0.2rem;
+  margin-left: 1rem;
   text-shadow: 1px 1px rgba(255, 255, 255, 0.4235294118);
 }
 .btn-contact:active {
@@ -93,6 +137,12 @@
 }
 
 @media screen and (max-width: 1020px) {
+  .profile {
+    margin: auto;
+  }
+  .username {
+    margin: 1.5rem;
+  }
   .container {
     width: 100%;
     margin-top: -0.5srem;
@@ -106,12 +156,21 @@
   }
 }
 @media screen and (max-width: 480px) {
+  .profile {
+    margin: auto;
+    margin-right: 0;
+  }
   .btn-contact {
-    padding: 0.6rem 1.2rem;
+    padding: 0.6rem 1rem;
+    font-size: 0.8rem;
+    display: none;
   }
   .container {
     width: 120%;
     display: block;
+  }
+  .username {
+    display: none;
   }
   .n {
     margin-left: 80%;

@@ -8,8 +8,11 @@ const CardBox = () => {
   return (
     <>
 
-
+<h1 id="title-stand"> Why Do we Standout ?</h1>
+      <br />
     <div className="card-box">
+
+     
      
         <div className="card">
             <h1>Secure</h1>
@@ -27,7 +30,7 @@ const CardBox = () => {
             <img src={art3} alt="secure" className='img3' />
         </div>
 
-    </div>s
+    </div>
       
     </>
   )

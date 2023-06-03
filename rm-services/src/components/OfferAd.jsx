@@ -10,7 +10,7 @@ const OfferAd = () => {
         <div className="text">
             <h1>Want To Offer Rides ?</h1>
             <h4>Easy and fast hassle free </h4>
-            <button className='offer-btn'>Enroll</button>
+            <button className='offer-btn'>Join Us</button>
         </div>
 
         <img src={car} alt="Rides !" />

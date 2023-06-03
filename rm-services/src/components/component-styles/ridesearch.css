@@ -1,8 +1,4 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Poppins:wght@200&family=Unbounded:wght@200&display=swap");
-body {
-  background-color: black;
-}
-
 .search-holder {
   height: 32rem;
 }
@@ -20,6 +16,7 @@ body {
   margin-top: -30%;
 }
 .search-bottom .search-text {
+  font-family: "Unbounded", sans-serif;
   margin: auto;
   text-align: center;
   color: #ffffff;
@@ -28,7 +25,7 @@ body {
 .search-bottom .form-holder {
   margin: auto;
   max-width: 1080px;
-  margin-top: 10em;
+  margin-top: 5em;
   display: flex;
   justify-content: center;
   border: none;
@@ -41,6 +38,8 @@ body {
   margin: 0.3rem;
   border: none;
   font-weight: bolder;
+  font-family: "Unbounded", sans-serif;
+  font-size: 96%;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
 }
 .search-bottom .form-holder .search-btn {
@@ -49,47 +48,63 @@ body {
   border-radius: 0.4rem;
   margin: 0.3rem;
   color: white;
-  background-color: #00FFA3;
+  background-color: black;
   border: none;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
 }
 .search-bottom .form-holder .search-btn:hover {
-  background-color: black;
+  background-color: #177251;
 }
 
 @media screen and (max-width: 800px) {
-  .search-top .search-img {
+  .search-holder {
+    margin-bottom: 0%;
+  }
+  .search-holder .search-top .search-img {
     zoom: 100%;
     width: -moz-fit-content;
     width: fit-content;
-    margin-left: -30%;
+    height: 20%;
+    margin-left: -90%;
   }
-  .search-bottom {
-    margin-top: -50%;
+  .search-holder .search-bottom {
+    margin-top: -45%;
+    font-family: "Unbounded", sans-serif;
+    font-size: 96%;
   }
-  .search-bottom .form-holder {
+  .search-holder .search-bottom .form-holder {
     flex-direction: column;
     margin: 1rem;
   }
+  .search-holder .search-bottom .form-holder .auto {
+    margin-left: 10%;
+  }
+  .search-holder .search-bottom .form-holder .search-btn {
+    margin-left: 4%;
+  }
+  .search-holder .search-bottom .mapbox {
+    margin-top: -100rem;
+  }
 }
 @media screen and (max-width: 500px) {
-  .form-holder {
-    max-width: 60%;
-  }
-  .search-top .search-img {
+  .search-holder .search-top .search-img {
     zoom: 100%;
     width: -moz-fit-content;
     width: fit-content;
-    margin-left: -140%;
   }
-  .search-bottom {
+  .search-holder .search-bottom {
     display: flex;
-    justify-content: center;
-    flex-direction: column;
     margin-top: -100%;
+    flex-direction: column;
+    font-family: "Unbounded", sans-serif;
+    font-size: 96%;
+  }
+  .search-holder .search-bottom .mapbox {
+    margin-top: 5px;
+    padding-top: 0px;
   }
 }
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 900px) {
   .form-holder {
     width: 90%;
     margin: auto;
@@ -109,7 +124,7 @@ body {
   background-color: #003830;
   border: 1px solid rgb(3, 62, 53);
   padding: 2rem;
-  width: 99%;
+  width: 100%;
   margin: auto;
   margin-top: -2%;
   font-family: "Poppins", sans-serif;
@@ -133,7 +148,7 @@ body {
 }
 
 .card-results {
-  background-color: #072a1d;
+  background-color: rgba(7, 42, 29, 0.2980392157);
   display: flex;
   justify-content: center;
   justify-self: center;
@@ -151,8 +166,8 @@ body {
   background-color: rgba(0, 115, 255, 0);
 }
 .card-results .ride-card {
-  background-color: rgb(18, 19, 18);
-  width: 24rem;
+  background-color: rgb(40, 40, 40);
+  width: 23rem;
   border-radius: 1rem;
   padding: 2rem;
   margin: auto;
@@ -207,28 +222,23 @@ body {
   font-size: 1rem;
 }
 .card-results .ride-card .ride-join {
-  background-color: #00FFA3;
-  font-size: 1rem;
+  background-color: #31d096;
+  font-size: 1.3rem;
   font-weight: bolder;
   text-align: center;
   font-family: "Poppins";
-  padding: 0.5rem 5rem;
+  padding: 0.5rem 8rem;
   margin: auto;
-  color: rgb(17, 28, 19);
+  color: rgb(255, 255, 255);
   border-radius: 1rem;
-  margin-left: 0.7rem;
+  margin-left: 0.3rem;
   border: none;
 }
 .card-results .ride-card .ride-join:hover {
-  background-color: #2f2f2f;
-  color: white;
+  background-color: #ffffff;
+  color: rgb(48, 47, 47);
 }
 
-@media screen and (max-width: 1200px) {
-  .ride-results {
-    margin-top: -13%;
-  }
-}
 @media screen and (max-width: 800px) {
   .auto {
     margin-left: 2rem;
