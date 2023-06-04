@@ -72,6 +72,7 @@ const CompletedRides = () => {
                   <h2 id="loc">
                     {ride.start_loc} to {ride.end_loc}
                   </h2>
+                  <div className="line"> .</div>
                   <h2 className="type">Vehicle name</h2>
                   <h2 id="type">{ride.vehicle_name}</h2>
                   <h2 className="type">Vehicle type</h2>

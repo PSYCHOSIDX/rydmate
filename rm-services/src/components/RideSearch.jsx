@@ -193,24 +193,24 @@ if(!isLoaded){
 
             <h2 id="name">{ride.rider_name}</h2>
             <h2 className='type'>Vehicle type </h2>
-            <h3 id='type'>{ride.vtype}</h3>
+            <h3 id='type'>{ride.vehicle_type}</h3>
 
             <h2 className='type'>Vehicle No </h2>
-            <h3 id='type'>{ride.vnumber}</h3>
+            <h3 id='type'>{ride.vehicle_number}</h3>
             <h2 id='seat'>Seats Available {ride.seats}</h2>
 
             <h5 id='cost'>Cost Per Km</h5>
-            <h2 id='realcost'>{ride.cost_per_seat}</h2>
+            <h2 id='realcost'>{ride.cost_per_km}</h2>
             
             <Link to='/join' 
             
             
             state={{data:{
               rider_name: ride.rider_name,
-              vtype: ride.vtype,
-              vnumber: ride.vnumber,
+              vehicle_type: ride.vehicle_type,
+              vehicle_number: ride.vehicle_number,
               seats: ride.seats,
-              cost_per_seat:ride.cost_per_seat,
+              cost_per_km:ride.cost_per_km,
               start_loc: ride.start_loc,
               end_loc:ride.end_loc,
               total_distance:ride.total_distance,
