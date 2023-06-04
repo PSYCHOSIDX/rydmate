@@ -68,7 +68,8 @@ const ActiveRides = () => {
           <Container className="gridbox">
             <Row className="gridrow">
               {rides.map((ride) => (
-                <div className="ride-card" key={ride.ride_id}>
+               <Link to={`/activerides/${ride.ride_id}`} key={ride.ride_id}>
+               <div className="ride-card">
                   <h2 id="loc">
                     {ride.start_loc} to {ride.end_loc}
                   </h2>
@@ -84,7 +85,8 @@ const ActiveRides = () => {
                   <h5 id="cost">Cost Per Km</h5>
                   <h2 id="realcost">{ride.cost_per_km}</h2> */}
                   <input type="button" value={ride.ride_otp} className="ride-join" disabled/>
-                </div>
+                  </div>
+      </Link>
               ))}
             </Row>
           </Container>
