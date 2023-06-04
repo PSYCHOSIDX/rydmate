@@ -5,10 +5,11 @@ import './component-styles/ridesearch.css';
 import { db } from '../firebaseConfig';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { UserAuth } from '../context/UserAuthContext';
+import { Link } from 'react-router-dom';
 
 const ActiveRides = () => {
   const authContext = UserAuth();
-  const currentUserUid = authContext.user ? authContext.user.uid : null;
+  const currentUserUid = authContext.user && authContext.user.uid;
 
   const [rides, setRides] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -17,6 +18,11 @@ const ActiveRides = () => {
   useEffect(() => {
     const fetchActiveRides = async () => {
       try {
+        if (!currentUserUid) {
+          setIsLoading(false);
+          return;
+        }
+
         const ridesCollectionRef = collection(db, 'users', currentUserUid, 'ridesposted');
         const ridesSnapshot = await getDocs(ridesCollectionRef);
 
@@ -54,17 +60,20 @@ const ActiveRides = () => {
         {!ridesPostedExists ? (
           <p>No rides posted yet.</p>
         ) : rides.length === 0 ? (
-          <p>No active rides currently.</p>
+          <h2>No active rides currently.
+            <Link to="/postride" className='link'>
+           Post your first ride 
+          </Link></h2>
         ) : (
           <Container className="gridbox">
-            <Row text-center className="gridrow">
+            <Row className="gridrow">
               {rides.map((ride) => (
                 <div className="ride-card" key={ride.id}>
                   <h2 id="loc">
                     {ride.start_loc} to {ride.end_loc}
                   </h2>
                   <h2 className="type">Vehicle name</h2>
-                  <h2 id="name">{ride.vehicle_name}</h2>
+                  <h2 id="type">{ride.vehicle_name}</h2>
                   <h2 className="type">Vehicle type</h2>
                   <h3 id="type">{ride.vehicle_type}</h3>
                   <h2 className="type">Vehicle No</h2>

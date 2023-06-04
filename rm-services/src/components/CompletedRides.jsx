@@ -5,10 +5,11 @@ import './component-styles/ridesearch.css';
 import { db } from '../firebaseConfig';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { UserAuth } from '../context/UserAuthContext';
+import { Link } from 'react-router-dom';
 
 const CompletedRides = () => {
   const authContext = UserAuth();
-  const currentUserUid = authContext.user ? authContext.user.uid : null;
+  const currentUserUid = authContext.user && authContext.user.uid;
 
   const [rides, setRides] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -17,6 +18,11 @@ const CompletedRides = () => {
   useEffect(() => {
     const fetchCompletedRides = async () => {
       try {
+        if (!currentUserUid) {
+          setIsLoading(false);
+          return;
+        }
+
         const ridesCollectionRef = collection(db, 'users', currentUserUid, 'ridesposted');
         const ridesSnapshot = await getDocs(ridesCollectionRef);
 
@@ -52,26 +58,29 @@ const CompletedRides = () => {
 
       <div className="card-results">
         {!ridesPostedExists ? (
-          <p>No rides posted yet.</p>
+         <h2>No active rides currently.
+         <Link to="/postride" className='link'>
+        Post your first ride 
+       </Link></h2>
         ) : rides.length === 0 ? (
-          <p>No completed rides currently.</p>
+          <p>No completed rides yet.</p>
         ) : (
           <Container className="gridbox">
-            <Row className="text-center gridrow">
+            <Row className="gridrow">
               {rides.map((ride, index) => (
                 <div className="ride-card" key={index}>
                   <h2 id="loc">
                     {ride.start_loc} to {ride.end_loc}
                   </h2>
-                  <h2 className="type">Vehicle type</h2>
-                  <h2 id="name">{ride.ride_otp}</h2>
+                  <h2 className="type">Vehicle name</h2>
+                  <h2 id="type">{ride.vehicle_name}</h2>
                   <h2 className="type">Vehicle type</h2>
                   <h3 id="type">{ride.vehicle_type}</h3>
                   <h2 className="type">Vehicle No</h2>
                   <h3 id="type">{ride.vehicle_number}</h3>
-                  <h2 id="seat">Seats Available {ride.seats}</h2>
+                  {/* <h2 id="seat">Seats Available {ride.seats}</h2>
                   <h5 id="cost">Cost Per Km</h5>
-                  <h2 id="realcost">{ride.cost_per_km}</h2>
+                  <h2 id="realcost">{ride.cost_per_km}</h2> */}
                   <input type="button" value={ride.ride_otp} className="ride-join" disabled/>
                 </div>
               ))}
