@@ -87,7 +87,7 @@ function StaticExample() {
 // This is profile finction this contains all sidebar
 
 
-function Profile() {
+function Profile({ name, ...props }) {
   
  
   const [show, setShow] = useState(false);
@@ -111,13 +111,13 @@ function Profile() {
     <>
          <h5 onClick={handleShow} className='username' >
           <b>{user && user.email}</b> 
-          
-         </h5>
+        </h5>
 
          {user.photoURL ? <img onClick={handleShow} src={user.photoURL} alt='' className='profile'/>  : 
          <FaRegUser onClick={handleShow} className='icon'/>} 
        
-        <Offcanvas show={show} onHide={handleClose} id='sidebar'>
+        <Offcanvas show={show} onHide={handleClose} id='sidebar'{...props}>
+
         <Offcanvas.Header closeButton>
           <Offcanvas.Title className='user-title'> USER PROFILE  </Offcanvas.Title>
         </Offcanvas.Header>
@@ -134,6 +134,11 @@ function Profile() {
           <br/>
           <h4><b>Email</b></h4>
           <h5>{user.email}</h5>
+
+
+ <Link className='link' to='/'>
+              <Button as="input" id='update-button-x' type="button" value="Home"/> 
+          </Link>
           <Example/>
 
           <Link className='link' to='/emergency'>
@@ -165,12 +170,10 @@ function Profile() {
 function InfoPage() {
   return (
     <>
-      {[' '].map((placement, idx) => (
-        <Profile key={idx} placement={placement} name={placement} />
-      ))}
-
-      
-    </>
+    {['end'].map((placement, idx) => (
+      <Profile key={idx} placement={placement} name={placement} />
+    ))}
+  </>
   );
 }
 
@@ -205,9 +208,9 @@ function NavbarLogout(){
            <InfoPage/>
 
 
-            <Link to="" className='link'>
+            {/* <Link to="" className='link'>
             <button onClick={handleLogout} className='btn-contact'> Logout </button>
-            </Link>
+            </Link> */}
 
             
             

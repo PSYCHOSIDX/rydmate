@@ -56,7 +56,6 @@
 }
 .emergency-component #align {
   margin: auto;
-  background: #1c8aea;
   width: 97%;
   margin: auto;
   margin-left: 1.2rem;
@@ -64,9 +63,6 @@
   border: none;
   font-size: 1.4rem;
   padding: 1rem;
-}
-.emergency-component #align:hover {
-  background: #232323;
 }
 .emergency-component #btn-add {
   background-color: #019f68;

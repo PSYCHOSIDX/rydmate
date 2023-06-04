@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Poppins:wght@200&family=Unbounded:wght@200&display=swap");
 #visible {
   display: block;
-  width: 82%;
+  width: 90%;
   border-radius: none;
   font-size: 1.1rem;
   margin-top: 1rem;
@@ -35,7 +35,8 @@
 .profile {
   width: 3rem;
   height: 3rem;
-  margin: 0.2em;
+  margin: 0.2rem;
+  margin-right: 1rem;
   margin-right: 0.5rem;
   border-radius: 2rem;
   cursor: pointer;
@@ -105,6 +106,7 @@
   margin: 0.2rem;
   margin-left: 1rem;
   text-shadow: 1px 1px rgba(255, 255, 255, 0.4235294118);
+  margin-right: 1rem;
 }
 .btn-contact:active {
   background-color: rgb(165, 165, 165);
@@ -164,6 +166,7 @@
     padding: 0.6rem 1rem;
     font-size: 0.8rem;
     display: none;
+    margin-left: -8%;
   }
   .container {
     width: 120%;

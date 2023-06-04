@@ -26,7 +26,7 @@ const RideSearch = () => {
       setRides(ridesList);
     };
     fetchData();
-  }, );
+  });
 
   useEffect( ()=>{
       const getRides =  async ()=> {
@@ -38,16 +38,8 @@ const RideSearch = () => {
   }, [ridesCollectionRef]);
 
 
-
-
-  
-   
   const center = {lat:15.280347,lng:73.980065};
 
-  const {isLoaded} = useJsApiLoader({
-    googleMapsApiKey: process.env.REACT_APP_GMAPS_KEY,
-    libraries:["places"]
-  })
 
   const [map, setMap]= useState(/**@type google.maps.Map */null);
   const [directionsResponse, setDirectionsResponse]=useState(null);
@@ -57,41 +49,43 @@ const RideSearch = () => {
   const originRef = useRef()
   const destinationRef = useRef()
 
-
-
-  if(!isLoaded){
-    return <p style={{textAlign:'center'}}> Loading maps</p>
-  }
-
-
-
-
+  
 async function calculateRoute(){
-  if(originRef.current.value === '' || destinationRef.current.value === ''){
+  if(originRef.current.value === ' ' || destinationRef.current.value === ' '){
     return 
   }
-  // eslint-disable-next-line no-undef
-  const directionService = new google.maps.DirectionsService()
+  
+  const directionService = new global.google.maps.DirectionsService();
+
   const result = await directionService.route({
     origin: originRef.current.value,
     destination: destinationRef.current.value,
-    // eslint-disable-next-line no-undef
-    travelMode: google.maps.TravelMode.DRIVING
+    travelMode: global.google.maps.TravelMode.DRIVING,
   }) 
 
   setDirectionsResponse(result)
-  setDistance(result.routes[4])
+  setDistance(result.routes[0].legs[0].distance.text)
 
 }
+  
 
 
-function clearRoute(){
-  setDirectionsResponse(null)
-  setDistance('')
-  originRef.current.value = ''
-  destinationRef.current.value =''
+const {isLoaded} = useJsApiLoader({
+  libraries:["places"],
+  googleMapsApiKey: process.env.REACT_APP_GMAPS_KEY,
+
+})
+
+
+
+
+
+if(!isLoaded){
+  return <p style={{textAlign:'center', color:'white', }}> Loading Maps ...</p>
 }
+  
    
+  
 
 
 
@@ -123,11 +117,8 @@ function clearRoute(){
                 }}>
                   <input type="text" placeholder='📍To' className='phold' ref={destinationRef}/>
                 </Autocomplete>
-                  <div className="hide">
-                  <p> Distance  {distance}</p> <h3 onClick={clearRoute}> <b> Cancel </b></h3>
-                <br/>
-                <Link to=' ' onClick={calculateRoute} className='search-ride-btn'> Search </Link>
-                <h2 onClick={ () => map.panTo(center)}> recenter</h2>
+                  <div>
+                
                   </div>
                
                 
@@ -168,7 +159,7 @@ function clearRoute(){
         <div className="ride-head">
             <h2>Rides Found</h2>
 
-        <DropdownButton id="dropdown-basic-button" title="Sort By:Default">
+        <DropdownButton id="dropdown-basic-button" title="Sort">
             <Dropdown.Item href="#/action-1"><b>cost : </b>low to high</Dropdown.Item>
             <Dropdown.Item href="#/action-2"> <b> cost : </b> high to  low</Dropdown.Item>
             <Dropdown.Item href="#/action-3"> <b> vehicle type</b></Dropdown.Item>
@@ -213,8 +204,9 @@ function clearRoute(){
             
             <Link to='/join' 
             
+            
             state={{data:{
-              ride_name: ride.rider_name,
+              rider_name: ride.rider_name,
               vtype: ride.vtype,
               vnumber: ride.vnumber,
               seats: ride.seats,
@@ -223,7 +215,8 @@ function clearRoute(){
               end_loc:ride.end_loc,
               total_distance:ride.total_distance,
               ride_id:ride.ride_id,
-              departure_time:ride.departure_time
+              departure_time:ride.departure_time,
+              originStart: ride.start_loc
             }}}
 
             className='link'>

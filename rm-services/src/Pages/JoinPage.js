@@ -18,22 +18,31 @@ const JoinPage = (props) => {
   const user =UserAuth();
   const [location, setLocation]=useState('');
   const[costKM, setCostKM] =useState('');
+  const [directionsResponse, setDirectionsResponse]=useState(null);
+
+  let [distance, setDistance]= useState('')
+    let originRef = data.originStart;
 
    useEffect(()=>{
     if(data.vtype === 'suv'|| data.vtype === 'SUV'){
-      setCostKM(7)
+      setCostKM(7);
+      console.log(costKM)
    }else if (data.vtype === 'bike' || data.vtype === 'BIKE'){
-    setCostKM(3)
+    setCostKM(3);
+    console.log(costKM)
    }else if (data.vtype ==='hatchback'|| data.vtype === 'HATCHBACK'){
-    setCostKM(5)
+    setCostKM(5);
+    console.log(costKM)
    }
-   },[])
+
+
+   })
+
+
    
   /**@type React.MutableRefObject<HTMLInputElement>*/
-  const originRef = useRef()
   const destinationRef = useRef()
 
-  const center = {lat:15.280347,lng:73.980065};
 
   const {isLoaded} = useJsApiLoader({
     googleMapsApiKey: process.env.REACT_APP_GMAPS_KEY,
@@ -45,24 +54,28 @@ const JoinPage = (props) => {
 
 
  async function calculateRoute(){
-   if(originRef.current.value === '' || destinationRef.current.value === ''){
-     return 
+  try{
+// eslint-disable-next-line no-undef
+const directionService = new google.maps.DirectionsService()
+const result = await directionService.route({
+  origin: originRef ,
+  destination: destinationRef.current.value,
+  // eslint-disable-next-line no-undef
+  travelMode: google.maps.TravelMode.DRIVING
+})
+setDistance(result.routes[0].legs[0].distance.text)
+console.log(distance)
+  }
+   catch{
+    console.log(Error)
    }
-  
-
  
+
  }
- 
-
-
-   
+ const finalCost = parseFloat(distance) * parseInt(costKM);
   return (
     <>
-      {user ? <NavbarLogout/> : <NavbarLogin/>}
-
-     
-     
-                 
+      {user ? <NavbarLogout/> : <NavbarLogin/>}       
               
     <Card  className='car-card' bg='light'>
     <Card.Title className='car-title'> {data.rider_name}</Card.Title>
@@ -88,17 +101,17 @@ const JoinPage = (props) => {
         <Autocomplete options={{
                   componentRestrictions: {country : "ind"}
                 }}>
-          <Form.Control style={{fontSize:12, height:44}} onChange={(e) => setLocation(e.target.value)} type="text"  placeholder="Enter Drop location within route" required />
+          <Form.Control style={{fontSize:12, height:44}} onChange={(e) => setLocation(e.target.value)} type="text"  placeholder="Enter Drop location within route" ref={destinationRef}  required />
           </Autocomplete>
-       
+          <Button variant="primary" onClick={calculateRoute} className='car-pay'> Get Total Cost </Button>
         </Form.Group>
     
   
-        <ListGroup.Item> <b style={{fontSize : 22}}> Total Cost : {data.total_distance *costKM}</b></ListGroup.Item>
+        { distance ? <ListGroup.Item> <b style={{fontSize : 22}}> Total Cost : {finalCost.toFixed(2) }</b></ListGroup.Item> : null}
         
       </ListGroup>
-    
-      <Button variant="primary" type='submit' className='car-pay'>  Request To Join </Button>
+    {distance? <Button variant="primary"  className='car-pay'>  Request To Join </Button> : null}
+      
       </Form>
       </Card.Body>
     </Card>

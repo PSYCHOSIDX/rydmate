@@ -14,11 +14,13 @@ import RidesPosted from "./Pages/RidesPosted";
 import Rider from "./Pages/Rider";
 import VehiclePage from "./Pages/VehiclePage";
 
+
 const App = () => {
   return (
     
         <AuthContextProvider>
         <Routes>
+
             <Route path='/login'  element={<Login/>} />
 
             <Route path='/signup'  element={<SignUp/>} />
@@ -35,7 +37,10 @@ const App = () => {
 
             <Route path='/join'  element={<ProtectedRoutes> <JoinPage/> </ProtectedRoutes>} />
             
-            <Route path='*'  element={<ErrorPage/>} />
+            <Route path="/404"  element={<ErrorPage/>} />
+
+
+            
         </Routes>
         </AuthContextProvider>
           

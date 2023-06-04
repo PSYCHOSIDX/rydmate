@@ -22,7 +22,6 @@ export const AuthContextProvider = ({children}) => {
       
            return createUserWithEmailAndPassword(auth, email, password)
             .then(async (result) =>{
-                console.log(result.user);
                 const ref =doc(db, "users", result.user.uid);
                 await setDoc(ref, {displayName,phoneNo})
                 .then((e) =>{
@@ -69,8 +68,7 @@ const logout = () => {
 
         useEffect(() => {
             const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-                console.log(currentUser);
-                setUser(currentUser)
+                setUser(currentUser);
             })
 
             return ()=>{

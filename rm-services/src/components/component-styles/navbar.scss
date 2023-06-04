@@ -4,7 +4,7 @@ $bluex:#000000;
 
 #visible{
     display: block;
-    width: 82%;
+    width: 90%;
     border-radius: none;
     font-size: 1.1rem;
     margin-top: 1rem;
@@ -38,7 +38,8 @@ $bluex:#000000;
 .profile{
     width: 3rem;
     height: 3rem;
-    margin: .2em;
+    margin: .2rem;
+    margin-right: 1rem;
     margin-right: .5rem;
     border-radius: 2rem;
     
@@ -113,6 +114,7 @@ $bluex:#000000;
     margin: .2rem;
     margin-left: 1rem;
     text-shadow: 1px 1px #ffffff6c;
+    margin-right: 1rem;
     &:active{
         background-color: rgb(165, 165, 165);
     }
@@ -177,6 +179,7 @@ $bluex:#000000;
         padding: .6rem 1rem;
         font-size: .8rem;
         display: none;
+        margin-left: -8%;
     }
     .container{
         width: 120%;
