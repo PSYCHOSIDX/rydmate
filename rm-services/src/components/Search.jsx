@@ -82,7 +82,7 @@ const Search = () => {
                     </Link>
                     <br/>
                     <br/>
-                    <Link className='link' to='#'>
+                    <Link className='link' to='/activerides'>
                       <button className='go-btn'>View Rides</button>
                     </Link>
                   </div>

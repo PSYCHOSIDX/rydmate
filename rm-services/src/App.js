@@ -10,7 +10,7 @@ import ErrorPage from "./Pages/ErrorPage";
 import EmergencyPage from "./Pages/EmergencyPage";
 import JoinPage from "./Pages/JoinPage";
 import PostRide from "./Pages/PostRide";
-
+import RidesPosted from "./Pages/RidesPosted";
 import Rider from "./Pages/Rider";
 import VehiclePage from "./Pages/VehiclePage";
 
@@ -31,6 +31,7 @@ const App = () => {
             <Route path='/riderinfo'  element={<Rider/>} />
             <Route path='/vehicleinfo'  element={<VehiclePage/>} />
             <Route path='/postride'  element={<PostRide/>} />
+            <Route path='/activerides'  element={<RidesPosted/>} />
 
             <Route path='/join'  element={<ProtectedRoutes> <JoinPage/> </ProtectedRoutes>} />
             
