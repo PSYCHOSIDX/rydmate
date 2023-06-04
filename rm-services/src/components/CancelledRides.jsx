@@ -68,7 +68,7 @@ const CancelledRides = () => {
           <Container className="gridbox">
             <Row className="gridrow">
               {rides.map((ride) => (
-                <div className="ride-card" key={ride.id}>
+                <div className="ride-card" key={ride.ride_id}>
                   <h2 id="loc">
                     {ride.start_loc} to {ride.end_loc}
                   </h2>
