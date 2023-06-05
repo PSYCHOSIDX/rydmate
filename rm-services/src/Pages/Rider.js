@@ -8,7 +8,7 @@ const Rider = () => {
     <>
     <NavbarLogout/>
     <RiderInfo/>
-    {/* <Footer/> */}
+    <Footer/>
     </>
         
   )
