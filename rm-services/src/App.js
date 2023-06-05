@@ -8,7 +8,11 @@ import { AuthContextProvider } from "./context/UserAuthContext";
 import ProtectedRoutes from "./components/ProtectedRoutes";
 import ErrorPage from "./Pages/ErrorPage";
 import EmergencyPage from "./Pages/EmergencyPage";
+import JoinPage from "./Pages/JoinPage";
+import PostRide from "./Pages/PostRide";
 
+import Rider from "./Pages/Rider";
+import VehiclePage from "./Pages/VehiclePage";
 
 const App = () => {
   return (
@@ -24,6 +28,11 @@ const App = () => {
             <Route path='/rides'  element={<ProtectedRoutes> <Rides/> </ProtectedRoutes>} />
 
             <Route path='/emergency'  element={<ProtectedRoutes> <EmergencyPage/> </ProtectedRoutes>} />
+            <Route path='/riderinfo'  element={<Rider/>} />
+            <Route path='/vehicleinfo'  element={<VehiclePage/>} />
+            <Route path='/postride'  element={<PostRide/>} />
+
+            <Route path='/join'  element={<ProtectedRoutes> <JoinPage/> </ProtectedRoutes>} />
             
             <Route path='*'  element={<ErrorPage/>} />
         </Routes>

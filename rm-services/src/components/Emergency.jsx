@@ -13,7 +13,7 @@ const Emergency = () => {
   const {user} = UserAuth();
   const userId = user.uid
   const [emergencies, setEmergencies] = useState([]);
-  let emegerncyList = [];
+  //let emegerncyList = [];
   
 // const accountSid = process.env.REACT_APP_ACCOUNT_SID;
 // const authToken = process.env.REACT_APP_AUTH_TOKEN;
