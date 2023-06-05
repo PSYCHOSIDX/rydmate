@@ -83,7 +83,7 @@ const UsersRides = () => {
                    <h2 id="type"> status {'ride.ride_status'}</h2>
                   {/* <h5 id="cost">Cost Per Km</h5> */}
                  {/* <h2 id="realcost">{ride.cost_per_km}</h2> */}
-                  {/* <input type="button" value={ride.ride_otp} className="ride-join" disabled/> */}
+                  <input type="button" value= 'Chat' className="ride-join" />
                   </div>
       {/* </Link>
               ))} */}
