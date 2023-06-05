@@ -14,6 +14,7 @@ import RidesPosted from "./Pages/RidesPosted";
 import Rider from "./Pages/Rider";
 import VehiclePage from "./Pages/VehiclePage";
 import RidesUsers from "./Pages/RidesUsers";
+import ViewRides from "./Pages/ViewRides";
 
 const App = () => {
   return (
@@ -35,6 +36,7 @@ const App = () => {
             <Route path='/postride'  element={<PostRide/>} />
             <Route path='/activerides'  element={<RidesPosted/>} />
             <Route path="/activerides/:ride_id" element={ <RidesUsers /> } />
+            <Route path="/viewrides" element={ < ViewRides/> } />
 
             <Route path='/join'  element={<ProtectedRoutes> <JoinPage/> </ProtectedRoutes>} />
             

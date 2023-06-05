@@ -56,7 +56,7 @@ const Search = () => {
                 <>
                   <h1>View <br /> Rides</h1>
                   <h4>View all the rides you joined till now</h4>
-                  <Link className='link' to='#'>
+                  <Link className='link' to='/viewrides'>
                     <button className='go-btn'>Go</button>
                   </Link>
                 </>
