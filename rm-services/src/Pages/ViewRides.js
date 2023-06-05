@@ -9,7 +9,7 @@ const ViewRides = () => {
   const {user} = UserAuth();
   return (
     <>
-    {/* {user ? <NavbarLogout/> : <NavbarLogin/>} */}
+    {user ? <NavbarLogout/> : <NavbarLogin/>}
     <UsersRides/>
     {/* <ActiveRides/> */}
     {/* <Footer/> */}

@@ -9,7 +9,7 @@ const RidesUsers = () => {
   const {user} = UserAuth();
   return (
     <>
-    {/* {user ? <NavbarLogout/> : <NavbarLogin/>} */}
+    {user ? <NavbarLogout/> : <NavbarLogin/>}
     <RideDetails/>
     {/* <ActiveRides/> */}
     {/* <Footer/> */}

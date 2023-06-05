@@ -96,8 +96,6 @@ const NavigationPage = () => {
 
     <>
       
-
-
       <div className="mapbox" style={{ marginTop: '0rem' }}>
 
       <GoogleMap  className='gmap' center={center} zoom={15} 
