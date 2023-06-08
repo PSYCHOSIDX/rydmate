@@ -71,7 +71,53 @@ const Search = () => {
               )}
             </div>
 
+
+
             <div className="search-card">
+              {isLoggedIn ? (
+                <>
+                 {/* true */}
+                 
+                 {isVerifiedUser ? (
+                <>
+                  <h1>Rider Program</h1>
+                  <h4>Start posting rides or view active ones</h4>
+                  <div className="button-container">
+                    <Link className='link' to='/postride'>
+                      <button className='go-btn'>Post Rides</button>
+                    </Link>
+                    <br/>
+                    <br/>
+                    <Link className='link' to='/activerides'>
+                      <button className='go-btn'>View Rides</button>
+                    </Link>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <h1>Rider Program</h1>
+                  <h4>you're yet to be verified</h4>
+                  {/* <Link className='link' to='/riderinfo'> */}
+                    <button className='go-btn' disabled>Verification pending</button>
+                  {/* </Link> */}
+                </>
+              )}
+
+                </>
+              ) : (
+                <>
+    {/* false */}
+
+    <h1>Register In <br />Rider Program</h1>
+                  <h4>Join our program to offer rides</h4>
+                  <Link className='link' to='/riderinfo'>
+                    <button className='go-btn'>Go</button>
+                  </Link>
+                </>
+              )}
+            </div>
+
+            {/* <div className="search-card">
               {isVerifiedUser ? (
                 <>
                   <h1>Rider Program</h1>
@@ -90,13 +136,13 @@ const Search = () => {
               ) : (
                 <>
                   <h1>Register In <br />Rider Program</h1>
-                  <h4>Join our program to offer rides</h4>
+                  <h4>Verification pending</h4>
                   <Link className='link' to='/riderinfo'>
-                    <button className='go-btn'>Go</button>
+                    <button className='go-btn' disabled>Go</button>
                   </Link>
                 </>
               )}
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
