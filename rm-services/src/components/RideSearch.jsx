@@ -13,10 +13,9 @@ import {collection, getDocs} from 'firebase/firestore';
 
 const RideSearch = () => {
 
-  
   const [rides , setRides]= useState([]);
   const ridesCollectionRef = collection(db,"rides");
-
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -137,7 +136,7 @@ if(!isLoaded){
                  options={{
                   streetViewControl: false,
                  
-                  fullscreenControl: false,
+                  fullscreenControl: true,
          
                   mapId: "c592e5989eb34504",
                   keyboardShortcuts:false,
@@ -180,43 +179,66 @@ if(!isLoaded){
       <Row text-center className='gridrow'>
 
         {rides.map((ride) => {
+
+        let cost = 0;    
+        if(ride.vehicle_type === 'suv'|| ride.vehicle_type === 'SUV'){
+            cost=7;
+         
+        }else if (ride.vehicle_type === 'bike' || ride.vehicle_type === 'BIKE'){
+          cost=3;
           
+        }else if (ride.vehicle_type ==='hatchback'|| ride.vehicle_type === 'HATCHBACK'){
+          cost=5;
+          
+        }
+   
           return  ( 
 
 
 // Ride Card        
     <div className="ride-card">
                     
-          <h2 id="loc">{ride.start_loc} to {ride.end_loc}</h2>
-            <h5 id="dis">Distance {ride.total_distance} km</h5>
+          <h2 id="loc"><b>FROM</b> {ride.start_loc} <br/> <b>TO</b> {ride.end_loc}</h2>
+          
             <div className="line"> .</div>
 
             <h2 id="name">{ride.rider_name}</h2>
+
             <h2 className='type'>Vehicle type </h2>
-            <h3 id='type'>{ride.vtype}</h3>
+            <h3 id='type'>{ride.vehicle_type}</h3>
 
             <h2 className='type'>Vehicle No </h2>
-            <h3 id='type'>{ride.vnumber}</h3>
-            <h2 id='seat'>Seats Available {ride.seats}</h2>
+            <h3 id='type'>{ride.vehicle_number}</h3>
+            <h2 className='type'>Vehicle Model </h2>
+            <h3 id='type'>{ride.vehicle_name}</h3>
+
+            <h2 id='seat'>Seats Available </h2>
+            <h2 id='realcost'> {ride.seats}</h2>
 
             <h5 id='cost'>Cost Per Km</h5>
-            <h2 id='realcost'>{ride.cost_per_seat}</h2>
+            <h2 id='realcost'>{cost}</h2>
+
+            <h5 id='cost'>Departure Time</h5>
+            <h2 id='realcost'>{ride.departure_time.substring(0,35).replace('T1',' ')}</h2>
+
+        
             
             <Link to='/join' 
             
             
             state={{data:{
               rider_name: ride.rider_name,
-              vtype: ride.vtype,
-              vnumber: ride.vnumber,
+              vtype: ride.vehicle_type,
+              vnumber: ride.vehicle_number,
               seats: ride.seats,
-              cost_per_seat:ride.cost_per_seat,
               start_loc: ride.start_loc,
               end_loc:ride.end_loc,
               total_distance:ride.total_distance,
               ride_id:ride.ride_id,
               departure_time:ride.departure_time,
-              originStart: ride.start_loc
+              originStart: ride.start_loc,
+              vehicle_image: ride.vehicle_image,
+              vehicle_name: ride.vehicle_name
             }}}
 
             className='link'>
@@ -227,7 +249,7 @@ if(!isLoaded){
           );
               })
               
-        }
+        } 
 
 
 
