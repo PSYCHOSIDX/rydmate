@@ -9,7 +9,7 @@ import '../components/component-styles/join.css'
 import Button from 'react-bootstrap/esm/Button';
 import Form from 'react-bootstrap/Form';
 import { useLocation } from 'react-router-dom';
-import{useJsApiLoader, GoogleMap ,Autocomplete ,DirectionsRenderer ,} from '@react-google-maps/api'
+import{useJsApiLoader ,Autocomplete } from '@react-google-maps/api'
 
 const JoinPage = (props) => {
   const loc = useLocation()
@@ -18,12 +18,12 @@ const JoinPage = (props) => {
   const user =UserAuth();
   const [location, setLocation]=useState('');
   const[costKM, setCostKM] =useState('');
-  const [directionsResponse, setDirectionsResponse]=useState(null);
+ 
 
   let [distance, setDistance]= useState('')
     let originRef = data.originStart;
 
-   useEffect(()=>{
+   useEffect( ()=>{
     if(data.vtype === 'suv'|| data.vtype === 'SUV'){
       setCostKM(7);
       console.log(costKM)
@@ -81,7 +81,8 @@ console.log(distance)
     <Card.Title className='car-title'> {data.rider_name}</Card.Title>
         <ListGroup.Item> <b style={{marginLeft:10, color:'green'}}> ✅ verified rider</b></ListGroup.Item>
         <br/>
-       <Card.Img variant="top" className='car-image' src="https://5.imimg.com/data5/ANDROID/Default/2021/7/QX/SA/QH/99210034/img-20201124-wa0007-jpg-500x500.jpg" />
+       { !data.vehicle_image ? <h4> Vehicle Image Missing </h4> :<Card.Img variant="top" className='car-image' src={data.vehicle_image} />} 
+       
     
       <Card.Body >
       <Form xs="auto" className="sign-form" onSubmit={''}>
@@ -90,11 +91,11 @@ console.log(distance)
         <ListGroup.Item> <b>From  : </b> {data.start_loc}   </ListGroup.Item>
         <ListGroup.Item> <b>To : </b>  {data.end_loc}   </ListGroup.Item>
         <ListGroup.Item> <b>Cost Per KM : </b>{costKM}</ListGroup.Item>
-        <ListGroup.Item> <b>Vehicle Name : </b> Maruti S7</ListGroup.Item>
+        <ListGroup.Item> <b>Vehicle Name : </b>{data.vehicle_name}</ListGroup.Item>
         <ListGroup.Item> <b>Vehicle Type : </b>{data.vtype}</ListGroup.Item>
         <ListGroup.Item> <b>Vehicle No : </b>{data.vnumber}</ListGroup.Item>
         <ListGroup.Item> <b>Seats Available : </b> {data.seats}</ListGroup.Item>
-        <ListGroup.Item> <b>Departure Time : </b> {data.departure_time}</ListGroup.Item>
+        <ListGroup.Item> <b>Departure Time : </b> {data.departure_time.substring(0,25).replace('T1',' ')}</ListGroup.Item>
         
        
         <Form.Group className="mb-3 none" controlId="formBasicPassword">
