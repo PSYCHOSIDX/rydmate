@@ -65,7 +65,7 @@ const onSubmit = async (e) => {
   }
 
   
-  console.log(emegerncyList);
+  alert('Emergency Alert Has Been Raised Successfuly');
 };
 
 
