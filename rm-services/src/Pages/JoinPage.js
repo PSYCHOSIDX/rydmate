@@ -9,36 +9,20 @@ import '../components/component-styles/join.css'
 import Button from 'react-bootstrap/esm/Button';
 import Form from 'react-bootstrap/Form';
 import { useLocation } from 'react-router-dom';
-import{useJsApiLoader ,Autocomplete } from '@react-google-maps/api'
+import{useJsApiLoader , Autocomplete } from '@react-google-maps/api'
+
+
 
 const JoinPage = (props) => {
   const loc = useLocation()
-  
+  const user =  UserAuth();
   const data = loc.state?.data;
-  const user =UserAuth();
+
   const [location, setLocation]=useState('');
-  const[costKM, setCostKM] =useState('');
- 
-
   let [distance, setDistance]= useState('')
-    let originRef = data.originStart;
+  let originRef = data.originStart;
 
-   useEffect( ()=>{
-    if(data.vtype === 'suv'|| data.vtype === 'SUV'){
-      setCostKM(7);
-      console.log(costKM)
-   }else if (data.vtype === 'bike' || data.vtype === 'BIKE'){
-    setCostKM(3);
-    console.log(costKM)
-   }else if (data.vtype ==='hatchback'|| data.vtype === 'HATCHBACK'){
-    setCostKM(5);
-    console.log(costKM)
-   }
-
-
-   })
-
-
+   
    
   /**@type React.MutableRefObject<HTMLInputElement>*/
   const destinationRef = useRef()
@@ -72,8 +56,44 @@ console.log(distance)
  
 
  }
- const finalCost = parseFloat(distance) * parseInt(costKM);
-  return (
+ const finalCost = parseFloat(distance) * parseInt(data.cost_per_seat);
+
+ const handleSubmit = (e) =>{
+  e.preventDefault();
+  if( finalCost === ""){
+    alert('please enter a valid amount');
+  } else {
+    var options = {
+      key: process.env.REACT_APP_RAYZORPAY_KEY_ID ,
+      key_secret: process.env.REACT_APP_RAYZORPAY_KEY_SECRET ,
+      amount: finalCost*100 ,
+      currency:"INR",
+      name:"RydMate",
+
+      handler: function(response){
+        alert(response);
+      },
+      prefill:{
+        name: user.displayName,
+        email: user.email,
+        contact: "7028193277" 
+    },
+    notes:{
+      address: "Razorpay corporate Office",
+    },
+    theme:{
+      color:'#00FFA3'
+    }
+  };
+
+  var pay = new window.Razorpay(options);
+  pay.open();
+
+ } 
+}
+
+
+ return (
     <>
       {user ? <NavbarLogout/> : <NavbarLogin/>}       
               
@@ -90,7 +110,7 @@ console.log(distance)
      
         <ListGroup.Item> <b>From  : </b> {data.start_loc}   </ListGroup.Item>
         <ListGroup.Item> <b>To : </b>  {data.end_loc}   </ListGroup.Item>
-        <ListGroup.Item> <b>Cost Per KM : </b>{costKM}</ListGroup.Item>
+        <ListGroup.Item> <b>Cost Per KM : </b>{data.cost_per_seat}</ListGroup.Item>
         <ListGroup.Item> <b>Vehicle Name : </b>{data.vehicle_name}</ListGroup.Item>
         <ListGroup.Item> <b>Vehicle Type : </b>{data.vtype}</ListGroup.Item>
         <ListGroup.Item> <b>Vehicle No : </b>{data.vnumber}</ListGroup.Item>
@@ -111,7 +131,7 @@ console.log(distance)
         { distance ? <ListGroup.Item> <b style={{fontSize : 22}}> Total Cost : {finalCost.toFixed(2) }</b></ListGroup.Item> : null}
         
       </ListGroup>
-    {distance? <Button variant="primary"  className='car-pay'>  Request To Join </Button> : null}
+    {distance? <Button variant="primary"  className='car-pay'>  Request To Join </Button> && <Button onClick={handleSubmit} variant="success"  className='pay'>  Pay </Button>: null}
       
       </Form>
       </Card.Body>
