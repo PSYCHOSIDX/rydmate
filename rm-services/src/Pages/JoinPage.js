@@ -14,6 +14,8 @@ import { db } from '../firebaseConfig';
 import { getDocs,collection, deleteDoc, query, where} from 'firebase/firestore';
 import axios from 'axios';
 import shortid from 'shortid';
+import PaymentSuccess from '../components/PaymentSuccess';
+import PaymentFail from '../components/PaymentFail';
 
 
 
@@ -21,6 +23,8 @@ const JoinPage = (props) => {
 
   const axios = require('axios');
   const shortid = require("shortid");
+  const [success, setSuccess] = useState(false);
+  const [fail, setFail] = useState(false);
 
   const loc = useLocation();
   const {user} =  UserAuth();
@@ -113,9 +117,14 @@ console.log(distance)
       amount: finalCost*100 ,
       currency:"INR",
       name:"RydMate",
-      receipt:shortid.generate() ,
+      receipt:'receipt'+shortid.generate() ,
       handler: function(response){
-      alert('payment success');
+      if(response.razorpay_payment_id){
+      console.log('success');
+      setSuccess(true);
+      } else { console.log('failure');
+      setFail(true)
+    }
       
       },
       prefill:{
@@ -141,8 +150,7 @@ console.log(distance)
  return (
     <>
       {user ? <NavbarLogout/> : <NavbarLogin/>}       
-              
-    <Card  className='car-card' bg='light'>
+     {success? <PaymentSuccess/> : fail? <PaymentFail/> :  <Card  className='car-card' bg='light'>
     <Card.Title className='car-title'> {data.rider_name}</Card.Title>
         <ListGroup.Item> <b style={{marginLeft:10, color:'green'}}> ✅ verified rider</b></ListGroup.Item>
         <br/>
@@ -181,7 +189,8 @@ console.log(distance)
       
       </Form>
       </Card.Body>
-    </Card>
+    </Card> }         
+   
 
     <br/>
       <Footer />
