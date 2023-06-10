@@ -10,19 +10,44 @@ import Button from 'react-bootstrap/esm/Button';
 import Form from 'react-bootstrap/Form';
 import { useLocation } from 'react-router-dom';
 import{useJsApiLoader , Autocomplete } from '@react-google-maps/api'
+import { db } from '../firebaseConfig';
+import { getDocs,collection, deleteDoc, query, where} from 'firebase/firestore';
+import axios from 'axios';
+import shortid from 'shortid';
 
 
 
 const JoinPage = (props) => {
-  const loc = useLocation()
-  const user =  UserAuth();
+
+  const axios = require('axios');
+  const shortid = require("shortid");
+
+  const loc = useLocation();
+  const {user} =  UserAuth();
+  
+  const userId = user.uid;
+  var userEmail = user.email;
+  console.log(userEmail);
+
   const data = loc.state?.data;
 
+  const [phone, setPhone] = useState();
   const [location, setLocation]=useState('');
   let [distance, setDistance]= useState('')
   let originRef = data.originStart;
 
-   
+
+    async function GetPhone(Email)
+    {
+      console.log(Email)
+      const userREF = collection(db, `users/`);
+      const q = query(userREF, where('email', '==', Email));
+      const querySnapshot = await getDocs(q);
+      const phoneList =  querySnapshot.docs.map(doc => doc.data());
+      setPhone(phoneList);
+  
+      console.log(phoneList);
+    } 
    
   /**@type React.MutableRefObject<HTMLInputElement>*/
   const destinationRef = useRef()
@@ -35,6 +60,25 @@ const JoinPage = (props) => {
   if(!isLoaded){
     return <p style={{textAlign:'center'}}> Loading maps</p>
   }
+
+  function verifyPaymentSignature( razorpay_payment_id, razorpay_signature) {
+    var options = {
+        method: 'POST',
+        url: '/verify-payment-signature',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        data: {
+            razorpay_payment_id: razorpay_payment_id,
+            razorpay_signature: razorpay_signature
+        }
+    };
+    axios(options).then(function(response) {
+        console.log(response.data);
+    }).catch(function(error) {
+        console.log(error);
+    });
+}
 
 
  async function calculateRoute(){
@@ -69,14 +113,15 @@ console.log(distance)
       amount: finalCost*100 ,
       currency:"INR",
       name:"RydMate",
-
+      receipt:shortid.generate() ,
       handler: function(response){
-        alert(response);
+      alert('payment success');
+      
       },
       prefill:{
         name: user.displayName,
         email: user.email,
-        contact: "7028193277" 
+        contact: phone.phoneNumber 
     },
     notes:{
       address: "Razorpay corporate Office",
@@ -87,7 +132,7 @@ console.log(distance)
   };
 
   var pay = new window.Razorpay(options);
-  pay.open();
+  pay.open()
 
  } 
 }
@@ -124,14 +169,15 @@ console.log(distance)
                 }}>
           <Form.Control style={{fontSize:12, height:44}} onChange={(e) => setLocation(e.target.value)} type="text"  placeholder="Enter Drop location within route" ref={destinationRef}  required />
           </Autocomplete>
-          <Button variant="primary" onClick={calculateRoute} className='car-pay'> Get Total Cost </Button>
+          <Button variant="primary" onClick={() => { GetPhone(userEmail); calculateRoute()}} className='car-pay'> Get Total Cost </Button>
         </Form.Group>
     
   
         { distance ? <ListGroup.Item> <b style={{fontSize : 22}}> Total Cost : {finalCost.toFixed(2) }</b></ListGroup.Item> : null}
         
       </ListGroup>
-    {distance? <Button variant="primary"  className='car-pay'>  Request To Join </Button> && <Button onClick={handleSubmit} variant="success"  className='pay'>  Pay </Button>: null}
+      {/* <Button variant="primary"  className='car-pay'>  Request To Join </Button> &&  */}
+    {distance? <Button onClick={handleSubmit} variant="success"  className='pay'>  Pay </Button>: null}
       
       </Form>
       </Card.Body>
