@@ -68,19 +68,24 @@ const ActiveRides = () => {
           <Container className="gridbox">
             <Row className="gridrow">
               {rides.map((ride) => (
-               <Link to={`/activerides/${ride.ride_id}`} key={ride.ride_id}>
+               <Link to={`/activerides/${ride.ride_id}`} key={ride.ride_id} style={{ textDecoration: 'none', color: 'inherit' }}>
                <div className="ride-card">
-                  <h2 id="loc">
-                    {ride.start_loc} to {ride.end_loc}
-                  </h2>
-                  <div className="line"> .</div>
+               <h2 id="loc"><b>FROM</b> {ride.start_loc} <br/> <b>TO</b> {ride.end_loc}</h2>
+              
+                  <div className="line"> </div>
+                  <br/>
+                  <h2 className='type'>Vehicle type </h2>
+      <h3 id='type'>{ride.vehicle_type}</h3>
+      <h2 className='type'>Vehicle No </h2>
+      <h3 id='type'>{ride.vehicle_number}</h3>
 
-                  <h2 className="type">Vehicle name</h2>
-                  <h2 id="type">{ride.vehicle_name}</h2>
-                  <h2 className="type">Vehicle type</h2>
-                  <h3 id="type">{ride.vehicle_type}</h3>
-                  <h2 className="type">Vehicle No</h2>
-                  <h3 id="type">{ride.vehicle_number}</h3>
+      <h2 className='type'>Vehicle Model </h2>
+      <h3 id='type'>{ride.vehicle_name}</h3>
+
+
+      <h5 id='cost'>Departure Time</h5>
+      <h2 id='realcost'>{ride.departure_time.substring(0,35).replace('T1',' ')}</h2>
+
                   {/* <h2 id="seat">Seats Available {ride.seats}</h2>
                   <h5 id="cost">Cost Per Km</h5>
                   <h2 id="realcost">{ride.cost_per_km}</h2> */}

@@ -69,16 +69,17 @@ const CancelledRides = () => {
             <Row className="gridrow">
               {rides.map((ride) => (
                 <div className="ride-card" key={ride.ride_id}>
-                  <h2 id="loc">
-                    {ride.start_loc} to {ride.end_loc}
-                  </h2>
-                  <div className="line"> .</div>
-                  <h2 className="type">Vehicle name</h2>
-                  <h2 id="type">{ride.vehicle_name}</h2>
-                  <h2 className="type">Vehicle type</h2>
-                  <h3 id="type">{ride.vehicle_type}</h3>
-                  <h2 className="type">Vehicle No</h2>
-                  <h3 id="type">{ride.vehicle_number}</h3>
+             <h2 id="loc"><b>FROM</b> {ride.start_loc} <br/> <b>TO</b> {ride.end_loc}</h2>
+              
+              <div className="line"> </div>
+              <br/>
+              <h2 className='type'>Vehicle type </h2>
+  <h3 id='type'>{ride.vehicle_type}</h3>
+  <h2 className='type'>Vehicle No </h2>
+  <h3 id='type'>{ride.vehicle_number}</h3>
+
+  <h2 className='type'>Vehicle Model </h2>
+  <h3 id='type'>{ride.vehicle_name}</h3>
                   {/* <h2 id="seat">Seats Available {ride.seats}</h2>
                   <h5 id="cost">Cost Per Km</h5>
                   <h2 id="realcost">{ride.cost_per_km}</h2> */}
