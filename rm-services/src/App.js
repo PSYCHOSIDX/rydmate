@@ -32,13 +32,19 @@ const App = () => {
             <Route path='/rides'  element={<ProtectedRoutes> <Rides/> </ProtectedRoutes>} />
 
             <Route path='/emergency'  element={<ProtectedRoutes> <EmergencyPage/> </ProtectedRoutes>} />
-            <Route path='/riderinfo'  element={<Rider/>} />
-            <Route path='/vehicleinfo'  element={<VehiclePage/>} />
-            <Route path='/postride'  element={<PostRide/>} />
-            <Route path='/activerides'  element={<RidesPosted/>} />
-            <Route path="/activerides/:ride_id" element={ <RidesUsers /> } />
-            <Route path="/viewrides" element={ < ViewRides/> } />
-            <Route path="/navigation" element={ < Nav/> } />
+
+            <Route path='/riderinfo'  element={<ProtectedRoutes> <Rider/> </ProtectedRoutes>} />
+
+            <Route path='/vehicleinfo'  element={<ProtectedRoutes><VehiclePage/></ProtectedRoutes>} />
+
+            <Route path='/postride'  element={<ProtectedRoutes><PostRide/></ProtectedRoutes>} />
+
+            <Route path='/activerides'  element={<ProtectedRoutes><RidesPosted/></ProtectedRoutes>} />
+
+            <Route path="/activerides/:ride_id" element={ <ProtectedRoutes><RidesUsers /></ProtectedRoutes> } />
+
+            <Route path="/viewrides" element={<ProtectedRoutes>< ViewRides/></ProtectedRoutes>  } />
+            <Route path="/navigation" element={ <ProtectedRoutes>< Nav/></ProtectedRoutes> } />
 
 
             <Route path='/join'  element={<ProtectedRoutes> <JoinPage/> </ProtectedRoutes>} />
