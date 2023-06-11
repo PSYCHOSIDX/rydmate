@@ -208,7 +208,6 @@ if(!isLoaded){
 
             <h5 id='cost'>Cost Per Km</h5>
             <h2 id='realcost'>{ride.cost_per_km}</h2>
-            <h2 id='realcost'>{ride.cost_per_km}</h2>
 
             <h5 id='cost'>Departure Time</h5>
             <h2 id='realcost'>{ride.departure_time.substring(0,35).replace('T1',' ')}</h2>
@@ -232,7 +231,6 @@ if(!isLoaded){
               originStart: ride.start_loc,
               vehicle_image: ride.vehicle_image,
               vehicle_name: ride.vehicle_name,
-              cost_per_seat:ride.cost_per_km
             }}}
 
             className='link'>
