@@ -114,7 +114,7 @@ console.log(distance)
     var options = {
       key: process.env.REACT_APP_RAYZORPAY_KEY_ID ,
       key_secret: process.env.REACT_APP_RAYZORPAY_KEY_SECRET ,
-      amount: finalCost*100 ,
+      amount: finalCost*1000 ,
       currency:"INR",
       name:"RydMate",
       receipt:'receipt'+shortid.generate() ,
