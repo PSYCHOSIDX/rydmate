@@ -104,7 +104,7 @@ console.log(distance)
  
 
  }
- const finalCost = parseFloat(distance) * parseInt(data.cost_per_seat);
+ const finalCost = parseInt(distance) * parseInt(data.cost_per_seat);
 
  const handleSubmit = (e) =>{
   e.preventDefault();
