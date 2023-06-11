@@ -210,7 +210,7 @@ if(!isLoaded){
             <h2 id='realcost'>{ride.cost_per_km}</h2>
 
             <h5 id='cost'>Departure Time</h5>
-            <h2 id='realcost'>{ride.departure_time.substring(0,35).replace('T1',' ')}</h2>
+            <h2 id='realcost'>{ride.departure_time.substring(0,35).replace('T',' ')}</h2>
 
         
             

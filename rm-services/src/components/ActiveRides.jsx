@@ -84,7 +84,7 @@ const ActiveRides = () => {
 
 
       <h5 id='cost'>Departure Time</h5>
-      <h2 id='realcost'>{ride.departure_time.substring(0,35).replace('T1',' ')}</h2>
+      <h2 id='realcost'>{ride.departure_time.substring(0,35).replace('T',' ')}</h2>
 
                   {/* <h2 id="seat">Seats Available {ride.seats}</h2>
                   <h5 id="cost">Cost Per Km</h5>
