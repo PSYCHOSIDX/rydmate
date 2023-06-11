@@ -206,6 +206,7 @@ const Ride = () => {
                 placeholder='📍From'
                 className='form-control'
                 onChange={(e) => setSource(e.target.value)}
+                required
               />
             </Autocomplete>
           </Form.Group>
@@ -231,6 +232,7 @@ const Ride = () => {
                 placeholder='📍To'
                 className='form-control'
                 onChange={(e) => setDestination(e.target.value)}
+                required
               />
             </Autocomplete>
           </Form.Group>
@@ -240,6 +242,7 @@ const Ride = () => {
               type='datetime-local'
               className='form-control'
               onChange={(e) => setTimestamp(e.target.value)}
+              required
             />
           </Form.Group>
           <Form.Group className='mb-3'>
@@ -249,6 +252,7 @@ const Ride = () => {
               onChange={(e) =>
                 setSelectedVehicle(vehicleOptions[e.target.value])
               }
+              required
             >
               <option value=''>Select Vehicle</option>
               {vehicleOptions.map((vehicle, index) => (
@@ -267,6 +271,7 @@ const Ride = () => {
               max={selectedVehicle ? selectedVehicle.vehicleCapacity : ''}
               value={vehicleCapacity}
               onChange={(e) => setVehicleCapacity(e.target.value)}
+              required
             />
           </Form.Group>
           {formError && <p className='text-danger'>{formError}</p>}

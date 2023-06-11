@@ -144,6 +144,10 @@ function Profile({ name, ...props }) {
           <Link className='link' to='/emergency'>
               <Button as="input" id='update-button-x' type="button" value="Emergency Contacts"/> 
           </Link>
+
+          <Link className='link' to='/viewrides'>
+              <Button as="input" id='update-button-x' type="button" value="View Rides"/> 
+          </Link>
           
           <button onClick={handleLogout} className='btn-contact' id='visible'> Logout </button>
           
