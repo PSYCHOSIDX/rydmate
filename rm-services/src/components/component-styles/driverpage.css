@@ -1,0 +1,54 @@
+.driver-container {
+    border-radius: .3rem;
+      margin: auto;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      margin-left: 1rem;
+      margin-right: 1rem;
+      padding: 5rem;
+      background: rgb(255, 255, 255);
+  }
+  
+  .page-title {
+    color: rgb(7, 156, 84);
+    font-weight: bolder;
+      text-align: center;
+    cursor: pointer;
+    margin: auto;
+    margin-top: 2.2rem;
+    border-radius: 0.4rem;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-label {
+    font-weight: bold;
+  }
+  
+  .form-control {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .file-input {
+    margin-top: 8px;
+  }
+  
+  .driver-btn {
+    background: #13b054;
+    background-color: #019f68;
+  
+    border: none;
+    width: 100%;
+    display: block;
+    margin-top: 20px;
+  }
+  
+  .driver-btn:hover {
+    background-color: black;
+    color: white;
+  }

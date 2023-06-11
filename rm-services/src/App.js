@@ -9,8 +9,13 @@ import ProtectedRoutes from "./components/ProtectedRoutes";
 import ErrorPage from "./Pages/ErrorPage";
 import EmergencyPage from "./Pages/EmergencyPage";
 import JoinPage from "./Pages/JoinPage";
-
-
+import PostRide from "./Pages/PostRide";
+import RidesPosted from "./Pages/RidesPosted";
+import Rider from "./Pages/Rider";
+import VehiclePage from "./Pages/VehiclePage";
+import RidesUsers from "./Pages/RidesUsers";
+import ViewRides from "./Pages/ViewRides";
+import Nav from "./Pages/Nav";
 
 const App = () => {
   return (
@@ -27,6 +32,14 @@ const App = () => {
             <Route path='/rides'  element={<ProtectedRoutes> <Rides/> </ProtectedRoutes>} />
 
             <Route path='/emergency'  element={<ProtectedRoutes> <EmergencyPage/> </ProtectedRoutes>} />
+            <Route path='/riderinfo'  element={<Rider/>} />
+            <Route path='/vehicleinfo'  element={<VehiclePage/>} />
+            <Route path='/postride'  element={<PostRide/>} />
+            <Route path='/activerides'  element={<RidesPosted/>} />
+            <Route path="/activerides/:ride_id" element={ <RidesUsers /> } />
+            <Route path="/viewrides" element={ < ViewRides/> } />
+            <Route path="/navigation" element={ < Nav/> } />
+
 
             <Route path='/join'  element={<ProtectedRoutes> <JoinPage/> </ProtectedRoutes>} />
             
