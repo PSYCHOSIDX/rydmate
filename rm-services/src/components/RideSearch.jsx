@@ -180,17 +180,7 @@ if(!isLoaded){
 
         {rides.map((ride) => {
 
-        // let cost = 0;    
-        // if(ride.vehicle_type === 'suv'|| ride.vehicle_type === 'SUV'){
-        //     cost=7;
-         
-        // }else if (ride.vehicle_type === 'bike' || ride.vehicle_type === 'BIKE'){
-        //   cost=3;
-          
-        // }else if (ride.vehicle_type ==='hatchback'|| ride.vehicle_type === 'HATCHBACK'){
-        //   cost=5;
-          
-        // }
+       
    
           return  ( 
 
@@ -209,6 +199,7 @@ if(!isLoaded){
 
             <h2 className='type'>Vehicle No </h2>
             <h3 id='type'>{ride.vehicle_number}</h3>
+
             <h2 className='type'>Vehicle Model </h2>
             <h3 id='type'>{ride.vehicle_name}</h3>
 
@@ -216,6 +207,7 @@ if(!isLoaded){
             <h2 id='realcost'> {ride.seats}</h2>
 
             <h5 id='cost'>Cost Per Km</h5>
+            <h2 id='realcost'>{ride.cost_per_km}</h2>
             <h2 id='realcost'>{ride.cost_per_km}</h2>
 
             <h5 id='cost'>Departure Time</h5>
@@ -239,7 +231,8 @@ if(!isLoaded){
               departure_time:ride.departure_time,
               originStart: ride.start_loc,
               vehicle_image: ride.vehicle_image,
-              vehicle_name: ride.vehicle_name
+              vehicle_name: ride.vehicle_name,
+              cost_per_seat:ride.cost_per_km
             }}}
 
             className='link'>

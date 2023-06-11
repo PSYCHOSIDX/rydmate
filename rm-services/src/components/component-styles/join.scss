@@ -51,6 +51,22 @@
             background-color: rgb(7, 144, 91);
         }
     }
+
+    .pay{
+        
+        background-color: rgb(112, 207, 44);
+        width: 100%;
+        border: black;
+        font-size: 1.1rem;
+        margin: auto;
+        margin-top: .7rem;
+       
+        
+        padding: 1rem;
+        &:hover{
+            background-color: rgb(7, 144, 91);
+        }
+    }
 }
 
 

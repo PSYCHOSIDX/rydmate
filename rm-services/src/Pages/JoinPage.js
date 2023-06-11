@@ -9,36 +9,49 @@ import '../components/component-styles/join.css'
 import Button from 'react-bootstrap/esm/Button';
 import Form from 'react-bootstrap/Form';
 import { useLocation } from 'react-router-dom';
-import{useJsApiLoader ,Autocomplete } from '@react-google-maps/api'
+import{useJsApiLoader , Autocomplete } from '@react-google-maps/api'
+import { db } from '../firebaseConfig';
+import { getDocs,collection, deleteDoc, query, where} from 'firebase/firestore';
+import axios from 'axios';
+import shortid from 'shortid';
+import PaymentSuccess from '../components/PaymentSuccess';
+import PaymentFail from '../components/PaymentFail';
+
+
 
 const JoinPage = (props) => {
-  const loc = useLocation()
+
+  const axios = require('axios');
+  const shortid = require("shortid");
+  const [success, setSuccess] = useState(false);
+  const [fail, setFail] = useState(false);
+
+  const loc = useLocation();
+  const {user} =  UserAuth();
   
+  const userId = user.uid;
+  var userEmail = user.email;
+  console.log(userEmail);
+
   const data = loc.state?.data;
-  const user =UserAuth();
+
+  const [phone, setPhone] = useState();
   const [location, setLocation]=useState('');
-  const[costKM, setCostKM] =useState('');
- 
-
   let [distance, setDistance]= useState('')
-    let originRef = data.originStart;
-
-   useEffect( ()=>{
-    if(data.vtype === 'suv'|| data.vtype === 'SUV'){
-      setCostKM(7);
-      console.log(costKM)
-   }else if (data.vtype === 'bike' || data.vtype === 'BIKE'){
-    setCostKM(3);
-    console.log(costKM)
-   }else if (data.vtype ==='hatchback'|| data.vtype === 'HATCHBACK'){
-    setCostKM(5);
-    console.log(costKM)
-   }
+  let originRef = data.originStart;
 
 
-   })
-
-
+    async function GetPhone(Email)
+    {
+      console.log(Email)
+      const userREF = collection(db, `users/`);
+      const q = query(userREF, where('email', '==', Email));
+      const querySnapshot = await getDocs(q);
+      const phoneList =  querySnapshot.docs.map(doc => doc.data());
+      setPhone(phoneList);
+  
+      console.log(phoneList);
+    } 
    
   /**@type React.MutableRefObject<HTMLInputElement>*/
   const destinationRef = useRef()
@@ -51,6 +64,25 @@ const JoinPage = (props) => {
   if(!isLoaded){
     return <p style={{textAlign:'center'}}> Loading maps</p>
   }
+
+  function verifyPaymentSignature( razorpay_payment_id, razorpay_signature) {
+    var options = {
+        method: 'POST',
+        url: '/verify-payment-signature',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        data: {
+            razorpay_payment_id: razorpay_payment_id,
+            razorpay_signature: razorpay_signature
+        }
+    };
+    axios(options).then(function(response) {
+        console.log(response.data);
+    }).catch(function(error) {
+        console.log(error);
+    });
+}
 
 
  async function calculateRoute(){
@@ -72,12 +104,53 @@ console.log(distance)
  
 
  }
- const finalCost = parseFloat(distance) * parseInt(costKM);
-  return (
+ const finalCost = parseFloat(distance) * parseInt(data.cost_per_seat);
+
+ const handleSubmit = (e) =>{
+  e.preventDefault();
+  if( finalCost === ""){
+    alert('please enter a valid amount');
+  } else {
+    var options = {
+      key: process.env.REACT_APP_RAYZORPAY_KEY_ID ,
+      key_secret: process.env.REACT_APP_RAYZORPAY_KEY_SECRET ,
+      amount: finalCost*100 ,
+      currency:"INR",
+      name:"RydMate",
+      receipt:'receipt'+shortid.generate() ,
+      handler: function(response){
+      if(response.razorpay_payment_id){
+      console.log('success');
+      setSuccess(true);
+      } else { console.log('failure');
+      setFail(true)
+    }
+      
+      },
+      prefill:{
+        name: user.displayName,
+        email: user.email,
+        contact: phone.phoneNumber 
+    },
+    notes:{
+      address: "Razorpay corporate Office",
+    },
+    theme:{
+      color:'#00FFA3'
+    }
+  };
+
+  var pay = new window.Razorpay(options);
+  pay.open()
+
+ } 
+}
+
+
+ return (
     <>
       {user ? <NavbarLogout/> : <NavbarLogin/>}       
-              
-    <Card  className='car-card' bg='light'>
+     {success? <PaymentSuccess/> : fail? <PaymentFail/> :  <Card  className='car-card' bg='light'>
     <Card.Title className='car-title'> {data.rider_name}</Card.Title>
         <ListGroup.Item> <b style={{marginLeft:10, color:'green'}}> ✅ verified rider</b></ListGroup.Item>
         <br/>
@@ -90,7 +163,7 @@ console.log(distance)
      
         <ListGroup.Item> <b>From  : </b> {data.start_loc}   </ListGroup.Item>
         <ListGroup.Item> <b>To : </b>  {data.end_loc}   </ListGroup.Item>
-        <ListGroup.Item> <b>Cost Per KM : </b>{costKM}</ListGroup.Item>
+        <ListGroup.Item> <b>Cost Per KM : </b>{data.cost_per_seat}</ListGroup.Item>
         <ListGroup.Item> <b>Vehicle Name : </b>{data.vehicle_name}</ListGroup.Item>
         <ListGroup.Item> <b>Vehicle Type : </b>{data.vtype}</ListGroup.Item>
         <ListGroup.Item> <b>Vehicle No : </b>{data.vnumber}</ListGroup.Item>
@@ -104,18 +177,20 @@ console.log(distance)
                 }}>
           <Form.Control style={{fontSize:12, height:44}} onChange={(e) => setLocation(e.target.value)} type="text"  placeholder="Enter Drop location within route" ref={destinationRef}  required />
           </Autocomplete>
-          <Button variant="primary" onClick={calculateRoute} className='car-pay'> Get Total Cost </Button>
+          <Button variant="primary" onClick={() => { GetPhone(userEmail); calculateRoute()}} className='car-pay'> Get Total Cost </Button>
         </Form.Group>
     
   
         { distance ? <ListGroup.Item> <b style={{fontSize : 22}}> Total Cost : {finalCost.toFixed(2) }</b></ListGroup.Item> : null}
         
       </ListGroup>
-    {distance? <Button variant="primary"  className='car-pay'>  Request To Join </Button> : null}
+      {/* <Button variant="primary"  className='car-pay'>  Request To Join </Button> &&  */}
+    {distance? <Button onClick={handleSubmit} variant="success"  className='pay'>  Pay </Button>: null}
       
       </Form>
       </Card.Body>
-    </Card>
+    </Card> }         
+   
 
     <br/>
       <Footer />

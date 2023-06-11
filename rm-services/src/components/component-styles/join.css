@@ -43,6 +43,18 @@
 .car-card .car-pay:hover {
   background-color: rgb(7, 144, 91);
 }
+.car-card .pay {
+  background-color: rgb(112, 207, 44);
+  width: 100%;
+  border: black;
+  font-size: 1.1rem;
+  margin: auto;
+  margin-top: 0.7rem;
+  padding: 1rem;
+}
+.car-card .pay:hover {
+  background-color: rgb(7, 144, 91);
+}
 
 @media screen and (max-width: 700px) {
   .car-card {
