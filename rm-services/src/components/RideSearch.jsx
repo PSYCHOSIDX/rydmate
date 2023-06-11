@@ -222,7 +222,6 @@ if(!isLoaded){
               vtype: ride.vehicle_type,
               vnumber: ride.vehicle_number,
               seats: ride.seats,
-              cost_per_km:ride.cost_per_km,
               start_loc: ride.start_loc,
               end_loc:ride.end_loc,
               total_distance:ride.total_distance,
@@ -231,6 +230,7 @@ if(!isLoaded){
               originStart: ride.start_loc,
               vehicle_image: ride.vehicle_image,
               vehicle_name: ride.vehicle_name,
+              cost_per_seat:ride.cost_per_km
             }}}
 
             className='link'>
