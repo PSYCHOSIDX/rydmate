@@ -11,6 +11,8 @@ const Search = () => {
   const isLoggedIn = authContext.user !== null; // Check if user is logged in
   const currentUserUid = authContext.user ? authContext.user.uid : null;
   const [isVerifiedUser, setIsVerifiedUser] = useState(false);
+  const [hasRiderProgram, setHasRiderProgram] = useState(false);
+
 
   useEffect(() => {
     const fetchVerificationStatus = async () => {
@@ -24,6 +26,10 @@ const Search = () => {
             const isVerified = userData?.verified_rider || false;
             setIsVerifiedUser(isVerified);
             console.log(isVerified);
+            setHasRiderProgram(true);
+          }
+          else {
+            setHasRiderProgram(false);
           }
         }
       } catch (error) {
@@ -74,44 +80,51 @@ const Search = () => {
 
 
             <div className="search-card">
-              {isLoggedIn ? (
+            {isLoggedIn ? (
                 <>
-                 {/* true */}
-                 
-                 {isVerifiedUser ? (
-                <>
-                  <h1>Rider Program</h1>
-                  <h4>Start posting rides or view active ones</h4>
-                  <div className="button-container">
-                    <Link className='link' to='/postride'>
-                      <button className='go-btn'>Post Rides</button>
-                    </Link>
-                    <br/>
-                    <br/>
-                    <Link className='link' to='/activerides'>
-                      <button className='go-btn'>View Rides</button>
-                    </Link>
-                  </div>
+                  {hasRiderProgram ? (
+                    <>
+                      {isVerifiedUser ? (
+                        <>
+                          <h1>Rider Program</h1>
+                          <h4>Start posting rides or view active ones</h4>
+                          <div className="button-container">
+                            <Link className="link" to="/postride">
+                              <button className="go-btn">Post Rides</button>
+                            </Link>
+                            <br />
+                            <br />
+                            <Link className="link" to="/activerides">
+                              <button className="go-btn">View Rides</button>
+                            </Link>
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <h1>Rider Program</h1>
+                          <h4>You're yet to be verified</h4>
+                          <button className="go-btn" disabled>
+                            Verification pending
+                          </button>
+                        </>
+                      )}
+                    </>
+                  ) : (
+                    <>
+                      <h1>Register for Rider Program</h1>
+                      <h4>Join our program to offer rides</h4>
+                      <Link className="link" to="/riderinfo">
+                        <button className="go-btn">Go</button>
+                      </Link>
+                    </>
+                  )}
                 </>
               ) : (
                 <>
-                  <h1>Rider Program</h1>
-                  <h4>you're yet to be verified</h4>
-                  {/* <Link className='link' to='/riderinfo'> */}
-                    <button className='go-btn' disabled>Verification pending</button>
-                  {/* </Link> */}
-                </>
-              )}
-
-                </>
-              ) : (
-                <>
-    {/* false */}
-
-    <h1>Register In <br />Rider Program</h1>
+                  <h1>Register for Rider Program</h1>
                   <h4>Join our program to offer rides</h4>
-                  <Link className='link' to='/riderinfo'>
-                    <button className='go-btn'>Go</button>
+                  <Link className="link" to="/riderinfo">
+                    <button className="go-btn">Go</button>
                   </Link>
                 </>
               )}
