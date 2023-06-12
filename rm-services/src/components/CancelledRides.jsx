@@ -23,13 +23,13 @@ const CancelledRides = () => {
           return;
         }
 
-        const ridesCollectionRef = collection(db, 'users', currentUserUid, 'ridesposted');
+        const ridesCollectionRef = collection(db, 'rides');
         const ridesSnapshot = await getDocs(ridesCollectionRef);
 
         if (ridesSnapshot.empty) {
           setRidesPostedExists(false);
         } else {
-          const q = query(ridesCollectionRef, where('ride_status', '==', 'cancelled'));
+          const q = query(ridesCollectionRef, where('user_id', '==', currentUserUid), where('ride_status', '==', 'cancelled'));
           const cancelledRidesSnapshot = await getDocs(q);
           const cancelledRidesData = cancelledRidesSnapshot.docs.map((doc) => doc.data());
           setRides(cancelledRidesData);
