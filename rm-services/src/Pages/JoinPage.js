@@ -168,7 +168,7 @@ console.log(distance)
         <ListGroup.Item> <b>Vehicle Type : </b>{data.vtype}</ListGroup.Item>
         <ListGroup.Item> <b>Vehicle No : </b>{data.vnumber}</ListGroup.Item>
         <ListGroup.Item> <b>Seats Available : </b> {data.seats}</ListGroup.Item>
-        <ListGroup.Item> <b>Departure Time : </b> {data.departure_time.substring(0,25).replace('T1',' ')}</ListGroup.Item>
+        <ListGroup.Item> <b>Departure Time : </b> {data.departure_time.substring(0,25).replace('T',' ')}</ListGroup.Item>
         
        
         <Form.Group className="mb-3 none" controlId="formBasicPassword">

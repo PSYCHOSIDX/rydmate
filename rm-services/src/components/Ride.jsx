@@ -105,6 +105,31 @@ const Ride = () => {
       const currentUserUid = authContext.user ? authContext.user.uid : null;
 
       if (currentUserUid && selectedVehicle) {
+
+           // Validate departure time
+      const now = new Date();
+      const selectedDatetime = new Date(timestamp);
+
+      // Check if selected date is before today
+      if (selectedDatetime < now) {
+        setFormError('Invalid departure time. Please select a future date and time.');
+        return;
+      }
+
+      // Check if selected date is more than a month from today
+      const maxDatetime = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000); // Adding 30 days
+      if (selectedDatetime > maxDatetime) {
+        setFormError('Invalid departure time. Please select a date within the next month.');
+        return;
+      }
+
+      // Check if selected time is within 1 hour from now
+      const oneHourFromNow = new Date(now.getTime() + 60 * 60 * 1000); // Adding 1 hour
+      if (selectedDatetime < oneHourFromNow) {
+        setFormError('Invalid departure time. Please select a time at least 1 hour from now.');
+        return;
+      }
+      
         const maxcap = selectedVehicle.vehicleCapacity;
         const capacity = parseInt(vehicleCapacity, 10);
 
@@ -131,30 +156,30 @@ const Ride = () => {
 
         const rideRef = await addDoc(collection(db, 'rides'), ride);
         const rideId = rideRef.id;
-        const rideposted = collection(
-          db,
-          'users',
-          authContext.user.uid,
-          'ridesposted'
-        );
+        // const rideposted = collection(
+        //   db,
+        //   'users',
+        //   authContext.user.uid,
+        //   'ridesposted'
+        // );
 
-        await addDoc(rideposted, {
-          start_loc: source,
-          end_loc: destination,
-          departure_time: timestamp,
-          createdAt: new Date(),
-          rider_name: riderName,
-          ride_status: 'active',
-          seats: vehicleCapacity,
-          vehicle_name: selectedVehicle.vehicleName,
-          vehicle_number: selectedVehicle.vehicleNumber,
-          vehicle_type: selectedVehicle.vehicleType,
-          cost_per_km: selectedVehicle.costPerKm,
-          user_id: authContext.user.uid,
-          vehicle_image: selectedVehicle.carImageUrl,
-          ride_otp: 4444,
-          ride_id: rideId,
-        });
+        // await addDoc(rideposted, {
+        //   start_loc: source,
+        //   end_loc: destination,
+        //   departure_time: timestamp,
+        //   createdAt: new Date(),
+        //   rider_name: riderName,
+        //   ride_status: 'active',
+        //   seats: vehicleCapacity,
+        //   vehicle_name: selectedVehicle.vehicleName,
+        //   vehicle_number: selectedVehicle.vehicleNumber,
+        //   vehicle_type: selectedVehicle.vehicleType,
+        //   cost_per_km: selectedVehicle.costPerKm,
+        //   user_id: authContext.user.uid,
+        //   vehicle_image: selectedVehicle.carImageUrl,
+        //   ride_otp: 4444,
+        //   ride_id: rideId,
+        // });
 
         await updateDoc(doc(db, 'rides', rideId), { ride_id: rideId });
 

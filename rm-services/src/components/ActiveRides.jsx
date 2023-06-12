@@ -23,13 +23,13 @@ const ActiveRides = () => {
           return;
         }
 
-        const ridesCollectionRef = collection(db, 'users', currentUserUid, 'ridesposted');
+        const ridesCollectionRef = collection(db, 'rides');
         const ridesSnapshot = await getDocs(ridesCollectionRef);
 
         if (ridesSnapshot.empty) {
           setRidesPostedExists(false);
         } else {
-          const q = query(ridesCollectionRef, where('ride_status', '==', 'active'));
+          const q = query(ridesCollectionRef, where('user_id', '==', currentUserUid), where('ride_status', '==', 'active'));
           const activeRidesSnapshot = await getDocs(q);
           const activeRidesData = activeRidesSnapshot.docs.map((doc) => doc.data());
           setRides(activeRidesData);
