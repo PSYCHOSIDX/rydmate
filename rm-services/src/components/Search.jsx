@@ -89,9 +89,17 @@ const Search = () => {
                           <h1>Rider Program</h1>
                           <h4>Start posting rides or view active ones</h4>
                           <div className="button-container">
-                            <Link className="link" to="/postride">
-                              <button className="go-btn">Post Rides</button>
-                            </Link>
+                          <Link className="link" to="/postride" style={{ marginRight: '10px' }}>
+  <button className="go-btn" style={{ fontSize: '12px', padding: '5px 10px' }}>
+    Post Rides
+  </button>
+</Link>
+<Link className="link" to="/vehicleinfo" style={{ marginRight: '10px' }}>
+  <button className="go-btn" style={{ fontSize: '12px', padding: '5px 10px' }}>
+    Add vehicle
+  </button>
+</Link>
+
                             <br />
                             <br />
                             <Link className="link" to="/activerides">
