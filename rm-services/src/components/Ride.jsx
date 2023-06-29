@@ -152,6 +152,7 @@ const Ride = () => {
           user_id: authContext.user.uid,
           vehicle_image: selectedVehicle.carImageUrl,
           ride_otp: 4444,
+          drop_otp: 7777
         };
 
         const rideRef = await addDoc(collection(db, 'rides'), ride);
