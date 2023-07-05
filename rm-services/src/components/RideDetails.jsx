@@ -455,7 +455,7 @@ const RideDetails = () => {
         if (userDoc.exists()) {
           const userData = userDoc.data();
           const driverInfo = userData.driver_info;
-  
+  console.log(driverInfo)
           if (driverInfo === 'pick up' && rideOtp === Number(otpInput)) {
             // OTP verified successfully for pick up
             await updateDoc(userRef, { driver_info: 'drop off' });
@@ -471,20 +471,23 @@ const RideDetails = () => {
   
             setShowOtpDialog(false); // Close OTP dialog
             setButtonDisabled(true); // Disable the button
-            window.location.href = `/activerides/${ride.ride_id}`;
 
             // Check if all accepted users have completed their drop off
-          const usersJoinedRef = collection(db, 'rides', ride_id, 'UsersJoined');
-          const usersJoinedSnapshot = await getDocs(usersJoinedRef);
-          const allCompleted = usersJoinedSnapshot.docs.every((userDoc) => {
-            const userData = userDoc.data();
-            return userData.driver_info === 'completed';
-          });
+            const usersJoinedRef = collection(db, 'rides', ride_id, 'UsersJoined');
+            const usersJoinedSnapshot = await getDocs(usersJoinedRef);
+            const allCompleted = usersJoinedSnapshot.docs
+              .filter((userDoc) => userDoc.data().carpool_status === 'accepted')
+              .every((userDoc) => userDoc.data().driver_info === 'completed');
+            
+            console.log(allCompleted)
 
           if (allCompleted) {
             // Update ride_status to completed
             await updateDoc(rideRef, { ride_status: 'completed' });
-          }
+          }            
+          
+          window.location.href = `/activerides/${ride.ride_id}`;
+
             } else {
             setModalMessage('Invalid OTP');
             setShowModal(true);
@@ -562,7 +565,7 @@ const RideDetails = () => {
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleVerifyOtp}>
-              Verify OTP {selectedUserId}
+              Verify OTP 
             </Button>
           </Modal.Footer>
         </Modal>
