@@ -409,7 +409,7 @@ const RideDetails = () => {
     try {
       // Update carpool_status to rejected for the selected user
       const userRef = doc(db, 'rides', ride_id, 'UsersJoined', userId);
-      await updateDoc(userRef, { driver_info: 'rejected' });
+      await updateDoc(userRef, { carpool_status: 'rejected' });
 
       // Navigate to the home page
       window.location.href = `/activerides/${ride.ride_id}`;
