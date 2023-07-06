@@ -67,8 +67,15 @@ const ActiveRides = () => {
         ) : (
           <Container className="gridbox">
             <Row className="gridrow">
-              {rides.map((ride) => (
-               <Link to={`/activerides/${ride.ride_id}`} key={ride.ride_id} style={{ textDecoration: 'none', color: 'inherit' }}>
+              {rides.map((ride,index) => (
+               <Link to={`/activerides/${ride.ride_id}`} key={ride.ride_id} style={{
+                textDecoration: 'none',
+                color: 'inherit',
+                flexBasis: '33.33%',
+                padding: '4px',
+                boxSizing: 'border-box',
+                display: index < 3 ? 'inline-block' : 'none',
+              }}>
                <div className="ride-card">
                <h2 id="loc"><b>FROM</b> {ride.start_loc} <br/> <b>TO</b> {ride.end_loc}</h2>
               
@@ -89,7 +96,7 @@ const ActiveRides = () => {
                   {/* <h2 id="seat">Seats Available {ride.seats}</h2>
                   <h5 id="cost">Cost Per Km</h5>
                   <h2 id="realcost">{ride.cost_per_km}</h2> */}
-                  <input type="button" value={ride.ride_otp} className="ride-join" disabled/>
+                  {/* <input type="button" value={ride.ride_otp} className="ride-join" disabled/> */}
                   </div>
       </Link>
               ))}

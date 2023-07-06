@@ -1,7 +1,7 @@
 import React from 'react';
 
 const redirectToGoogleMaps = () => {
-  const driverOrigin = "cun goa india";
+  const driverOrigin = "cuncolim goa india";
   const driverDestination = "porvorim goa india";
   const riderOrigin = "verna goa india";
   const riderDestination = "panjim goa india";
