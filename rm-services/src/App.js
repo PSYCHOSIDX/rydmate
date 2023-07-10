@@ -9,6 +9,7 @@ import ProtectedRoutes from "./components/ProtectedRoutes";
 import ErrorPage from "./Pages/ErrorPage";
 import EmergencyPage from "./Pages/EmergencyPage";
 import JoinPage from "./Pages/JoinPage";
+import  Support from "./Pages/Support"
 
 
 
@@ -22,7 +23,7 @@ const App = () => {
 
             <Route path='/signup'  element={<SignUp/>} />
 
-            <Route path='/'  element={<Home/>} />
+            <Route path='/'  element={<Support/>} />
             
             <Route path='/rides'  element={<ProtectedRoutes> <Rides/> </ProtectedRoutes>} />
 
