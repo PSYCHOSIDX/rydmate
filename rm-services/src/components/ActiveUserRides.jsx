@@ -62,7 +62,8 @@ const ActiveUserRides = () => {
     <>
       <div className="ride-results">
         <div className="ride-head">
-          <h2>Active Carpools</h2>
+          <h2 > 
+              Active Carpools</h2>
         </div>
       </div>
 

@@ -142,6 +142,11 @@
   align-items: center;
   font-weight: 600;
   color: white;
+  font-size: 1.5rem;
+  margin: auto;
+  margin-left: 0.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0%;
 }
 .ride-results .ride-head #dropdown-basic-button {
   font-family: "Poppins", sans-serif;
@@ -243,6 +248,9 @@
   .auto {
     margin-left: 2rem;
     width: 100%;
+  }
+  .ride-results h2 {
+    font-size: 1rem;
   }
   .card-results {
     margin-top: 0.2rem;
