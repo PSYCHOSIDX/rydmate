@@ -182,7 +182,7 @@ if(!isLoaded){
         {rides.filter((ride)=>{
           return startSearch.toLowerCase() === ''
           ?ride 
-          :ride.start_loc.toLowerCase().includes(startSearch) &&  ride.end_loc.toLowerCase().includes(desSearch)
+          :ride.start_loc.toLowerCase().includes(startSearch.toLowerCase()) &&  ride.end_loc.toLowerCase().includes(desSearch.toLowerCase())
         }).map((ride) => {
 
        
