@@ -44,8 +44,8 @@ const App = () => {
             <Route path="/activerides/:ride_id" element={ <ProtectedRoutes><RidesUsers /></ProtectedRoutes> } />
 
             <Route path="/viewrides" element={<ProtectedRoutes>< ViewRides/></ProtectedRoutes>  } />
-            <Route path="/navigation" element={ <ProtectedRoutes>< Nav/></ProtectedRoutes> } />
 
+            <Route path="/navigation" element={ <ProtectedRoutes>< Nav/></ProtectedRoutes> } />
 
             <Route path='/join'  element={<ProtectedRoutes> <JoinPage/> </ProtectedRoutes>} />
             

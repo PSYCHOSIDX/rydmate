@@ -2,6 +2,9 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Poppins:wght@200&family=Unbounded:wght@200&display=swap');
 
+#rides-bar{
+    background-color: #d9ff00;
+}
 
 .search-holder{
     height: 32rem;
@@ -301,6 +304,10 @@
             justify-self: center;
             align-items: center;
             align-self: center;
+
+
+
+
 }
 
 
@@ -324,6 +331,7 @@
         margin-top: 0px;
         h2{
             font-size: 2.5rem;
+            color: white;
         }
         flex-direction: column;
         #dropdown-basic-button{
