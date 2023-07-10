@@ -15,7 +15,8 @@ const RideSearch = () => {
 
   const [rides , setRides]= useState([]);
   const ridesCollectionRef = collection(db,"rides");
-  
+  const [startSearch, setStartSearch] =useState('');
+  const [desSearch, setDesSearch] =useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -108,13 +109,13 @@ if(!isLoaded){
                   componentRestrictions: {country : "ind"}
                 }}
                 >
-                   <input type="text" placeholder='📍From' className='phold'  ref={originRef}/>
+                   <input type="text" placeholder='📍From' className='phold'  ref={originRef} onChange={(e)=>setStartSearch(e.target.value)}/>
                 </Autocomplete>
 
                 <Autocomplete className='auto' options={{
                   componentRestrictions: {country : "ind"}
                 }}>
-                  <input type="text" placeholder='📍To' className='phold' ref={destinationRef}/>
+                  <input type="text" placeholder='📍To' className='phold' ref={destinationRef} onChange={(e)=>setDesSearch(e.target.value)}/>
                 </Autocomplete>
                   <div>
                 
@@ -178,7 +179,11 @@ if(!isLoaded){
     <Container className='gridbox'>
       <Row text-center className='gridrow'>
 
-        {rides.map((ride) => {
+        {rides.filter((ride)=>{
+          return startSearch.toLowerCase() === ''
+          ?ride 
+          :ride.start_loc.toLowerCase().includes(startSearch) &&  ride.end_loc.toLowerCase().includes(desSearch)
+        }).map((ride) => {
 
        
    
