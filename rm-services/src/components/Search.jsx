@@ -119,7 +119,7 @@ const Search = () => {
                     </>
                   ) : (
                     <>
-                      <h1>Register for Rider Program</h1>
+                      <h1>Register for <br/>  Rider Program</h1>
                       <h4>Join our program to offer rides</h4>
                       <Link className="link" to="/riderinfo">
                         <button className="go-btn">Go</button>
@@ -129,7 +129,7 @@ const Search = () => {
                 </>
               ) : (
                 <>
-                  <h1>Register for Rider Program</h1>
+                  <h1>Register for <br/> Rider Program</h1>
                   <h4>Join our program to offer rides</h4>
                   <Link className="link" to="/riderinfo">
                     <button className="go-btn">Go</button>

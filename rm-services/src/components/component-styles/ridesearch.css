@@ -3,6 +3,17 @@
   background-color: #d9ff00;
 }
 
+#distance {
+  padding: 1rem;
+  font-size: 1.2rem;
+  margin: 1rem;
+  margin-left: 3.2rem;
+  color: rgb(255, 255, 255);
+  border: 1px solid white;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+}
+
 .search-holder {
   height: 32rem;
 }
@@ -61,6 +72,9 @@
 }
 
 @media screen and (max-width: 800px) {
+  #distance {
+    display: block;
+  }
   .search-holder {
     margin-bottom: 0%;
   }
@@ -109,6 +123,9 @@
   }
 }
 @media screen and (max-width: 900px) {
+  #distance {
+    margin-left: 1rem;
+  }
   .form-holder {
     width: 90%;
     margin: auto;
@@ -130,7 +147,7 @@
   padding: 2rem;
   width: 100%;
   margin: auto;
-  margin-top: -2%;
+  margin-top: 0%;
   font-family: "Poppins", sans-serif;
 }
 .ride-results .ride-head {

@@ -8,25 +8,39 @@ import './component-styles/ridesearch.css';
 import{useJsApiLoader, GoogleMap ,Autocomplete ,DirectionsRenderer ,} from '@react-google-maps/api'
 import {Link} from 'react-router-dom'
 import {db} from '../firebaseConfig';
-import {collection, getDocs} from 'firebase/firestore';  
+import {collection, getDocs, query, orderBy} from 'firebase/firestore';  
 
 
 const RideSearch = () => {
 
-  const [rides , setRides]= useState([]);
+  const [rides , setRides]= useState([0]);
   const ridesCollectionRef = collection(db,"rides");
   const [startSearch, setStartSearch] =useState('');
   const [desSearch, setDesSearch] =useState('');
+  
 
-  useEffect(() => {
-    const fetchData = async () => {
-      
-      const ridesSnapshot = await getDocs(ridesCollectionRef);
-      const  ridesList= ridesSnapshot.docs.map(doc => doc.data());
-      setRides(ridesList);
-    };
-    fetchData();
-  });
+
+const getRideVehicle = async () => {
+    const data = await getDocs(query(ridesCollectionRef, orderBy('vehicle_type', 'desc')));
+    const newData = data.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+    }));
+    
+   setRides(newData);
+};
+
+
+const getRideLow = async () => {
+  const data = await getDocs(query(ridesCollectionRef, orderBy('vehicle_type')));
+  const newData = data.docs.map((doc) => ({
+      ...doc.data(),
+      id: doc.id,
+  }));
+  
+ setRides(newData);
+};
+
 
   useEffect( ()=>{
       const getRides =  async ()=> {
@@ -35,8 +49,10 @@ const RideSearch = () => {
       }
 
       getRides();
-  }, [ridesCollectionRef]);
+  }, []);
 
+
+ 
 
   const center = {lat:15.280347,lng:73.980065};
 
@@ -84,11 +100,6 @@ if(!isLoaded){
   return <p style={{textAlign:'center', color:'white', }}> Loading Maps ...</p>
 }
   
-   
-  
-
-
-
 
 
   return (
@@ -152,6 +163,8 @@ if(!isLoaded){
                   <DirectionsRenderer directions={directionsResponse}/>}
 
         </GoogleMap>
+
+      { !distance ? null : <h2 id="distance"> <b>Total Distance :</b>{distance} <br /> <br /><b>Average Total Cost</b>:<br />SUV : {parseInt(distance)*7} <br /> Hatch Back / Sedan : {parseInt(distance)*5} <br /> BIKE / Scooty : {parseInt(distance)*3}</h2> }
                
       </div>
 
@@ -160,9 +173,9 @@ if(!isLoaded){
             <h2>Rides Found</h2>
 
         <DropdownButton id="dropdown-basic-button" title="Sort">
-            <Dropdown.Item href="#/action-1"><b>cost : </b>low to high</Dropdown.Item>
-            <Dropdown.Item href="#/action-2"> <b> cost : </b> high to  low</Dropdown.Item>
-            <Dropdown.Item href="#/action-3"> <b> vehicle type</b></Dropdown.Item>
+            <Dropdown.Item onClick={getRideLow}><b>cost : </b>low to high</Dropdown.Item>
+            <Dropdown.Item onClick={getRideVehicle}> <b> cost : </b> high to  low</Dropdown.Item>
+            <Dropdown.Item onClick={getRideVehicle}> <b> vehicle type</b></Dropdown.Item>
         </DropdownButton>
          
         </div>
@@ -173,7 +186,7 @@ if(!isLoaded){
 {/* card holder and data */}
 
 
-
+{!rides ? <h1 id="distance"> No Rides Found</h1> : null}
       <div className="card-results">
 
     <Container className='gridbox'>
@@ -189,6 +202,7 @@ if(!isLoaded){
    
           return  ( 
 
+           
 
 // Ride Card        
     <div className="ride-card">
