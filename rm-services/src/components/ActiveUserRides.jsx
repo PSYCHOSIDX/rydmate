@@ -45,11 +45,13 @@ const ActiveUserRides = () => {
       }
     };
          
-  
-        
 
     fetchRides();
-  }, []);
+  }, [currentUserUid]);
+
+  const handlePhoneCall = (contact) => {
+    window.location.href = `tel:${contact}`;
+  };
 
   if (isLoading) {
     return <p>Loading Carpools...</p>;
@@ -76,8 +78,8 @@ const ActiveUserRides = () => {
         ) : (
           <Container className="gridbox">
             <Row className="gridrow">
-            {rides.map((ride, index) => (
-               <div className="ride-card">
+            {rides.map((ride) => (
+               <div key={ride.ride_id} className="ride-card">
                <h2 id="loc">
                     {ride.start_loc} to {ride.end_loc}
                    </h2>
@@ -101,7 +103,7 @@ const ActiveUserRides = () => {
                    <h2 id="type">pickup otp: {ride.ride_otp}</h2>
                    <h2 id="type">drop otp: {ride.drop_otp}</h2>
 
-                   <input type="button" value="Chat" className="ride-join"/>
+                   <input type="button" value={ride.rider_contact} onClick={() => handlePhoneCall(ride.rider_contact)} className="ride-join"/>
                 </div>     
  
       ))}

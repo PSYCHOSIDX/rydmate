@@ -17,6 +17,7 @@ const RideDetails = () => {
   const otpRef = useRef(null);
   const [showOtpDialog, setShowOtpDialog] = useState(false); // Add state variable for OTP dialog
   const [selectedUserId, setSelectedUserId] = useState(null);
+  const [userPhoneNumbers, setUserPhoneNumbers] = useState({});
 
   useEffect(() => {
     const fetchRideDetails = async () => {
@@ -45,6 +46,27 @@ const RideDetails = () => {
             (user) => user.carpool_status === 'pending'
           );
           setPendingUsers(pendingUsersData);
+
+          // Fetch phone numbers of the accepted users
+          const acceptedUserIds = acceptedUsersData.map((user) => user.user_id);
+          const phoneNumbers = {};
+
+          for (const userId of acceptedUserIds) {
+            const userRef = doc(db, 'users', userId);
+            // console.log(userRef)
+            const userDoc = await getDoc(userRef);
+            // console.log(userDoc)
+
+            if (userDoc.exists()) {
+              const userData = userDoc.data();
+              // console.log(userData)
+              phoneNumbers[userId] = userData.phoneNumber;
+            }
+          }
+
+          setUserPhoneNumbers(phoneNumbers);
+          // console.log(phoneNumbers)
+
         } else {
           console.log('Ride not found');
         }
@@ -124,11 +146,26 @@ const RideDetails = () => {
     }
   };
 
+// Disable the cancel button if the remaining time is less than 2 hours
+const disableCancelButton = () => {
+  if (!ride || !ride.departure_time) {
+    return false;
+  }
+
+  const currentTime = new Date();
+  const departureTime = new Date(ride.departure_time);
+  const timeDifference = departureTime.getTime() - currentTime.getTime();
+  const hoursDifference = Math.floor(timeDifference / (1000 * 60 * 60));
+
+  return hoursDifference < 2;
+};
 
   const handlePickup = (userId) => {
     setSelectedUserId(userId);
-
+    const user = acceptedUsers.find((user) => user.user_id === userId);
+    if (user && user.driver_info !== 'completed') {
     setShowOtpDialog(true); // Show OTP dialog
+    }
   };
 
   const handleVerifyOtp = async () => {
@@ -161,9 +198,9 @@ const RideDetails = () => {
   
             // const rideRef = doc(db, 'rides', ride_id);
             // await updateDoc(rideRef, { ride_status: 'completed' });
-  
-            setShowOtpDialog(false); // Close OTP dialog
             setButtonDisabled(true); // Disable the button
+
+            setShowOtpDialog(false); // Close OTP dialog
 
             // Check if all accepted users have completed their drop off
             const usersJoinedRef = collection(db, 'rides', ride_id, 'UsersJoined');
@@ -177,6 +214,8 @@ const RideDetails = () => {
           if (allCompleted) {
             // Update ride_status to completed
             await updateDoc(rideRef, { ride_status: 'completed' });
+            window.location.href = `/activerides`;
+
           }            
           
           window.location.href = `/activerides/${ride.ride_id}`;
@@ -197,6 +236,9 @@ const RideDetails = () => {
     }
   };
   
+  const handlePhoneCall = (contact) => {
+    window.location.href = `tel:${contact}`;
+  };
 
   if (!ride) {
     return <p>Loading ride details...</p>;
@@ -209,8 +251,16 @@ const RideDetails = () => {
           <h3 style={{ textAlign: 'center', color: 'white' }}>
             {ride.start_loc} to {ride.end_loc}
           </h3>
+          {/* <Button
+            style={{ textAlign: 'right', color: 'white', backgroundColor: 'green' }}
+            // onClick={handleCancelRide}
+          >
+            Start Ride
+          </Button> */}
           <Button
             style={{ textAlign: 'right', color: 'white', backgroundColor: 'green' }}
+            disabled={disableCancelButton()}
+
             onClick={handleCancelRide}
           >
             Cancel Ride
@@ -243,8 +293,12 @@ const RideDetails = () => {
                     <h2 className="type">Seats requested</h2>
                     <h3 id="type">{user.seats}</h3>
 
-                    <input type="button" value="Chat" className="ride-join" />
-<br/><br/>
+                    <input
+                        type="button"
+                        value={userPhoneNumbers[user.user_id] || 'No contact'}
+                        className="ride-join"
+                        onClick={() => handlePhoneCall(userPhoneNumbers[user.user_id])}
+                      /><br/><br/>
                     <input type="button" disabled={buttonDisabled} value={user.driver_info} className="ride-join"  onClick={() => handlePickup(user.user_id)} />
 
 

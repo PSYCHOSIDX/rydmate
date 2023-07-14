@@ -185,11 +185,15 @@
 // export default NavigationPage
 
 import React, { useEffect, useState, useRef } from 'react';
+import { useLocation } from 'react-router';
 import { useJsApiLoader, Autocomplete, DirectionsRenderer, GoogleMap } from '@react-google-maps/api';
 
 const NavigationPage = () => {
   const [map, setMap] = useState(null);
   const [directionsResponse, setDirectionsResponse] = useState(null);
+
+  const location = useLocation();
+  console.log(location.state.lat)
 
   const origin = useRef(null);
   const destination = useRef(null);

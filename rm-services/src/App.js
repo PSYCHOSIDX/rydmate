@@ -16,6 +16,7 @@ import VehiclePage from "./Pages/VehiclePage";
 import RidesUsers from "./Pages/RidesUsers";
 import ViewRides from "./Pages/ViewRides";
 import Nav from "./Pages/Nav";
+import Rating from "./components/Rating";
 
 const App = () => {
   return (
@@ -48,7 +49,8 @@ const App = () => {
             <Route path="/navigation" element={ <ProtectedRoutes>< Nav/></ProtectedRoutes> } />
 
             <Route path='/join'  element={<ProtectedRoutes> <JoinPage/> </ProtectedRoutes>} />
-            
+            <Route path='/rating'  element={<ProtectedRoutes> <Rating/> </ProtectedRoutes>} />
+
             <Route path="/404"  element={<ErrorPage/>} />
 
 
