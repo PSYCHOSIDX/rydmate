@@ -250,7 +250,9 @@ if(!isLoaded){
               originStart: ride.start_loc,
               vehicle_image: ride.vehicle_image,
               vehicle_name: ride.vehicle_name,
-              cost_per_seat:ride.cost_per_km
+              cost_per_seat:ride.cost_per_km,
+              otp:ride.ride_otp,
+              dropotp: ride.drop_otp
             }}}
 
             className='link'>

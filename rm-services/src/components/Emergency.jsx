@@ -17,6 +17,7 @@ const Emergency = () => {
   const [emergencies, setEmergencies] = useState([]);
   const[number, setNumber] = useState();
   const [body, setBody] = useState();
+  
   let emegerncyList = [];
 
   const [lat, setLat] = useState('');
@@ -70,8 +71,6 @@ const onSubmit = async (e) => {
 
 
   useEffect(() => {
-    
-    
     const fetchData = async () => {
       setTimeout(getCurrentLiveLocation, 5000);
       const emergencyCollection = collection(db, `users/${userId}/emergency`);
