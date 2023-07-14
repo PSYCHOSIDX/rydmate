@@ -8,7 +8,7 @@ import './component-styles/ridesearch.css';
 import{useJsApiLoader, GoogleMap ,Autocomplete ,DirectionsRenderer ,} from '@react-google-maps/api'
 import {Link} from 'react-router-dom'
 import {db} from '../firebaseConfig';
-import {collection, getDocs, query, orderBy} from 'firebase/firestore';  
+import {collection, getDocs, query, orderBy, where} from 'firebase/firestore';  
 
 
 const RideSearch = () => {
@@ -21,18 +21,7 @@ const RideSearch = () => {
 
 
 const getRideVehicle = async () => {
-    const data = await getDocs(query(ridesCollectionRef, orderBy('vehicle_type', 'desc')));
-    const newData = data.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id,
-    }));
-    
-   setRides(newData);
-};
-
-
-const getRideLow = async () => {
-  const data = await getDocs(query(ridesCollectionRef, orderBy('vehicle_type')));
+  const data = await getDocs(query(ridesCollectionRef,where("ride_status", "==", "active"),orderBy('vehicle_type','desc')));
   const newData = data.docs.map((doc) => ({
       ...doc.data(),
       id: doc.id,
@@ -42,14 +31,26 @@ const getRideLow = async () => {
 };
 
 
-  useEffect( ()=>{
-      const getRides =  async ()=> {
-          const dbdata = await getDocs(ridesCollectionRef);
-          setRides(dbdata.docs.map((doc) => ({ ...doc.data(), id:doc.id})));
-      }
+const getRideLow = async () => {
+  const data = await getDocs(query(ridesCollectionRef,where("ride_status", "==", "active"),orderBy('vehicle_type')));
+  const newData = data.docs.map((doc) => ({
+      ...doc.data(),
+      id: doc.id,
+  }));
+  
+ setRides(newData);
+};
 
-      getRides();
-  }, []);
+
+useEffect( ()=>{
+  const getRides =  async ()=> {
+      const q = query(ridesCollectionRef, where("ride_status", "==", "active"));
+      const dbdata = await getDocs(q);
+      setRides(dbdata.docs.map((doc) => ({ ...doc.data(), id:doc.id})));
+  }
+
+  getRides();
+}, []);
 
 
  
