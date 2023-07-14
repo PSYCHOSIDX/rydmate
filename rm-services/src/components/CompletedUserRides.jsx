@@ -95,7 +95,15 @@ const CompletedUserRides = () => {
                    <h2 id="type">drop otp: {ride.drop_otp}</h2> */}
 
                    <input type="button" value="completed" className="ride-join" disabled/>
-                </div>     
+                   <center><a href="/rating" style={{    textDecoration: 'none',
+                color: '#00FFA3',
+                flexBasis: '33.33%',
+                padding: '4px',
+                textAlign: 'center',
+                boxSizing: 'border-box',
+                 }}>rate your ride</a></center> 
+
+                </div>    
               ))}
             </Row>
           </Container>
