@@ -95,7 +95,7 @@ const CancelledUserRides = () => {
                    <h2 id="type">pickup otp: {ride.ride_otp}</h2>
                    <h2 id="type">drop otp: {ride.drop_otp}</h2> */}
 
-                   <input type="button" value="Chat" className="ride-join" disabled/>
+                   <input type="button" value='cancelled' className="ride-join" disabled/>
                 </div>     
               ))}
             </Row>

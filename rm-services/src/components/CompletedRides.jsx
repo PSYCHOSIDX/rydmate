@@ -83,7 +83,7 @@ const CompletedRides = () => {
                   {/* <h2 id="seat">Seats Available {ride.seats}</h2>
                   <h5 id="cost">Cost Per Km</h5>
                   <h2 id="realcost">{ride.cost_per_km}</h2> */}
-                  <input type="button" value={ride.ride_otp} className="ride-join" disabled/>
+                  <input type="button" value='completed' className="ride-join" disabled/>
                 </div>
               ))}
             </Row>
