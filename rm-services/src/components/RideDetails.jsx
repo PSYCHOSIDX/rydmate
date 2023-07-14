@@ -17,6 +17,7 @@ const RideDetails = () => {
   const otpRef = useRef(null);
   const [showOtpDialog, setShowOtpDialog] = useState(false); // Add state variable for OTP dialog
   const [selectedUserId, setSelectedUserId] = useState(null);
+  const [userPhoneNumbers, setUserPhoneNumbers] = useState({});
 
   useEffect(() => {
     const fetchRideDetails = async () => {
@@ -45,6 +46,27 @@ const RideDetails = () => {
             (user) => user.carpool_status === 'pending'
           );
           setPendingUsers(pendingUsersData);
+
+          // Fetch phone numbers of the accepted users
+          const acceptedUserIds = acceptedUsersData.map((user) => user.user_id);
+          const phoneNumbers = {};
+
+          for (const userId of acceptedUserIds) {
+            const userRef = doc(db, 'users', userId);
+            console.log(userRef)
+            const userDoc = await getDoc(userRef);
+            console.log(userDoc)
+
+            if (userDoc.exists()) {
+              const userData = userDoc.data();
+              console.log(userData)
+              phoneNumbers[userId] = userData.phoneNumber;
+            }
+          }
+
+          setUserPhoneNumbers(phoneNumbers);
+          console.log(phoneNumbers)
+
         } else {
           console.log('Ride not found');
         }
@@ -197,6 +219,9 @@ const RideDetails = () => {
     }
   };
   
+  const handlePhoneCall = (contact) => {
+    window.location.href = `tel:${contact}`;
+  };
 
   if (!ride) {
     return <p>Loading ride details...</p>;
@@ -209,6 +234,12 @@ const RideDetails = () => {
           <h3 style={{ textAlign: 'center', color: 'white' }}>
             {ride.start_loc} to {ride.end_loc}
           </h3>
+          {/* <Button
+            style={{ textAlign: 'right', color: 'white', backgroundColor: 'green' }}
+            // onClick={handleCancelRide}
+          >
+            Start Ride
+          </Button> */}
           <Button
             style={{ textAlign: 'right', color: 'white', backgroundColor: 'green' }}
             onClick={handleCancelRide}
@@ -243,8 +274,12 @@ const RideDetails = () => {
                     <h2 className="type">Seats requested</h2>
                     <h3 id="type">{user.seats}</h3>
 
-                    <input type="button" value="Chat" className="ride-join" />
-<br/><br/>
+                    <input
+                        type="button"
+                        value={userPhoneNumbers[user.user_id] || 'No contact'}
+                        className="ride-join"
+                        onClick={() => handlePhoneCall(userPhoneNumbers[user.user_id])}
+                      /><br/><br/>
                     <input type="button" disabled={buttonDisabled} value={user.driver_info} className="ride-join"  onClick={() => handlePickup(user.user_id)} />
 
 

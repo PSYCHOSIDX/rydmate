@@ -17,6 +17,8 @@ const Ride = () => {
   const [timestamp, setTimestamp] = useState('');
   const [vehicleCapacity, setVehicleCapacity] = useState('');
   const [riderName, setRiderName] = useState('');
+  const [riderContact, setRiderContact] = useState('');
+
   const [vehicleOptions, setVehicleOptions] = useState([]);
   const [selectedVehicle, setSelectedVehicle] = useState('');
 
@@ -43,9 +45,12 @@ const Ride = () => {
           if (!riderInfoSnapshot.empty) {
             const riderInfoData = riderInfoSnapshot.docs[0].data();
             const riderName = riderInfoData.name;
+            const riderContact = riderInfoData.phoneNumber;
+
             const verified = riderInfoData.verified_rider;
 
             setRiderName(riderName);
+            setRiderContact(riderContact);
             setShowForm(verified);
             console.log(verified);
           }
@@ -143,6 +148,7 @@ const Ride = () => {
           departure_time: timestamp,
           createdAt: new Date(),
           rider_name: riderName,
+          rider_contact: riderContact,
           ride_status: 'active',
           seats: vehicleCapacity,
           vehicle_name: selectedVehicle.vehicleName,
