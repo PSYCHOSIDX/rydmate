@@ -12,7 +12,7 @@ import { useLocation } from 'react-router-dom';
 import{useJsApiLoader , Autocomplete } from '@react-google-maps/api'
 import { db } from '../firebaseConfig';
 import { getDocs,collection, deleteDoc, query, where,addDoc} from 'firebase/firestore';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 // import PaymentSuccess from '../components/PaymentSuccess';
 // import PaymentFail from '../components/PaymentFail';
 
@@ -20,6 +20,7 @@ import { Link } from 'react-router-dom';
 
 const JoinPage = (props) => {
 
+  const navigate = useNavigate();
 
   // const [success, setSuccess] = useState(false);
   // const [fail, setFail] = useState(false);
@@ -209,6 +210,17 @@ else{ alert('Please Enter seats within available vacancy')}
 //  } 
 // }
 
+const handleViewMap = async () => {
+  try {
+    // const response = await axios.get(`/api/navigation?rideId=${data.id}`);
+    // const { latitude, longitude } = response.data.coordinates;
+    // history.push(`/navigation?lat=${latitude}&lng=${longitude}`);
+
+    navigate('/navigation', {state:{lat:1,long:2}});
+  } catch (error) {
+    console.log('Error:', error);
+  }
+};
 
  return (
     <>
@@ -257,7 +269,9 @@ else{ alert('Please Enter seats within available vacancy')}
         <ListGroup.Item> <b>Seats Available : </b> {data.seats}</ListGroup.Item>
         <ListGroup.Item> <b>Departure Time : </b> {data.departure_time.substring(0,25).replace('T',' ')}</ListGroup.Item>
         
-       
+        <Button variant="success" onClick={handleViewMap} className='pay'>View Map</Button>
+
+
         <Form.Group className="mb-3 none" controlId="formBasicPassword">
         <Autocomplete options={{
                   componentRestrictions: {country : "ind"}
