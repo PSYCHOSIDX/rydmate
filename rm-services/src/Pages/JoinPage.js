@@ -11,46 +11,66 @@ import Form from 'react-bootstrap/Form';
 import { useLocation } from 'react-router-dom';
 import{useJsApiLoader , Autocomplete } from '@react-google-maps/api'
 import { db } from '../firebaseConfig';
-import { getDocs,collection, deleteDoc, query, where} from 'firebase/firestore';
-import axios from 'axios';
-import shortid from 'shortid';
-import PaymentSuccess from '../components/PaymentSuccess';
-import PaymentFail from '../components/PaymentFail';
+import { getDocs,collection, deleteDoc, query, where,addDoc} from 'firebase/firestore';
+import { Link } from 'react-router-dom';
+// import PaymentSuccess from '../components/PaymentSuccess';
+// import PaymentFail from '../components/PaymentFail';
 
 
 
 const JoinPage = (props) => {
 
-  const axios = require('axios');
-  const shortid = require("shortid");
-  const [success, setSuccess] = useState(false);
-  const [fail, setFail] = useState(false);
+
+  // const [success, setSuccess] = useState(false);
+  // const [fail, setFail] = useState(false);
 
   const loc = useLocation();
   const {user} =  UserAuth();
   
   const userId = user.uid;
+  const userName = user.displayName;
+
   var userEmail = user.email;
-  console.log(userEmail);
+
 
   const data = loc.state?.data;
+  const rideID = data.ride_id;
+  const rideOTP = data.otp;
+  const dropOTP =  data.dropotp;
 
+  const [bookSeat, setBookSeat] = useState('');
   const [phone, setPhone] = useState();
   const [location, setLocation]=useState('');
+  const [joinData, setJoinData] = useState([]);
+
+  const [status, setStatus]=useState('');
+
   let [distance, setDistance]= useState('')
   let originRef = data.originStart;
+ 
+  useEffect( ()=>{
+    const getJoin =  async ()=> {
+      const requestCollection = collection(db, `rides/${rideID}/UsersJoined`);
+        const q = query(requestCollection, where("user_id", "==", userId),where("ride_id", "==", rideID) );
+        const dbdata = await getDocs(q);
+        setJoinData(dbdata.docs.map((doc) => ({ ...doc.data(), id:doc.id})));
+        joinData.map(((data) => (setStatus(data.carpool_status))));
+    }
+  
+    getJoin();
+  }, );
+    
+
 
 
     async function GetPhone(Email)
     {
-      console.log(Email)
       const userREF = collection(db, `users/`);
       const q = query(userREF, where('email', '==', Email));
       const querySnapshot = await getDocs(q);
       const phoneList =  querySnapshot.docs.map(doc => doc.data());
       setPhone(phoneList);
   
-      console.log(phoneList);
     } 
    
   /**@type React.MutableRefObject<HTMLInputElement>*/
@@ -65,24 +85,24 @@ const JoinPage = (props) => {
     return <p style={{textAlign:'center'}}> Loading maps</p>
   }
 
-  function verifyPaymentSignature( razorpay_payment_id, razorpay_signature) {
-    var options = {
-        method: 'POST',
-        url: '/verify-payment-signature',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        data: {
-            razorpay_payment_id: razorpay_payment_id,
-            razorpay_signature: razorpay_signature
-        }
-    };
-    axios(options).then(function(response) {
-        console.log(response.data);
-    }).catch(function(error) {
-        console.log(error);
-    });
-}
+//   function verifyPaymentSignature( razorpay_payment_id, razorpay_signature) {
+//     var options = {
+//         method: 'POST',
+//         url: '/verify-payment-signature',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         data: {
+//             razorpay_payment_id: razorpay_payment_id,
+//             razorpay_signature: razorpay_signature
+//         }
+//     };
+//     axios(options).then(function(response) {
+//         console.log(response.data);
+//     }).catch(function(error) {
+//         console.log(error);
+//     });
+// }
 
 
  async function calculateRoute(){
@@ -93,64 +113,130 @@ const result = await directionService.route({
   origin: originRef ,
   destination: destinationRef.current.value,
   // eslint-disable-next-line no-undef
-  travelMode: google.maps.TravelMode.DRIVING
+  travelMode: google.maps.TravelMode.DRIVING,
+  
 })
 setDistance(result.routes[0].legs[0].distance.text)
-console.log(distance)
+
   }
    catch{
-    console.log(Error)
+    
    }
  
 
  }
- const finalCost = parseInt(distance) * parseInt(data.cost_per_seat);
+ const finalCost =parseInt(bookSeat) * (parseInt(distance) * parseInt(data.cost_per_seat));
 
- const handleSubmit = (e) =>{
+ function validateSeats(bookSeat){
+  if (bookSeat>data.seats){
+    alert('Inavlid Input , Please enter seats within limits');
+    setDistance=null
+  }
+ }
+
+ 
+ 
+
+const startLoc = data.start_loc;
+
+ const joinRequest = async (e) => {
+
   e.preventDefault();
-  if( finalCost === ""){
-    alert('please enter a valid amount');
-  } else {
-    var options = {
-      key: process.env.REACT_APP_RAYZORPAY_KEY_ID ,
-      key_secret: process.env.REACT_APP_RAYZORPAY_KEY_SECRET ,
-      amount: finalCost*100 ,
-      currency:"INR",
-      name:"RydMate",
-      receipt:'receipt'+shortid.generate() ,
-      handler: function(response){
-      if(response.razorpay_payment_id){
-      console.log('success');
-      setSuccess(true);
-      } else { console.log('failure');
-      setFail(true)
-    }
-      
-      },
-      prefill:{
-        name: user.displayName,
-        email: user.email,
-        contact: phone.phoneNumber 
-    },
-    notes:{
-      address: "Razorpay corporate Office",
-    },
-    theme:{
-      color:'#00FFA3'
-    }
-  };
+if(data.seats>= bookSeat){
+  
+  try{
+    await addDoc(collection(db, 'rides/'+rideID+'/UsersJoined/'), {
+      carpool_status :"pending",
+      driver_info:"pick up",
+      end_loc: location,
+      ride_id: rideID,
+      seats: bookSeat,
+      start_loc: startLoc,
+      user_id: userId,
+      user_name: userName,
+      cost: finalCost,
+      drop_distance: distance,
+      drop_otp: dropOTP,
+      ride_otp: rideOTP,
+    });
+    alert('Request Added successfuly')
 
-  var pay = new window.Razorpay(options);
-  pay.open()
-
- } 
+  } catch (error) {
+    console.log(error.message);
+    alert('Error in Requesting !')
+  }
 }
+else{ alert('Please Enter seats within available vacancy')}
+
+}
+//  const handleSubmit = (e) =>{
+//   e.preventDefault();
+//   if( finalCost === ""){
+//     alert('please enter a valid amount');
+//   } else {
+//     var options = {
+//       key: process.env.REACT_APP_RAYZORPAY_KEY_ID ,
+//       key_secret: process.env.REACT_APP_RAYZORPAY_KEY_SECRET ,
+//       amount: finalCost*100 ,
+//       currency:"INR",
+//       name:"RydMate",
+//       receipt:'receipt'+shortid.generate() ,
+//       handler: function(response){
+//       if(response.razorpay_payment_id){
+//       console.log('success');
+//       setSuccess(true);
+//       } else { console.log('failure');
+//       setFail(true)
+//     }
+      
+//       },
+//       prefill:{
+//         name: user.displayName,
+//         email: user.email,
+//         contact: phone.phoneNumber 
+//     },
+//     notes:{
+//       address: "Razorpay corporate Office",
+//     },
+//     theme:{
+//       color:'#00FFA3'
+//     }
+//   };
+
+//   var pay = new window.Razorpay(options);
+//   pay.open()
+
+//  } 
+// }
 
 
  return (
     <>
-      {user ? <NavbarLogout/> : <NavbarLogin/>}       
-     {success? <PaymentSuccess/> : fail? <PaymentFail/> :  <Card  className='car-card' bg='light'>
+      {user ? <NavbarLogout/> : <NavbarLogin/>}  
+      
+      
+     {/* {success? <PaymentSuccess/> : fail? <PaymentFail/> :   */}
+      {status==='pending'? 
+      <div className='pending'> 
+      <h1>Request is Pending</h1>
+      <Link className='link' to='/rides'> 
+      <button> Go To Rides Page </button>
+      </Link>
+      
+      </div> : status==='rejected'? <div className='pending'> 
+      <h1>Request is Rejected</h1>
+      <Link className='link' to='/rides'>
+      <button> Go To Rides Page </button>
+      </Link>
+      
+      </div> :status==='accepted'?<div className='pending'> 
+      <h1>Request is Accepted</h1>
+      <Link className='link' to='/viewrides'>
+      <button > Go To Active Rides </button>
+      </Link>
+      
+      </div> :
+     <Card  className='car-card' bg='light'>
     <Card.Title className='car-title'> {data.rider_name}</Card.Title>
         <ListGroup.Item> <b style={{marginLeft:10, color:'green'}}> ✅ verified rider</b></ListGroup.Item>
         <br/>
@@ -158,6 +244,7 @@ console.log(distance)
        
     
       <Card.Body >
+     
       <Form xs="auto" className="sign-form" onSubmit={''}>
       <ListGroup className="list-group-flush">
      
@@ -177,22 +264,28 @@ console.log(distance)
                 }}>
           <Form.Control style={{fontSize:12, height:44}} onChange={(e) => setLocation(e.target.value)} type="text"  placeholder="Enter Drop location within route" ref={destinationRef}  required />
           </Autocomplete>
-          <Button variant="primary" onClick={() => { GetPhone(userEmail); calculateRoute()}} className='car-pay'> Get Total Cost </Button>
+          <Form.Control style={{fontSize:12, height:44}} onChange={(e) => setBookSeat(e.target.value )} type="number"  placeholder="Enter No of Seats" max={data.seats}required />
+          <Button variant="primary" onClick={() => { GetPhone(userEmail); calculateRoute(); validateSeats(bookSeat)}} className='car-pay'> Get Total Cost </Button>
         </Form.Group>
     
+  
   
         { distance ? <ListGroup.Item> <b style={{fontSize : 22}}> Total Cost : {finalCost.toFixed(2) }</b></ListGroup.Item> : null}
         
       </ListGroup>
       {/* <Button variant="primary"  className='car-pay'>  Request To Join </Button> &&  */}
-    {distance? <Button onClick={handleSubmit} variant="success"  className='pay'>  Pay </Button>: null}
-      
+    {/* {distance? <Button onClick={handleSubmit} variant="success"  className='pay'>  Pay </Button>: null} */}
+      {distance? <Button variant="success"  className='pay' onClick={joinRequest}>  Request To Join </Button>: null}
       </Form>
       </Card.Body>
-    </Card> }         
-   
+    </Card> } 
+
+
 
     <br/>
+    
+
+  
       <Footer />
     </>
   )

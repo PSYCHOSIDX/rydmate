@@ -1,6 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Poppins:wght@200&family=Unbounded:wght@200&display=swap');
 
+.pending{
+    margin: auto;
+    text-align: center;
+    background-color: white;
+    padding: 10rem;
 
+    button{
+        background-color: rgb(15, 190, 117);
+        margin: auto;
+        border: none;
+        border-radius: .5rem;
+        color: white;
+        padding: 1rem 6rem;
+        margin-top: 5rem;
+        &:hover{
+            background-color: black;
+        }
+    }
+}
 
 .car-card{
     font-family: 'Poppins', sans-serif;
@@ -71,6 +89,22 @@
 
 
 @media screen and (max-width:700px){
+    .pending{
+        padding: 4rem;
+        margin-bottom: -6%;
+        h1{
+            font-weight: bold;
+            margin-top: 6rem;
+            font-size: 2rem;
+        }
+        button{
+            margin: auto;
+            width: 99%;
+            padding: 5%;
+            margin-top: 9rem;
+            margin-bottom: 3rem;
+        }
+    }
     .car-card{
         flex-direction: column;
         width: 100%;
