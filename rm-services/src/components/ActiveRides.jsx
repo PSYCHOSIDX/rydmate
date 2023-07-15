@@ -74,7 +74,7 @@ const ActiveRides = () => {
                 flexBasis: '33.33%',
                 padding: '4px',
                 boxSizing: 'border-box',
-                display: index < 3 ? 'inline-block' : 'none',
+                // display: index < 3 ? 'inline-block' : 'none',
               }}>
                <div className="ride-card">
                <h2 id="loc"><b>FROM</b> {ride.start_loc} <br/> <b>TO</b> {ride.end_loc}</h2>
