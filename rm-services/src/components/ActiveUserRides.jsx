@@ -148,7 +148,7 @@ const ActiveUserRides = () => {
           </Container>
         )}
       </div>
-      {acceptedRide && <p>Your request for Ride ID {acceptedRide} has been accepted!</p>}
+      {/* {acceptedRide && <p>Your request for Ride ID {acceptedRide} has been accepted!</p>} */}
       <ToastContainer />
     </>
   );

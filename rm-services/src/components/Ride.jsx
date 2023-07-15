@@ -142,6 +142,11 @@ const Ride = () => {
           setFormError('Invalid capacity entered.');
           return;
         }
+
+        const generateRandomNumber = () => {
+          return Math.floor(1000 + Math.random() * 9000); // Generate random 4-digit number
+        };
+
         const ride = {
           start_loc: source,
           end_loc: destination,
@@ -157,8 +162,8 @@ const Ride = () => {
           cost_per_km: selectedVehicle.costPerKm,
           user_id: authContext.user.uid,
           vehicle_image: selectedVehicle.carImageUrl,
-          ride_otp: 4444,
-          drop_otp: 7777
+          ride_otp: generateRandomNumber(), // Generate random ride OTP
+          drop_otp: generateRandomNumber(),
         };
 
         const rideRef = await addDoc(collection(db, 'rides'), ride);
