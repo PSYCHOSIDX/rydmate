@@ -167,9 +167,13 @@ const RideDetails = () => {
       // driver_info : 'pick up',
     });
 
+    const userRef1 = doc(db, 'users', userId);
+    await updateDoc(userRef1, { request_accepted: true, ride_id: ride_id });
+
 
       // Navigate to the home page
       window.location.href = `/activerides/${ride.ride_id}`;
+
     } catch (error) {
       console.error('Error accepting ride:', error);
     }
