@@ -11,7 +11,7 @@ import Form from 'react-bootstrap/Form';
 import { UNSAFE_useRouteId, useLocation } from 'react-router-dom';
 import{useJsApiLoader , Autocomplete } from '@react-google-maps/api'
 import { db } from '../firebaseConfig';
-import { getDocs,collection, deleteDoc, query, where,addDoc} from 'firebase/firestore';
+import { getDocs,getDoc, collection, doc, query, where,setDoc} from 'firebase/firestore';
 import { Link, useNavigate } from 'react-router-dom';
 // import PaymentSuccess from '../components/PaymentSuccess';
 // import PaymentFail from '../components/PaymentFail';
@@ -48,18 +48,34 @@ const JoinPage = (props) => {
 
   let [distance, setDistance]= useState('')
   let originRef = data.originStart;
- 
+  
+
   useEffect( ()=>{
+   
     const getJoin =  async ()=> {
-      const requestCollection = collection(db, `rides/${rideID}/UsersJoined`);
-        const q = query(requestCollection, where("user_id", "==", userId),where("ride_id", "==", rideID) );
-        const dbdata = await getDocs(q);
-        setJoinData(dbdata.docs.map((doc) => ({ ...doc.data(), id:doc.id})));
-        joinData.map(((data) => (setStatus(data.carpool_status))));
+      console.log(userId)
+
+      const requestDocRef = doc(db, `rides/${rideID}/UsersJoined/${userId}`);
+      const requestDocSnap = await getDoc(requestDocRef);
+
+      if (requestDocSnap.exists()) {
+        const requestDocData = requestDocSnap.data();
+      const joinData = { ...requestDocData, id: requestDocSnap.id };
+      setStatus(joinData.carpool_status);
+          } else {
+        console.log('Document does not exist');
+      }
     }
+      
+      
+      // const q = query(requestCollection, where("user_id", "==", userId),where("ride_id", "==", rideID) );
+      //   const dbdata = await getDocs(q);
+      //   setJoinData(dbdata.docs.map((doc) => ({ ...doc.data(), id:doc.id})));
+      //   joinData.map(((data) => (setStatus(data.carpool_status))));
+    
   
     getJoin();
-  }, );
+  }, []);
     
 
 
@@ -146,7 +162,8 @@ const startLoc = data.start_loc;
 if(data.seats>= bookSeat){
   
   try{
-    await addDoc(collection(db, 'rides/'+rideID+'/UsersJoined/'), {
+    const usersJoinedRef = doc(db, 'rides', rideID, 'UsersJoined', userId);
+    await setDoc(usersJoinedRef, {
       carpool_status :"pending",
       driver_info:"pick up",
       end_loc: location,
@@ -160,6 +177,7 @@ if(data.seats>= bookSeat){
       drop_otp: dropOTP,
       ride_otp: rideOTP,
     });
+
     alert('Request Added successfuly')
 
   } catch (error) {
