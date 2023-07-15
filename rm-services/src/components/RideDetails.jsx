@@ -7,6 +7,8 @@ import { Container, Row, Modal, Button, Tab, Tabs } from 'react-bootstrap';
 import { useJsApiLoader, Autocomplete, DirectionsRenderer, GoogleMap } from '@react-google-maps/api';
 import { useLocation } from 'react-router';
 
+const libraries = ['places'];
+
 const RideDetails = () => {
   const { ride_id } = useParams();
 
@@ -38,7 +40,7 @@ const RideDetails = () => {
 
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: process.env.REACT_APP_GMAPS_KEY,
-    libraries: ['places'],
+    libraries, 
   });
 
   useEffect(() => {

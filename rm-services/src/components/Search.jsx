@@ -46,20 +46,37 @@ const Search = () => {
   useEffect(() => {
     const checkRequestStatus = async () => {
       try {
-        // Retrieve the request_accepted status from the user's document in Firestore
-        const userRef = doc(db, 'users', currentUserUid); // Replace 'userId' with the actual user ID
-        const userDoc = await getDoc(userRef);
-
+        if (currentUserUid) {
+          const userRef = doc(db, 'users', currentUserUid);
+          const userDoc = await getDoc(userRef);
+        
         if (userDoc.exists()) {
+          
+          // Retrieve the request_accepted status from the user's document in Firestore
+        const userRef = doc(db, 'users', currentUserUid); 
+        const userDoc = await getDoc(userRef);
           const userData = userDoc.data();
-          const { request_accepted } = userData;
 
-          setRequestAccepted(request_accepted);
+          if (userData && Object.prototype.hasOwnProperty.call(userData, 'request_accepted')) {
+            const { request_accepted } = userData;
+
+            if (typeof request_accepted === 'boolean') {
+              setRequestAccepted(request_accepted);
+            } else {
+              console.log('Invalid request_accepted value:', request_accepted);
+            }
+          } else {
+            console.log('request_accepted field is missing in the user document');
+          }
+        }else {
+          console.log('User document not found');
         }
-      } catch (error) {
-        console.error('Error retrieving request status:', error);
       }
-    };
+    } catch (error) {
+      console.error('Error retrieving request status:', error);
+    }
+  };
+
 
     checkRequestStatus();
   }, [currentUserUid]);
