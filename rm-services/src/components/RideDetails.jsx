@@ -274,7 +274,7 @@ const disableCancelButton = () => {
 
           if (allCompleted) {
             // Update ride_status to completed
-            await updateDoc(rideRef, { ride_status: 'completed' });
+            await updateDoc(rideRef, { ride_status: 'complete' });
             window.location.href = `/activerides`;
 
           }            
