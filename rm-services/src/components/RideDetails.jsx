@@ -357,21 +357,32 @@ const disableCancelButton = () => {
                    
                       <h2 id="loc">end location</h2>
                     <h2 id="type">{user.end_loc}</h2>  */}
-                    <div style={{ height: '200px', width: '300px' }}>
-        <GoogleMap
+              <div style={{ height: '200px', width: '300px' }}>
+                                        <GoogleMap
           center={{ lat: 15.280347, lng: 73.980065 }}
           zoom={15}
           mapContainerStyle={{ height: '100%', width: '100%', borderRadius:'.9rem'}}
           options={{
             streetViewControl: false,
-           
+            mapTypeId: 'hybrid',
+
+            mapTypeControl: false,
+            // mapTypeControlOptions: {
+            //   style: window.google.maps.MapTypeControlStyle.DEFAULT,
+            //   position: window.google.maps.ControlPosition.BOTTOM_LEFT,
+            //   mapTypeIds: ['hybrid', 'terrain'],
+            // },
+
             fullscreenControl: true,
-   
-            mapId: "c592e5989eb34504",
+            zoomControl: false,    
+
+            
+            
+            mapId:  "c592e5989eb34504",
             keyboardShortcuts:false,
             gestureHandling: "greedy",
-            
-           }}
+
+          }}
           onLoad={setMap}
         >
           {directionsResponse && <DirectionsRenderer directions={directionsResponse} />}
@@ -425,20 +436,31 @@ const disableCancelButton = () => {
                 {pendingUsers.map((user) => (
                   <div className="ride-card" key={user.user_id}>
                                         <div style={{ height: '200px', width: '300px' }}>
-        <GoogleMap
+                                        <GoogleMap
           center={{ lat: 15.280347, lng: 73.980065 }}
           zoom={15}
           mapContainerStyle={{ height: '100%', width: '100%', borderRadius:'.9rem'}}
           options={{
             streetViewControl: false,
-           
+            mapTypeId: 'hybrid',
+
+            mapTypeControl: false,
+            // mapTypeControlOptions: {
+            //   style: window.google.maps.MapTypeControlStyle.DEFAULT,
+            //   position: window.google.maps.ControlPosition.BOTTOM_LEFT,
+            //   mapTypeIds: ['hybrid', 'terrain'],
+            // },
+
             fullscreenControl: true,
-   
-            mapId: "c592e5989eb34504",
+            zoomControl: false,    
+
+            
+            
+            mapId:  "c592e5989eb34504",
             keyboardShortcuts:false,
             gestureHandling: "greedy",
-            
-           }}
+
+          }}
           onLoad={setMap}
         >
           {directionsResponse && <DirectionsRenderer directions={directionsResponse} />}
