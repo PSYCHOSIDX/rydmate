@@ -4,9 +4,17 @@ import { useParams } from 'react-router-dom';
 import { db } from '../firebaseConfig';
 import { collection, doc, getDoc, getDocs, setDoc, updateDoc } from 'firebase/firestore';
 import { Container, Row, Modal, Button, Tab, Tabs } from 'react-bootstrap';
+import { useJsApiLoader, Autocomplete, DirectionsRenderer, GoogleMap } from '@react-google-maps/api';
+import { useLocation } from 'react-router';
 
 const RideDetails = () => {
   const { ride_id } = useParams();
+
+  const location = useLocation();
+
+  const origin = useRef(null);
+  const destination = useRef(null);
+
   const [ride, setRide] = useState(null);
   const [usersJoined, setUsersJoined] = useState([]);
   const [acceptedUsers, setAcceptedUsers] = useState([]);
@@ -18,6 +26,53 @@ const RideDetails = () => {
   const [showOtpDialog, setShowOtpDialog] = useState(false); // Add state variable for OTP dialog
   const [selectedUserId, setSelectedUserId] = useState(null);
   const [userPhoneNumbers, setUserPhoneNumbers] = useState({});
+ 
+  const [directionsResponse, setDirectionsResponse] = useState(null);
+  const [map, setMap] = useState(null);
+
+  useEffect(() => {
+    if (map && origin.current && destination.current) {
+      calculateRoute();
+    }
+  }, [map]);
+
+  const { isLoaded } = useJsApiLoader({
+    googleMapsApiKey: process.env.REACT_APP_GMAPS_KEY,
+    libraries: ['places'],
+  });
+
+  useEffect(() => {
+    if (isLoaded) {
+      calculateRoute();
+    }
+  }, [isLoaded]);
+
+  async function calculateRoute() {
+    // Same as before: Coords for Cuncolim, Goa, India #get from db
+    const origin = { lat: 15.2560, lng: 73.9559 };
+    // Same as before: Coords for Panjim, Goa, India
+    const destination = { lat: 15.4989, lng: 73.8278 };
+    // Two intermediate points
+    // const intermediate1 = { lat: 15.2753, lng: 73.9656 };
+    // const intermediate2 = { lat: 15.3660, lng: 73.9390 };
+
+    const directionsService = new window.google.maps.DirectionsService();
+
+    const result = await directionsService.route({
+      origin: new window.google.maps.LatLng(origin.lat, origin.lng),
+      destination: new window.google.maps.LatLng(destination.lat, destination.lng),
+      // waypoints: [
+      //   { location: new window.google.maps.LatLng(intermediate1.lat, intermediate1.lng) },
+      //   { location: new window.google.maps.LatLng(intermediate2.lat, intermediate2.lng) }
+      // ],
+      travelMode: window.google.maps.TravelMode.DRIVING,
+    });
+
+    setDirectionsResponse(result);
+  }
+
+ 
+
 
   useEffect(() => {
     const fetchRideDetails = async () => {
@@ -112,9 +167,13 @@ const RideDetails = () => {
       // driver_info : 'pick up',
     });
 
+    const userRef1 = doc(db, 'users', userId);
+    await updateDoc(userRef1, { request_accepted: true, ride_id: ride_id });
+
 
       // Navigate to the home page
       window.location.href = `/activerides/${ride.ride_id}`;
+
     } catch (error) {
       console.error('Error accepting ride:', error);
     }
@@ -244,8 +303,21 @@ const disableCancelButton = () => {
     return <p>Loading ride details...</p>;
   }
 
+
+
+ 
+
+  
+
+  if (!isLoaded) {
+    return <p style={{ textAlign: 'center' }}>Loading Maps...</p>;
+  }
+
+
+
   return (
     <div>
+             
       <div className="ride-results">
         <div className="ride-head">
           <h3 style={{ textAlign: 'center', color: 'white' }}>
@@ -279,15 +351,48 @@ const disableCancelButton = () => {
             <p>No users have been accepted for this ride yet.</p>
           ) : (
             <Container className="gridbox">
+             
               <Row className="gridrow">
                 {acceptedUsers.map((user) => (
                   <div className="ride-card" key={user.user_id}>
-                    <h2 id="loc">start location</h2>
+             
+                    {/* <h2 id="loc">start location</h2>
                     <h2 id="type">{user.start_loc}</h2> 
                    
                       <h2 id="loc">end location</h2>
-                    <h2 id="type">{user.end_loc}</h2> 
+                    <h2 id="type">{user.end_loc}</h2>  */}
+              <div style={{ height: '200px', width: '300px' }}>
+                                        <GoogleMap
+          center={{ lat: 15.280347, lng: 73.980065 }}
+          zoom={15}
+          mapContainerStyle={{ height: '100%', width: '100%', borderRadius:'.9rem'}}
+          options={{
+            streetViewControl: false,
+            mapTypeId: 'hybrid',
 
+            mapTypeControl: false,
+            // mapTypeControlOptions: {
+            //   style: window.google.maps.MapTypeControlStyle.DEFAULT,
+            //   position: window.google.maps.ControlPosition.BOTTOM_LEFT,
+            //   mapTypeIds: ['hybrid', 'terrain'],
+            // },
+
+            fullscreenControl: true,
+            zoomControl: false,    
+
+            
+            
+            mapId:  "c592e5989eb34504",
+            keyboardShortcuts:false,
+            gestureHandling: "greedy",
+
+          }}
+          onLoad={setMap}
+        >
+          {directionsResponse && <DirectionsRenderer directions={directionsResponse} />}
+        </GoogleMap>
+      </div>
+      <br/>
                     <h2 className="type">User name</h2>
                     <h2 id="type">{user.user_name}</h2>
                     <h2 className="type">Seats requested</h2>
@@ -334,11 +439,38 @@ const disableCancelButton = () => {
               <Row className="gridrow">
                 {pendingUsers.map((user) => (
                   <div className="ride-card" key={user.user_id}>
-                    <h2 id="loc">start location</h2>
-                    <h2 id="type">{user.start_loc}</h2>
-                    <h2 id="loc">end location</h2>
-                    <h2 id="type">{user.end_loc}</h2>
+                                        <div style={{ height: '200px', width: '300px' }}>
+                                        <GoogleMap
+          center={{ lat: 15.280347, lng: 73.980065 }}
+          zoom={15}
+          mapContainerStyle={{ height: '100%', width: '100%', borderRadius:'.9rem'}}
+          options={{
+            streetViewControl: false,
+            mapTypeId: 'hybrid',
 
+            mapTypeControl: false,
+            // mapTypeControlOptions: {
+            //   style: window.google.maps.MapTypeControlStyle.DEFAULT,
+            //   position: window.google.maps.ControlPosition.BOTTOM_LEFT,
+            //   mapTypeIds: ['hybrid', 'terrain'],
+            // },
+
+            fullscreenControl: true,
+            zoomControl: false,    
+
+            
+            
+            mapId:  "c592e5989eb34504",
+            keyboardShortcuts:false,
+            gestureHandling: "greedy",
+
+          }}
+          onLoad={setMap}
+        >
+          {directionsResponse && <DirectionsRenderer directions={directionsResponse} />}
+        </GoogleMap>
+      </div>
+      <br/>
                     <h2 className="type">User name</h2>
                     <h2 id="type">{user.user_name}</h2>
                     <h2 className="type">Seats requested</h2>

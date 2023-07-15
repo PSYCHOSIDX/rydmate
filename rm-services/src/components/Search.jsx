@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import '../components/component-styles/search.css'
 import search from '../assets/search-new.svg'
 import { Link } from 'react-router-dom'
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, doc, getDocs, updateDoc, getDoc } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
 import { UserAuth } from '../context/UserAuthContext';
+import { FaBell } from 'react-icons/fa';
 
 const Search = () => {
   const authContext = UserAuth();
@@ -40,6 +41,30 @@ const Search = () => {
     fetchVerificationStatus();
   }, [currentUserUid]);
 
+  const [requestAccepted, setRequestAccepted] = useState(false);
+
+  useEffect(() => {
+    const checkRequestStatus = async () => {
+      try {
+        // Retrieve the request_accepted status from the user's document in Firestore
+        const userRef = doc(db, 'users', currentUserUid); // Replace 'userId' with the actual user ID
+        const userDoc = await getDoc(userRef);
+
+        if (userDoc.exists()) {
+          const userData = userDoc.data();
+          const { request_accepted } = userData;
+
+          setRequestAccepted(request_accepted);
+        }
+      } catch (error) {
+        console.error('Error retrieving request status:', error);
+      }
+    };
+
+    checkRequestStatus();
+  }, [currentUserUid]);
+
+
   return (
     <>
       <div className="search-holder">
@@ -63,8 +88,11 @@ const Search = () => {
                   <h1>View <br /> Rides</h1>
                   <h4>View all the rides you joined till now</h4>
                   <Link className='link' to='/viewrides'>
-                    <button className='go-btn'>Go</button>
+  <button className='go-btn'>Go  {requestAccepted && <FaBell className="notification-icon" style={{ color: 'red' , fontSize: '24px' }} />} {/* Render the notification icon if request_accepted is true */}
+</button>                                    
+
                   </Link>
+
                 </>
               ) : (
                 <>

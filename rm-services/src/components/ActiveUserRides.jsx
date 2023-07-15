@@ -3,9 +3,12 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import './component-styles/ridesearch.css';
 import { db } from '../firebaseConfig';
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import { collection, getDoc, getDocs, query, where, doc, updateDoc } from 'firebase/firestore';
 import { UserAuth } from '../context/UserAuthContext';
 import { Link } from 'react-router-dom';
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ActiveUserRides = () => {
   const authContext = UserAuth();
@@ -15,6 +18,40 @@ const ActiveUserRides = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [ridesPostedExists, setRidesPostedExists] = useState(true);
   
+  
+  const [acceptedRide, setAcceptedRide] = useState(null);
+
+  useEffect(() => {
+    const checkRequestStatus = async () => {
+      try {
+        // Retrieve the acceptance status from the user's document in Firestore
+        const userRef = doc(db, 'users', currentUserUid); // Replace 'userId' with the actual user ID
+        const userDoc = await getDoc(userRef);
+
+        if (userDoc.exists()) {
+          const userData = userDoc.data();
+          const { request_accepted, ride_id } = userData;
+
+          if (request_accepted && ride_id) {
+            // Show a notification or handle the acceptance status
+            setAcceptedRide(ride_id);
+            const rideRef = doc(db, 'rides', ride_id); // Replace 'ride_id' with the actual ride ID
+            const rideDoc = await getDoc(rideRef);
+            const rideData = rideDoc.data();
+            
+            toast.success(`Your request for the ride from ${rideData.start_loc} to ${rideData.end_loc} has been accepted!`);
+          }
+
+          // Update the acceptance status in the user's document to indicate it has been viewed
+          await updateDoc(userRef, { request_accepted: false, ride_id: '' });
+        }
+      } catch (error) {
+        console.error('Error retrieving request status:', error);
+      }
+    };
+
+    checkRequestStatus();
+  }, [currentUserUid]);
 
   useEffect(() => {
     const fetchRides = async () => {
@@ -111,6 +148,8 @@ const ActiveUserRides = () => {
           </Container>
         )}
       </div>
+      {acceptedRide && <p>Your request for Ride ID {acceptedRide} has been accepted!</p>}
+      <ToastContainer />
     </>
   );
 };
