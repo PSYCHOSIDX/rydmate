@@ -9,6 +9,8 @@ import { Link } from 'react-router-dom';
 
 import { FaBell } from 'react-icons/fa';
 import moment from 'moment';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ActiveRides = () => {
   const authContext = UserAuth();
@@ -77,7 +79,19 @@ const ActiveRides = () => {
       const userDoc = await getDoc(userRef);
   
       if (userDoc.exists()) {
-        await updateDoc(userRef, { request_received: false });
+        const userData = userDoc.data();
+        const { request_received, user_ride } = userData;
+
+          if (request_received && user_ride) {
+
+            const rideRef = doc(db, 'rides', user_ride); 
+            const rideDoc = await getDoc(rideRef);
+            const rideData = rideDoc.data();
+            
+            toast.success(`you received a new request for the ride from ${rideData.start_loc} to ${rideData.end_loc}!`);
+          }
+        await updateDoc(userRef, { request_received: false,
+          user_ride: '' });
       }
     };
   
@@ -198,6 +212,7 @@ const ActiveRides = () => {
           </Container>
         )}
       </div>
+      <ToastContainer />
     </>
   );
 };

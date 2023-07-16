@@ -33,9 +33,9 @@ const ActiveUserRides = () => {
           const { request_accepted, ride_id } = userData;
 
           if (request_accepted && ride_id) {
-            // Show a notification or handle the acceptance status
+
             setAcceptedRide(ride_id);
-            const rideRef = doc(db, 'rides', ride_id); // Replace 'ride_id' with the actual ride ID
+            const rideRef = doc(db, 'rides', ride_id); 
             const rideDoc = await getDoc(rideRef);
             const rideData = rideDoc.data();
             

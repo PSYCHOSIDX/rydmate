@@ -187,11 +187,14 @@ if(data.seats>= bookSeat){
     if (userRef2.exists()) {
 
       await updateDoc(userRef1, {
-        request_received: true});
+        request_received: true,
+      user_ride:rideID});
     } else {
 
       await setDoc(userRef1, {
-        request_received: true});
+        request_received: true,
+        user_ride:rideID});
+
     }
 
     navigate('/rides');
