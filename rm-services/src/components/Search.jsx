@@ -47,13 +47,13 @@ const Search = () => {
     const checkRequestStatus = async () => {
       try {
         if (currentUserUid) {
-          const userRef = doc(db, 'users', currentUserUid);
+          const userRef = doc(db, 'users', currentUserUid,'details',currentUserUid);
           const userDoc = await getDoc(userRef);
         
         if (userDoc.exists()) {
           
           // Retrieve the request_accepted status from the user's document in Firestore
-        const userRef = doc(db, 'users', currentUserUid); 
+        // const userRef = doc(db, 'users', currentUserUid); 
         const userDoc = await getDoc(userRef);
           const userData = userDoc.data();
 
@@ -105,7 +105,7 @@ const Search = () => {
                   <h1>View <br /> Rides</h1>
                   <h4>View all the rides you joined till now</h4>
                   <Link className='link' to='/viewrides'>
-  <button className='go-btn'>Go  {requestAccepted && <FaBell className="notification-icon" style={{ color: 'yellow' , fontSize: '24px' }} />} {/* Render the notification icon if request_accepted is true */}
+  <button className='go-btn'>Go  {requestAccepted && <FaBell className="notification-icon" style={{ color: 'red' , fontSize: '24px' }} />} {/* Render the notification icon if request_accepted is true */}
 </button>                                    
 
                   </Link>

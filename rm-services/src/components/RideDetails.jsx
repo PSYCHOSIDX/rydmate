@@ -105,11 +105,12 @@ const RideDetails = () => {
           setPendingUsers(pendingUsersData);
 
           // Fetch phone numbers of the accepted users
+          
           const acceptedUserIds = acceptedUsersData.map((user) => user.user_id);
           const phoneNumbers = {};
 
           for (const userId of acceptedUserIds) {
-            const userRef = doc(db, 'users', userId);
+            const userRef = doc(db, 'users', userId, 'details', userId);
             // console.log(userRef)
             const userDoc = await getDoc(userRef);
             // console.log(userDoc)
@@ -169,9 +170,17 @@ const RideDetails = () => {
       // driver_info : 'pick up',
     });
 
-    const userRef1 = doc(db, 'users', userId);
-    await updateDoc(userRef1, { request_accepted: true, ride_id: ride_id });
+    const userRef1 = doc(db, 'users', userId, 'details', userId);
+    const userRef2 = await getDoc(userRef1);
+    if (userRef2.exists()) {
 
+      await updateDoc(userRef1, {
+        request_accepted: true, ride_id: ride_id      });
+    } else {
+
+      await setDoc(userRef1, {
+        request_accepted: true, ride_id: ride_id      });
+    }
 
       // Navigate to the home page
       window.location.href = `/activerides/${ride.ride_id}`;
