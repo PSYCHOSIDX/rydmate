@@ -44,6 +44,9 @@ const Search = () => {
   }, [currentUserUid]);
 
   const [requestAccepted, setRequestAccepted] = useState(false);
+  const [requestRejected, setRequestRejected] = useState(false);
+  const [requestCancelled, setRequestCancelled] = useState(false);
+
   const [requestReceived, setRequestReceived] = useState(false);
 
   useEffect(() => {
@@ -71,16 +74,40 @@ const Search = () => {
           } else {
             console.log('request_accepted field is missing in the user document');
           }
+          
+          if (userData && Object.prototype.hasOwnProperty.call(userData, 'request_rejected')) {
+            const { request_rejected } = userData;
+
+            if (typeof request_rejected === 'boolean') {
+              setRequestRejected(request_rejected);
+            } else {
+              console.log('Invalid request_rejected value:', request_rejected);
+            }
+          } else {
+            console.log('request_rejected field is missing in the user document');
+          }
+          if (userData && Object.prototype.hasOwnProperty.call(userData, 'request_ride_cancelled')) {
+            const { request_ride_cancelled } = userData;
+
+            if (typeof request_ride_cancelled === 'boolean') {
+              setRequestCancelled(request_ride_cancelled);
+            } else {
+              console.log('Invalid request_ride_cancelled value:', request_ride_cancelled);
+            }
+          } else {
+            console.log('request_ride_cancelled field is missing in the user document');
+          }
+          
           if (userData && Object.prototype.hasOwnProperty.call(userData, 'request_received')) {
             const { request_received } = userData;
 
             if (typeof request_received === 'boolean') {
               setRequestReceived(request_received);
             } else {
-              console.log('Invalid request_accepted value:', request_received);
+              console.log('Invalid request_received value:', request_received);
             }
           } else {
-            console.log('request_accepted field is missing in the user document');
+            console.log('request_received field is missing in the user document');
           }
 
         }else {
@@ -135,8 +162,7 @@ const Search = () => {
                   <h1>View <br /> Rides</h1>
                   <h4>View all the rides you joined till now</h4>
                   <Link className='link' to='/viewrides'>
-  <button className='go-btn'>Go  {requestAccepted && <FaBell className="notification-icon" style={{ color: 'red' , fontSize: '24px' }} />} {/* Render the notification icon if request_accepted is true */}
-</button>                                    
+                  <button className='go-btn'>Go  {requestAccepted || requestRejected || requestCancelled ? <FaBell className="notification-icon" style={{ color: 'red', fontSize: '24px' }} /> : null}</button>
 
                   </Link>
 
