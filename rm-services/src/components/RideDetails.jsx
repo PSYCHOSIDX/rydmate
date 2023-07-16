@@ -182,11 +182,13 @@ const RideDetails = () => {
         request_accepted: true, ride_id: ride_id      });
     }
 
+    alert('Accepted request successfuly')
 
     window.location.href = `/activerides/${ride.ride_id}`;
 
     } catch (error) {
       console.error('Error accepting ride:', error);
+      alert('Error accepting ride')
     }
   };
 
@@ -207,9 +209,13 @@ const RideDetails = () => {
         await setDoc(userRef1, {
           request_rejected: true, rejected_ride_id: ride_id      });
       }
+
+      alert('Rejected request successfuly')
       window.location.href = `/activerides/${ride.ride_id}`;
     } catch (error) {
       console.error('Error rejecting ride:', error);
+      alert('Error rejecting ride')
+
     }
   };
 
@@ -222,25 +228,31 @@ const RideDetails = () => {
  const usersJoinedRef = collection(db, 'rides', ride_id, 'UsersJoined');
  const usersJoinedSnapshot = await getDocs(usersJoinedRef);
 console.log(usersJoinedSnapshot)
- // Update the ridecancelled field for each user document in the users collection
- const updatePromises = usersJoinedSnapshot.docs.map(async (userDoc) => {
+
+// Update the ridecancelled field for each user document in the users collection
+const updatePromises = usersJoinedSnapshot.docs.map(async (userDoc) => {
+  const carpoolStatus = userDoc.data().carpool_status;
   const userDocRef = doc(db, 'users', userDoc.data().user_id, 'details', userDoc.data().user_id);
   const userDocSnapshot = await getDoc(userDocRef);
 
   if (userDocSnapshot.exists()) {
-    await updateDoc(userDocRef, { request_ride_cancelled: true, cancelled_ride_id: ride_id });
+    if (carpoolStatus === 'pending' || carpoolStatus === 'accepted') {
+      await updateDoc(userDocRef, { request_ride_cancelled: true, cancelled_ride_id: ride_id });
+    }
   } else {
-    await setDoc(userDocRef, { request_ride_cancelled: true, cancelled_ride_id: ride_id });
+    if (carpoolStatus === 'pending' || carpoolStatus === 'accepted') {
+      await setDoc(userDocRef, { request_ride_cancelled: true, cancelled_ride_id: ride_id });
+    }
   }
 });
 
- // Wait for all the update operations to complete
- await Promise.all(updatePromises);
-
+await Promise.all(updatePromises);
+alert('Ride cancelled successfully')
 
       window.location.href = '/activerides';
     } catch (error) {
       console.error('Error cancelling ride:', error);
+      alert('Error cancelling ride')
     }
   };
 

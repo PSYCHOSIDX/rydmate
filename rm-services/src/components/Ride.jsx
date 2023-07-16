@@ -205,6 +205,7 @@ const Ride = () => {
 
         console.log('Ride posted successfully!');
         console.log('Ride ID:', rideRef.id);
+        alert('Ride posted successfully')
         navigate('/');
       } else {
         console.error('User not found or no vehicle selected.');

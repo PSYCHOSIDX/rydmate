@@ -122,24 +122,24 @@ const ActiveRides = () => {
           const usersJoinedRef = collection(db, 'rides', ride_id, 'UsersJoined');
           const usersJoinedSnapshot = await getDocs(usersJoinedRef);
 
-          // Update the ridecancelled field for each user document in the users collection
-          const updatePromises = [];
-          for (const userDoc of usersJoinedSnapshot.docs) {
-            const userDocRef = doc(db, 'users', userDoc.data().user_id, 'details', userDoc.data().user_id);
-            const userDocSnapshot = await getDoc(userDocRef);
+         // Update the ridecancelled field for each user document in the users collection
+const updatePromises = usersJoinedSnapshot.docs.map(async (userDoc) => {
+  const carpoolStatus = userDoc.data().carpool_status;
+  const userDocRef = doc(db, 'users', userDoc.data().user_id, 'details', userDoc.data().user_id);
+  const userDocSnapshot = await getDoc(userDocRef);
 
-            if (userDocSnapshot.exists()) {
-              updatePromises.push(
-                updateDoc(userDocRef, { request_ride_cancelled: true, cancelled_ride_id: ride_id })
-              );
-            } else {
-              updatePromises.push(
-                setDoc(userDocRef, { request_ride_cancelled: true, cancelled_ride_id: ride_id })
-              );
-            }
-          }
+  if (userDocSnapshot.exists()) {
+    if (carpoolStatus === 'pending' || carpoolStatus === 'accepted') {
+      return updateDoc(userDocRef, { request_ride_cancelled: true, cancelled_ride_id: ride_id });
+    }
+  } else {
+    if (carpoolStatus === 'pending' || carpoolStatus === 'accepted') {
+      return setDoc(userDocRef, { request_ride_cancelled: true, cancelled_ride_id: ride_id });
+    }
+  }
+});
 
-          await Promise.all(updatePromises);
+await Promise.all(updatePromises);
 
           window.location.href = '/activerides';
         })
