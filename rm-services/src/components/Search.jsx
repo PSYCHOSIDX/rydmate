@@ -44,6 +44,7 @@ const Search = () => {
   }, [currentUserUid]);
 
   const [requestAccepted, setRequestAccepted] = useState(false);
+  const [requestReceived, setRequestReceived] = useState(false);
 
   useEffect(() => {
     const checkRequestStatus = async () => {
@@ -70,6 +71,18 @@ const Search = () => {
           } else {
             console.log('request_accepted field is missing in the user document');
           }
+          if (userData && Object.prototype.hasOwnProperty.call(userData, 'request_received')) {
+            const { request_received } = userData;
+
+            if (typeof request_received === 'boolean') {
+              setRequestReceived(request_received);
+            } else {
+              console.log('Invalid request_accepted value:', request_received);
+            }
+          } else {
+            console.log('request_accepted field is missing in the user document');
+          }
+
         }else {
           console.log('User document not found');
         }
@@ -165,7 +178,7 @@ const Search = () => {
                             <br />
                             <br />
                             <Link className="link" to="/activerides">
-                              <button className="go-btn">View Rides</button>
+                              <button className="go-btn">View Rides  {requestReceived && <FaBell className="notification-icon" style={{ color: 'red' , fontSize: '24px' }}/>}</button>
                             </Link>
                           </div>
                         </>

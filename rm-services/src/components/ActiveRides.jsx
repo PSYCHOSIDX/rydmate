@@ -3,7 +3,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import './component-styles/ridesearch.css';
 import { db } from '../firebaseConfig';
-import { doc, collection, getDocs, query, where ,updateDoc} from 'firebase/firestore';
+import { doc, collection,getDoc, getDocs, query, where ,updateDoc} from 'firebase/firestore';
 import { UserAuth } from '../context/UserAuthContext';
 import { Link } from 'react-router-dom';
 
@@ -61,21 +61,29 @@ const ActiveRides = () => {
     }
   };
   useEffect(() => {
-    // ...
-
     const fetchRidesPendingStatus = async () => {
       const ridesPendingStatusMap = {};
-
+  
       for (const ride of rides) {
         const isPending = await checkPendingStatus(ride.ride_id);
         ridesPendingStatusMap[ride.ride_id] = isPending;
       }
-
+  
       setRidesPendingStatus(ridesPendingStatusMap);
     };
-
+  
+    const updateUserRequestStatus = async () => {
+      const userRef = doc(db, 'users', currentUserUid, 'details', currentUserUid);
+      const userDoc = await getDoc(userRef);
+  
+      if (userDoc.exists()) {
+        await updateDoc(userRef, { request_received: false });
+      }
+    };
+  
     fetchRidesPendingStatus();
-  }, [rides]);
+    updateUserRequestStatus();
+  }, [rides, currentUserUid]);
 
   
   const calculateTimeLeft = (departureTime, ride_id) => {
