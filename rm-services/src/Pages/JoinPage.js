@@ -11,7 +11,7 @@ import Form from 'react-bootstrap/Form';
 import { UNSAFE_useRouteId, useLocation } from 'react-router-dom';
 import{useJsApiLoader , Autocomplete } from '@react-google-maps/api'
 import { db } from '../firebaseConfig';
-import { getDocs,getDoc, collection, doc, query, where,setDoc} from 'firebase/firestore';
+import { getDocs,getDoc, collection, doc, query, where,setDoc, updateDoc} from 'firebase/firestore';
 import { Link, useNavigate } from 'react-router-dom';
 // import PaymentSuccess from '../components/PaymentSuccess';
 // import PaymentFail from '../components/PaymentFail';
@@ -35,9 +35,11 @@ const JoinPage = (props) => {
 
 
   const data = loc.state?.data;
+  console.log(data)
   const rideID = data.ride_id;
   const rideOTP = data.otp;
   const dropOTP =  data.dropotp;
+  const ridersuserId = data.riders_user_id
 
   const [bookSeat, setBookSeat] = useState('');
   const [phone, setPhone] = useState();
@@ -179,6 +181,22 @@ if(data.seats>= bookSeat){
     });
 
     alert('Request Added successfuly')
+    console.log(ridersuserId)
+    const userRef1 = doc(db, 'users', ridersuserId, 'details', ridersuserId);
+    const userRef2 = await getDoc(userRef1);
+    if (userRef2.exists()) {
+
+      await updateDoc(userRef1, {
+        request_received: true,
+      user_ride:rideID});
+    } else {
+
+      await setDoc(userRef1, {
+        request_received: true,
+        user_ride:rideID});
+
+    }
+
     navigate('/rides');
 
   } catch (error) {

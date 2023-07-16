@@ -246,6 +246,7 @@ if(!isLoaded){
               end_loc:ride.end_loc,
               total_distance:ride.total_distance,
               ride_id:ride.ride_id,
+              riders_user_id:ride.user_id,
               departure_time:ride.departure_time,
               originStart: ride.start_loc,
               vehicle_image: ride.vehicle_image,

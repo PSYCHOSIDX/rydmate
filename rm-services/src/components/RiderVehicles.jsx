@@ -123,6 +123,8 @@ const RiderVehicle = () => {
       }
 
         console.log('Form submitted successfully!');
+        alert('Vehicle information sent for verification')
+
         navigate('/');
       } else {
         console.error('User not found.');

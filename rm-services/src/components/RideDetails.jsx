@@ -182,11 +182,13 @@ const RideDetails = () => {
         request_accepted: true, ride_id: ride_id      });
     }
 
-      // Navigate to the home page
-      window.location.href = `/activerides/${ride.ride_id}`;
+    alert('Accepted request successfuly')
+
+    window.location.href = `/activerides/${ride.ride_id}`;
 
     } catch (error) {
       console.error('Error accepting ride:', error);
+      alert('Error accepting ride')
     }
   };
 
@@ -196,10 +198,24 @@ const RideDetails = () => {
       const userRef = doc(db, 'rides', ride_id, 'UsersJoined', userId);
       await updateDoc(userRef, { carpool_status: 'rejected' });
 
-      // Navigate to the home page
+      const userRef1 = doc(db, 'users', userId, 'details', userId);
+      const userRef2 = await getDoc(userRef1);
+      if (userRef2.exists()) {
+  
+        await updateDoc(userRef1, {
+          request_rejected: true, rejected_ride_id: ride_id      });
+      } else {
+  
+        await setDoc(userRef1, {
+          request_rejected: true, rejected_ride_id: ride_id      });
+      }
+
+      alert('Rejected request successfuly')
       window.location.href = `/activerides/${ride.ride_id}`;
     } catch (error) {
       console.error('Error rejecting ride:', error);
+      alert('Error rejecting ride')
+
     }
   };
 
@@ -209,10 +225,34 @@ const RideDetails = () => {
       const rideRef = doc(db, 'rides', ride_id);
       await updateDoc(rideRef, { ride_status: 'cancelled' });
 
-      // Navigate to the home page
+ const usersJoinedRef = collection(db, 'rides', ride_id, 'UsersJoined');
+ const usersJoinedSnapshot = await getDocs(usersJoinedRef);
+console.log(usersJoinedSnapshot)
+
+// Update the ridecancelled field for each user document in the users collection
+const updatePromises = usersJoinedSnapshot.docs.map(async (userDoc) => {
+  const carpoolStatus = userDoc.data().carpool_status;
+  const userDocRef = doc(db, 'users', userDoc.data().user_id, 'details', userDoc.data().user_id);
+  const userDocSnapshot = await getDoc(userDocRef);
+
+  if (userDocSnapshot.exists()) {
+    if (carpoolStatus === 'pending' || carpoolStatus === 'accepted') {
+      await updateDoc(userDocRef, { request_ride_cancelled: true, cancelled_ride_id: ride_id });
+    }
+  } else {
+    if (carpoolStatus === 'pending' || carpoolStatus === 'accepted') {
+      await setDoc(userDocRef, { request_ride_cancelled: true, cancelled_ride_id: ride_id });
+    }
+  }
+});
+
+await Promise.all(updatePromises);
+alert('Ride cancelled successfully')
+
       window.location.href = '/activerides';
     } catch (error) {
       console.error('Error cancelling ride:', error);
+      alert('Error cancelling ride')
     }
   };
 

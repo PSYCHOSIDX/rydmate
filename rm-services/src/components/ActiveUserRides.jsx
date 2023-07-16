@@ -20,6 +20,8 @@ const ActiveUserRides = () => {
   
   
   const [acceptedRide, setAcceptedRide] = useState(null);
+  const [rejectedRide, setRejectedRide] = useState(null);
+
 
   useEffect(() => {
     const checkRequestStatus = async () => {
@@ -33,17 +35,43 @@ const ActiveUserRides = () => {
           const { request_accepted, ride_id } = userData;
 
           if (request_accepted && ride_id) {
-            // Show a notification or handle the acceptance status
+
             setAcceptedRide(ride_id);
-            const rideRef = doc(db, 'rides', ride_id); // Replace 'ride_id' with the actual ride ID
+            const rideRef = doc(db, 'rides', ride_id); 
             const rideDoc = await getDoc(rideRef);
             const rideData = rideDoc.data();
             
             toast.success(`Your request for the ride from ${rideData.start_loc} to ${rideData.end_loc} has been accepted!`);
           }
 
-          // Update the acceptance status in the user's document to indicate it has been viewed
           await updateDoc(userRef, { request_accepted: false, ride_id: '' });
+
+          const { request_rejected, rejected_ride_id } = userData;
+          if (request_rejected && rejected_ride_id) {
+
+            setRejectedRide(rejected_ride_id);
+            const rideRef = doc(db, 'rides', rejected_ride_id); 
+            const rideDoc = await getDoc(rideRef);
+            const rideData = rideDoc.data();
+            
+            toast.success(`Your request for the ride from ${rideData.start_loc} to ${rideData.end_loc} has been rejected!`);
+          }
+
+          await updateDoc(userRef, { request_rejected: false, rejected_ride_id: '' });
+
+          const { request_ride_cancelled, cancelled_ride_id } = userData;
+          if (request_ride_cancelled && cancelled_ride_id) {
+
+            setRejectedRide(cancelled_ride_id);
+            const rideRef = doc(db, 'rides', cancelled_ride_id); 
+            const rideDoc = await getDoc(rideRef);
+            const rideData = rideDoc.data();
+            
+            toast.success(`The carpool from ${rideData.start_loc} to ${rideData.end_loc} has been cancelled!`);
+          }
+
+          await updateDoc(userRef, { request_ride_cancelled: false, cancelled_ride_id: '' });
+
         }
       } catch (error) {
         console.error('Error retrieving request status:', error);
