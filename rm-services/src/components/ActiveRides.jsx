@@ -3,7 +3,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import './component-styles/ridesearch.css';
 import { db } from '../firebaseConfig';
-import { doc, collection, getDocs, query, where } from 'firebase/firestore';
+import { doc, collection, getDocs, query, where ,updateDoc} from 'firebase/firestore';
 import { UserAuth } from '../context/UserAuthContext';
 import { Link } from 'react-router-dom';
 
@@ -78,18 +78,31 @@ const ActiveRides = () => {
   }, [rides]);
 
   
-  const calculateTimeLeft = (departureTime) => {
+  const calculateTimeLeft = (departureTime, ride_id) => {
     const now = moment();
     const departure = moment(departureTime);
     const duration = moment.duration(departure.diff(now));
   
     const days = Math.floor(duration.asDays());
+  
+    if (days <= -2) {
+      try {
+        const rideRef = doc(db, 'rides', ride_id);
+        updateDoc(rideRef, { ride_status: 'cancelled' }).then(() => {
+          console.log('cancelled', ride_id);
+          window.location.href = '/activerides';
+        });
+      } catch (error) {
+        console.error('Error cancelling ride:', error);
+      }
+    }
+  
     let hours = Math.floor(duration.asHours()) % 24;
     let minutes = Math.floor(duration.asMinutes()) % 60;
   
     if (hours < 0) hours = 0;
     if (minutes < 0) minutes = 0;
-
+  
     const formattedDays = days > 0 ? `${days}d ` : '0d ';
     const formattedHours = hours.toString().padStart(2, '0');
     const formattedMinutes = minutes.toString().padStart(2, '0');
@@ -100,7 +113,6 @@ const ActiveRides = () => {
       minutes: formattedMinutes,
     };
   };
-  
   
 
   
@@ -130,7 +142,7 @@ const ActiveRides = () => {
           <Container className="gridbox">
             <Row className="gridrow">
               {rides.map((ride, index) => {
-                const timeLeft = calculateTimeLeft(ride.departure_time);
+                const timeLeft = calculateTimeLeft(ride.departure_time, ride.ride_id);
                 const countdown = `${timeLeft.days}${timeLeft.hours}h ${timeLeft.minutes}m`;
 
                 return (
