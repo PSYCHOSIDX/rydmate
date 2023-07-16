@@ -25,7 +25,7 @@ const ActiveUserRides = () => {
     const checkRequestStatus = async () => {
       try {
         // Retrieve the acceptance status from the user's document in Firestore
-        const userRef = doc(db, 'users', currentUserUid); // Replace 'userId' with the actual user ID
+        const userRef = doc(db, 'users', currentUserUid, 'details', currentUserUid); // Replace 'userId' with the actual user ID
         const userDoc = await getDoc(userRef);
 
         if (userDoc.exists()) {

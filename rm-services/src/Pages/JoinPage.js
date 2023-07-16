@@ -179,6 +179,7 @@ if(data.seats>= bookSeat){
     });
 
     alert('Request Added successfuly')
+    navigate('/rides');
 
   } catch (error) {
     console.log(error.message);

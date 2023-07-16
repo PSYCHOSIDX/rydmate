@@ -3,9 +3,12 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import './component-styles/ridesearch.css';
 import { db } from '../firebaseConfig';
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import { doc, collection, getDocs, query, where } from 'firebase/firestore';
 import { UserAuth } from '../context/UserAuthContext';
 import { Link } from 'react-router-dom';
+
+import { FaBell } from 'react-icons/fa';
+import moment from 'moment';
 
 const ActiveRides = () => {
   const authContext = UserAuth();
@@ -14,6 +17,9 @@ const ActiveRides = () => {
   const [rides, setRides] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [ridesPostedExists, setRidesPostedExists] = useState(true);
+
+  const [ridesPendingStatus, setRidesPendingStatus] = useState({});
+
 
   useEffect(() => {
     const fetchActiveRides = async () => {
@@ -44,6 +50,62 @@ const ActiveRides = () => {
     fetchActiveRides();
   }, [currentUserUid]);
 
+  const checkPendingStatus = async (rideId) => {
+    try {
+      const userJoinedCollectionRef = collection(db, 'rides', rideId, 'UsersJoined');
+      const querySnapshot = await getDocs(query(userJoinedCollectionRef, where('carpool_status', '==', 'pending')));
+      return querySnapshot.size > 0; // Returns true if there are any documents with 'pending' status in the subcollection
+    } catch (error) {
+      console.error('Error checking pending status:', error);
+      return false;
+    }
+  };
+  useEffect(() => {
+    // ...
+
+    const fetchRidesPendingStatus = async () => {
+      const ridesPendingStatusMap = {};
+
+      for (const ride of rides) {
+        const isPending = await checkPendingStatus(ride.ride_id);
+        ridesPendingStatusMap[ride.ride_id] = isPending;
+      }
+
+      setRidesPendingStatus(ridesPendingStatusMap);
+    };
+
+    fetchRidesPendingStatus();
+  }, [rides]);
+
+  
+  const calculateTimeLeft = (departureTime) => {
+    const now = moment();
+    const departure = moment(departureTime);
+    const duration = moment.duration(departure.diff(now));
+  
+    const days = Math.floor(duration.asDays());
+    let hours = Math.floor(duration.asHours()) % 24;
+    let minutes = Math.floor(duration.asMinutes()) % 60;
+  
+    if (hours < 0) hours = 0;
+    if (minutes < 0) minutes = 0;
+
+    const formattedDays = days > 0 ? `${days}d ` : '0d ';
+    const formattedHours = hours.toString().padStart(2, '0');
+    const formattedMinutes = minutes.toString().padStart(2, '0');
+  
+    return {
+      days: formattedDays,
+      hours: formattedHours,
+      minutes: formattedMinutes,
+    };
+  };
+  
+  
+
+  
+  
+
   if (isLoading) {
     return <p>Loading active rides...</p>;
   }
@@ -67,7 +129,11 @@ const ActiveRides = () => {
         ) : (
           <Container className="gridbox">
             <Row className="gridrow">
-              {rides.map((ride,index) => (
+              {rides.map((ride, index) => {
+                const timeLeft = calculateTimeLeft(ride.departure_time);
+                const countdown = `${timeLeft.days}${timeLeft.hours}h ${timeLeft.minutes}m`;
+
+                return (
                <Link to={`/activerides/${ride.ride_id}`} key={ride.ride_id} style={{
                 textDecoration: 'none',
                 color: 'inherit',
@@ -77,6 +143,13 @@ const ActiveRides = () => {
                 // display: index < 3 ? 'inline-block' : 'none',
               }}>
                <div className="ride-card">
+               <span className="countdown" id='realcost'>
+    {countdown}
+  </span>
+
+               {ridesPendingStatus[ride.ride_id] && (
+                <FaBell className="notification-icon" style={{ color: 'yellow', marginLeft: '50%', fontSize: '30px' }} />
+              )}
                <h2 id="loc"><b>FROM</b> {ride.start_loc} <br/> <b>TO</b> {ride.end_loc}</h2>
               
                   <div className="line"> </div>
@@ -99,7 +172,8 @@ const ActiveRides = () => {
                   {/* <input type="button" value={ride.ride_otp} className="ride-join" disabled/> */}
                   </div>
       </Link>
-              ))}
+             );
+                })}
             </Row>
           </Container>
         )}
