@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../components/component-styles/search.css'
 import search from '../assets/search-new.svg'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate} from 'react-router-dom'
 import { collection, doc, getDocs, updateDoc, getDoc } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
 import { UserAuth } from '../context/UserAuthContext';
@@ -14,6 +14,8 @@ const Search = () => {
   const [isVerifiedUser, setIsVerifiedUser] = useState(false);
   const [hasRiderProgram, setHasRiderProgram] = useState(false);
 
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchVerificationStatus = async () => {
@@ -81,6 +83,21 @@ const Search = () => {
     checkRequestStatus();
   }, [currentUserUid]);
 
+  
+  const handleJoinRide = async () => {
+    const userDetailsRef = doc(db, 'users', currentUserUid, 'details', currentUserUid);
+    const userDetailsDoc = await getDoc(userDetailsRef);
+
+      if (userDetailsDoc.exists() && userDetailsDoc.data().phoneNumber) {
+          navigate('/rides')     
+      
+      } else {
+        // Phone number does not exist in user's details
+        alert('Please update your contact number in the profile before joining a ride.');
+      }
+    };
+
+
 
   return (
     <>
@@ -94,9 +111,9 @@ const Search = () => {
             <div className="search-card">
               <h1>Search <br /> Rides</h1>
               <h4>Find rides quickly at the best prices</h4>
-              <Link className='link' to='/rides'>
-                <button className='go-btn'>Go</button>
-              </Link>
+              {/* <Link className='link' to='/rides'> */}
+                <button className='go-btn' onClick={handleJoinRide}>Go</button>
+              {/* </Link> */}
             </div>
 
             <div className="search-card">

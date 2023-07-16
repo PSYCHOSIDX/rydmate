@@ -66,7 +66,7 @@ function Example() {
   return (
     <>
       <Button id="update-button" onClick={handleShow}>
-        Update
+        Update Contact
       </Button>
 
       <Modal show={show} onHide={handleClose}>
