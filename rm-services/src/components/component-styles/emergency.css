@@ -6,6 +6,51 @@
   padding-bottom: 6%;
   cursor: pointer;
 }
+.emergency-component .reward-box {
+  margin: auto;
+  margin: 1rem;
+  padding: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.271);
+  border-radius: 0.5rem;
+}
+.emergency-component .request {
+  font-size: 1rem;
+  color: white;
+  font-family: "Poppins", sans-serif;
+  margin: auto;
+  margin-left: 1rem;
+  padding-bottom: 0.5rem;
+}
+.emergency-component .credits {
+  color: white;
+  margin-left: 1rem;
+  margin-top: 1rem;
+}
+.emergency-component .request-status {
+  color: #0cc075;
+  margin-left: 1rem;
+  margin-top: 3rem;
+}
+.emergency-component .amount {
+  margin-left: 1rem;
+  color: #35d59d;
+  font-weight: bold;
+}
+.emergency-component .withdraw-btn {
+  background-color: #232323;
+  color: white;
+  margin-left: 1rem;
+  padding: 1rem 3rem;
+  border-radius: 1rem;
+  border: none;
+}
+.emergency-component .withdraw-btn:hover {
+  background-color: #24e9a4;
+  color: #146749;
+}
+.emergency-component .status-withdraw {
+  color: #069f60;
+}
 .emergency-component h3 {
   margin-left: 1.2rem;
   margin-right: 1.2rem;
@@ -18,6 +63,8 @@
   margin: auto;
   margin-left: 1.2rem;
   color: #069f60;
+  margin-top: 0rem;
+  padding-top: 1rem;
 }
 .emergency-component h6 {
   margin-left: 1.2rem;

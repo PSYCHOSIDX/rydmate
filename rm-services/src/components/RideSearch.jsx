@@ -12,14 +12,11 @@ import {collection, getDocs, query, orderBy, where} from 'firebase/firestore';
 
 
 const RideSearch = () => {
-
   const [rides , setRides]= useState([0]);
   const ridesCollectionRef = collection(db,"rides");
   const [startSearch, setStartSearch] =useState('');
   const [desSearch, setDesSearch] =useState('');
   
-
-
 const getRideVehicle = async () => {
   const data = await getDocs(query(ridesCollectionRef,where("ride_status", "==", "active"),orderBy('vehicle_type','desc')));
   const newData = data.docs.map((doc) => ({
@@ -56,8 +53,6 @@ useEffect( ()=>{
  
 
   const center = {lat:15.280347,lng:73.980065};
-
-
   const [map, setMap]= useState(/**@type google.maps.Map */null);
   const [directionsResponse, setDirectionsResponse]=useState(null);
   const [distance, setDistance]= useState('')
@@ -85,8 +80,6 @@ async function calculateRoute(){
 
 }
   
-
-
 const {isLoaded} = useJsApiLoader({
   libraries:["places"],
   googleMapsApiKey: process.env.REACT_APP_GMAPS_KEY,
@@ -100,8 +93,6 @@ const {isLoaded} = useJsApiLoader({
 if(!isLoaded){
   return <p style={{textAlign:'center', color:'white', }}> Loading Maps ...</p>
 }
-  
-
 
   return (
 
@@ -132,9 +123,7 @@ if(!isLoaded){
                   <div>
                 
                   </div>
-               
-                
-                
+
                 <button  onClick={calculateRoute} className='search-btn'>Search</button>
             </div>
         </div>
@@ -158,8 +147,6 @@ if(!isLoaded){
                  }}
                  onLoad={map => setMap(map)}
                  >
-
-                  
                   {directionsResponse && 
                   <DirectionsRenderer directions={directionsResponse}/>}
 
@@ -274,8 +261,6 @@ if(!isLoaded){
 
  
         </div>
-
-
 
     </>
   )

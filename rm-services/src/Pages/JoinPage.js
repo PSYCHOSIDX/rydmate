@@ -32,7 +32,7 @@ const JoinPage = (props) => {
   const userName = user.displayName;
 
   var userEmail = user.email;
-
+  const destinationRef = useRef();
 
   const data = loc.state?.data;
   console.log(data)
@@ -43,7 +43,7 @@ const JoinPage = (props) => {
 
   const [bookSeat, setBookSeat] = useState('');
   const [phone, setPhone] = useState();
-  const [location, setLocation]=useState('');
+  const [dropLocation, setDropLocation]= useState();
   const [joinData, setJoinData] = useState([]);
 
   const [status, setStatus]=useState('');
@@ -92,8 +92,7 @@ const JoinPage = (props) => {
   
     } 
    
-  /**@type React.MutableRefObject<HTMLInputElement>*/
-  const destinationRef = useRef()
+  
 
 
   const {isLoaded} = useJsApiLoader({
@@ -168,7 +167,7 @@ if(data.seats>= bookSeat){
     await setDoc(usersJoinedRef, {
       carpool_status :"pending",
       driver_info:"pick up",
-      end_loc: location,
+      end_loc: destinationRef.current.value,
       ride_id: rideID,
       seats: bookSeat,
       start_loc: startLoc,
@@ -310,11 +309,15 @@ const handleViewMap = async () => {
 
 
         <Form.Group className="mb-3 none" controlId="formBasicPassword">
-        <Autocomplete options={{
+       
+        <Autocomplete className='auto' onChange={(e) => {setDropLocation(e.target.value)}} options={{
                   componentRestrictions: {country : "ind"}
-                }}>
-          <Form.Control style={{fontSize:12, height:44}} onChange={(e) => setLocation(e.target.value)} type="text"  placeholder="Enter Drop location within route" ref={destinationRef}  required />
-          </Autocomplete>
+                }}
+                >
+                   <Form.Control style={{fontSize:12, height:44, margin:'.2rem'}} type="text" placeholder='📍drop location' autoComplete='on'  ref={destinationRef} onChange={(e)=>setDropLocation(e.target.value)}/>
+                </Autocomplete>
+
+
           <Form.Control style={{fontSize:12, height:44}} onChange={(e) => setBookSeat(e.target.value )} type="number"  placeholder="Enter No of Seats" max={data.seats}required />
           <Button variant="primary" onClick={() => { GetPhone(userEmail); calculateRoute(); validateSeats(bookSeat)}} className='car-pay'> Get Total Cost </Button>
         </Form.Group>

@@ -9,8 +9,6 @@ import { Modal } from 'react-bootstrap';
 
 
 
-
-
 const Emergency = () => {
   const {user} = UserAuth();
   const userId = user.uid

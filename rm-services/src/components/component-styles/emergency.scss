@@ -8,6 +8,57 @@
     padding-bottom: 6%;
     cursor: pointer;
 
+    .reward-box{
+        margin: auto;
+        margin: 1rem;
+        padding: .5rem;
+        border: 1px solid rgba(255, 255, 255, 0.271);
+        border-radius: .5rem;
+    }
+    .request{
+        font-size: 1rem;
+        color: white;
+        font-family: 'Poppins', sans-serif;
+        margin: auto;
+        margin-left: 1rem;
+        padding-bottom: .5rem;
+    }
+    .credits{
+        color: white;
+        margin-left: 1rem;
+        margin-top: 1rem;
+    }
+    .request-status{
+        color: #0cc075;
+        margin-left: 1rem;
+        margin-top: 3rem;
+    }
+    .amount{
+        margin-left: 1rem;
+        color: #35d59d;
+        font-weight: bold;
+    }
+
+    .withdraw-btn{
+        background-color: #232323;
+        color: white;
+        margin-left: 1rem;
+        padding: 1rem 3rem ;
+        border-radius: 1rem;
+        border: none;
+
+        &:hover{
+           
+            background-color: #24e9a4;
+        color: #146749;
+        }
+    }
+
+
+    .status-withdraw{
+        color: #069f60;
+    }
+
     h3{
         margin-left: 1.2rem;
         margin-right: 1.2rem;
@@ -21,6 +72,8 @@
         margin: auto;
         margin-left: 1.2rem;
         color: #069f60;
+        margin-top: 0rem;
+        padding-top: 1rem;
     }
 
     h6{

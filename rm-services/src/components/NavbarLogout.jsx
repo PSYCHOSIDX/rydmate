@@ -141,6 +141,9 @@ function Profile({ name, ...props }) {
           </Link>
           <Example/>
 
+          <Link className='link' to='/rewards'>
+              <Button as="input" id='update-button-x' type="button" value="Rewards"/> 
+          </Link>
           <Link className='link' to='/emergency'>
               <Button as="input" id='update-button-x' type="button" value="Emergency Contacts"/> 
           </Link>
