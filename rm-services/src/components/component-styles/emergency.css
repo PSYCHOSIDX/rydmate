@@ -9,7 +9,9 @@
 .emergency-component .reward-box {
   margin: auto;
   margin: 1rem;
+margin-bottom: 2 rem;
   padding: 0.5rem;
+
   border: 1px solid rgba(255, 255, 255, 0.271);
   border-radius: 0.5rem;
 }
@@ -25,7 +27,7 @@
   color: white;
   margin-left: 1rem;
   margin-top: 1rem;
-  padding-bottom: 1rem;
+  
 }
 .emergency-component .request-status {
   color: #0cc075;
