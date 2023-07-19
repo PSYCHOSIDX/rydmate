@@ -151,9 +151,9 @@ const Search = () => {
             <div className="search-card">
               <h1>Search <br /> Rides</h1>
               <h4>Find rides quickly at the best prices</h4>
-              {/* <Link className='link' to='/rides'> */}
-                <button className='go-btn' onClick={handleJoinRide}>Go</button>
-              {/* </Link> */}
+              <Link className='link' to='/rides'> 
+                <button className='go-btn' >Go</button>
+              </Link>
             </div>
 
             <div className="search-card">

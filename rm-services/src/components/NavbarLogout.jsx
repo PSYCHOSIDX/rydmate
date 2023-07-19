@@ -136,8 +136,11 @@ function Profile({ name, ...props }) {
           <h5>{user.email}</h5>
 
 
- <Link className='link' to='/'>
+           <Link className='link' to='/'>
               <Button as="input" id='update-button-x' type="button" value="Home"/> 
+          </Link>
+          <Link className='link' to='/rides'>
+              <Button as="input" id='update-button-x' type="button" value="Search Rides"/> 
           </Link>
           <Example/>
 
@@ -149,7 +152,7 @@ function Profile({ name, ...props }) {
           </Link>
 
           <Link className='link' to='/viewrides'>
-              <Button as="input" id='update-button-x' type="button" value="View Rides"/> 
+              <Button as="input" id='update-button-x' type="button" value="My Rides"/> 
           </Link>
           
           <button onClick={handleLogout} className='btn-contact' id='visible'> Logout </button>
