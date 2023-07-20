@@ -14,17 +14,17 @@ const RidersNav = () => {
   return (
     <div>
       <Navbar bg="light" expand="lg" onSelect={handleTabChange}>
-        <Navbar.Brand href="/postride">Post A Ride</Navbar.Brand>
+        <Navbar.Brand href="/postride" >.  Post A Ride </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mr-auto">
-            <Nav.Link eventKey="active" onSelect={() => handleTabChange('active')}>
+          <Nav className="ms-auto">
+            <Nav.Link className="ms-auto" eventKey="active" onSelect={() => handleTabChange('active')}>
               Active Rides
             </Nav.Link>     
-            <Nav.Link eventKey="completed" onSelect={() => handleTabChange('completed')}>
+            <Nav.Link className="ms-auto"eventKey="completed" onSelect={() => handleTabChange('completed')}>
               Completed Rides
             </Nav.Link>
-            <Nav.Link eventKey="cancelled" onSelect={() => handleTabChange('cancelled')}>
+            <Nav.Link className="ms-auto" eventKey="cancelled" onSelect={() => handleTabChange('cancelled')}>
               Cancelled Rides
             </Nav.Link>
        

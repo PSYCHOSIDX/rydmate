@@ -1,17 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Poppins:wght@200&family=Unbounded:wght@200&display=swap");
 .emergency-component {
   background: rgb(0, 0, 0);
-  padding-bottom: 2rem;
-  padding: 4%;
-  padding-bottom: 6%;
   cursor: pointer;
 }
 .emergency-component .reward-box {
   margin: auto;
   margin: 1rem;
-margin-bottom: 2 rem;
-  padding: 0.5rem;
-
+  padding: 1%;
   border: 1px solid rgba(255, 255, 255, 0.271);
   border-radius: 0.5rem;
 }
@@ -27,7 +22,6 @@ margin-bottom: 2 rem;
   color: white;
   margin-left: 1rem;
   margin-top: 1rem;
-  
 }
 .emergency-component .request-status {
   color: #0cc075;

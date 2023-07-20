@@ -159,7 +159,7 @@ const Search = () => {
             <div className="search-card">
               {isLoggedIn ? (
                 <>
-                  <h1>View <br /> Rides</h1>
+                  <h1>My <br /> Rides</h1>
                   <h4>View all the rides you joined till now</h4>
                   <Link className='link' to='/viewrides'>
                   <button className='go-btn'>Go  {requestAccepted || requestRejected || requestCancelled ? <FaBell className="notification-icon" style={{ color: 'red', fontSize: '24px' }} /> : null}</button>

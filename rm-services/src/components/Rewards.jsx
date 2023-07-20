@@ -12,11 +12,17 @@ import { Modal } from 'react-bootstrap';
 
 
 const Rewards = () => {
+  
   const {user} = UserAuth();
   const userId = user.uid;
   const [rewards, setRewards] =useState([]);
   const [credit, setCredit] = useState([]);
-const [amt, setAmt] =useState(0)
+  const [amt, setAmt] =useState(0);
+
+
+
+
+
     
   useEffect(() => {
     const fetchData = async () => {
@@ -123,9 +129,7 @@ const [amt, setAmt] =useState(0)
  }
   
 
-
-
-
+<br />
 </div>
      
     </>

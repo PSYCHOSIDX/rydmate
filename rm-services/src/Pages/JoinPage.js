@@ -310,11 +310,11 @@ const handleViewMap = async () => {
 
         <Form.Group className="mb-3 none" controlId="formBasicPassword">
        
-        <Autocomplete className='auto' onChange={(e) => {setDropLocation(e.target.value)}} options={{
+        <Autocomplete  onChange={(e) => {setDropLocation(e.target.value)}} options={{
                   componentRestrictions: {country : "ind"}
                 }}
                 >
-                   <Form.Control style={{fontSize:12, height:44, margin:'.2rem'}} type="text" placeholder='📍drop location' autoComplete='on'  ref={destinationRef} onChange={(e)=>setDropLocation(e.target.value)}/>
+                   <Form.Control style={{fontSize:12, height:44, margin:'.1rem'}} type="text" placeholder='📍drop location' autoComplete='on'  ref={destinationRef} onChange={(e)=>setDropLocation(e.target.value)}/>
                 </Autocomplete>
 
 
