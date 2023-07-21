@@ -61,7 +61,7 @@ function Example() {
     };
 
     fetchPhoneNumber();
-  }, [userId]);
+  });
 
   return (
     <>

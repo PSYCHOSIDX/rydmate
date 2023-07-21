@@ -18,7 +18,9 @@ const RideSearch = () => {
   const [desSearch, setDesSearch] =useState('');
   
 const getRideVehicle = async () => {
-  const data = await getDocs(query(ridesCollectionRef,where("ride_status", "==", "active"),orderBy('vehicle_type','desc')));
+  const q = query(ridesCollectionRef,where("ride_status", "==", "active"),orderBy('vehicle_type','desc'));
+  const qmain = query(q,where("seats", ">", "0"));
+  const data = await getDocs(qmain);
   const newData = data.docs.map((doc) => ({
       ...doc.data(),
       id: doc.id,
@@ -29,7 +31,9 @@ const getRideVehicle = async () => {
 
 
 const getRideLow = async () => {
-  const data = await getDocs(query(ridesCollectionRef,where("ride_status", "==", "active"),orderBy('vehicle_type')));
+  const q = query(ridesCollectionRef,where("ride_status", "==", "active"),orderBy('vehicle_type'));
+  const qmain = query(q,where("seats", ">", "0"));
+  const data = await getDocs(qmain);
   const newData = data.docs.map((doc) => ({
       ...doc.data(),
       id: doc.id,
@@ -41,8 +45,9 @@ const getRideLow = async () => {
 
 useEffect( ()=>{
   const getRides =  async ()=> {
-      const q = query(ridesCollectionRef, where("ride_status", "==", "active"));
-      const dbdata = await getDocs(q);
+    const q = query(ridesCollectionRef,where("ride_status", "==", "active"));
+    const qmain = query(q,where("seats", ">", "0"));
+      const dbdata = await getDocs(qmain);
       setRides(dbdata.docs.map((doc) => ({ ...doc.data(), id:doc.id})));
   }
 

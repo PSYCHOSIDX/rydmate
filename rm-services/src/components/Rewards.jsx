@@ -37,17 +37,23 @@ const Rewards = () => {
     
   });
 
+ 
   useEffect(() => {
     const fetchData = async () => {
       
-      const creditCollection = collection(db,`users/${userId}/available_credits`);
+      const creditCollection = collection(db,'users/'+userId+'/available_credits/');
       const creditSnapshot = await getDocs(creditCollection);
       const creditList = creditSnapshot.docs.map(doc => doc.data());
       setCredit(creditList);
     };
+
     fetchData();
-    
   });
+  var  price;
+credit.map((c)=>{
+ price= c.main_credit;
+ 
+})
 
 
 
@@ -93,14 +99,11 @@ const Rewards = () => {
             
     <h2 className='credits'>Total Credits Earned </h2>   
 
-    {
-        credit.length === 0 &&  <h2 className='amount'>RS.{amt}</h2>
-    }
-
+ 
  {      
- credit.map(cred => ( 
-    <h2 className='amount'>RS.{cred.credits}</h2> 
- ))
+
+    credit ? <h2 className='amount'>RS.{price}</h2> : <h2 className='amount'>RS.0</h2>
+ 
 }
     
 
@@ -112,7 +115,7 @@ const Rewards = () => {
  <h5 className='request'>Amount: RS.{500} - status: <b className='status-withdraw'> {'pending'} </b> </h5>
 
 <h2 className='request-status'> Rewards History</h2>  
- {rewards.length === 0 && <h3 className='credits'> Nothing to show yet</h3>}
+ {/* {rewards.length === 0 && <h3 className='credits'> Nothing to show yet</h3>} */}
 
  {
 
