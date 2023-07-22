@@ -126,7 +126,7 @@ const handleWithdraw = async (e) => {
  
  {      
 
-    credit ? <h2 className='amount'>RS.{price}</h2> : <h2 className='amount'>RS.0</h2>
+    credit.length !=0 ? <h2 className='amount'>RS.{price}</h2> : <h2 className='amount'>RS.0</h2>
  
 }
     
