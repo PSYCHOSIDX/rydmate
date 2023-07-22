@@ -128,7 +128,7 @@ const Search = () => {
     const userDetailsRef = doc(db, 'users', currentUserUid, 'details', currentUserUid);
     const userDetailsDoc = await getDoc(userDetailsRef);
 
-      if (userDetailsDoc.exists() && userDetailsDoc.data().phoneNumber) {
+      if (userDetailsDoc.data().phoneNumber) {
           navigate('/rides')     
       
       } else {
@@ -152,7 +152,7 @@ const Search = () => {
               <h1>Search <br /> Rides</h1>
               <h4>Find rides quickly at the best prices</h4>
               <Link className='link' to='/rides'> 
-                <button className='go-btn' >Go</button>
+                <button className='go-btn' onClick={handleJoinRide}>Go</button>
               </Link>
             </div>
 

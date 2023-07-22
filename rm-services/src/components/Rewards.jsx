@@ -3,7 +3,7 @@ import '../components/component-styles/emergency.css';
 import EContacts from './AddEmergencyContacts';
 import { UserAuth } from '../context/UserAuthContext';
 import { db } from '../firebaseConfig';
-import { getDocs,collection, deleteDoc, query, where} from 'firebase/firestore';
+import { getDocs,collection, deleteDoc, query, where, addDoc} from 'firebase/firestore';
 import {Button} from 'react-bootstrap';
 import { Modal } from 'react-bootstrap';
 
@@ -12,16 +12,27 @@ import { Modal } from 'react-bootstrap';
 
 
 const Rewards = () => {
-  
+  const [withdraw, setWithdraw] = useState([]);
   const {user} = UserAuth();
   const userId = user.uid;
   const [rewards, setRewards] =useState([]);
   const [credit, setCredit] = useState([]);
   const [amt, setAmt] =useState(0);
 
+// withdraw data read
 
+  useEffect(() => {
+    const fetchData = async () => {
+      
+      const withdrawCollection = collection(db,`admin/withdrawals/${userId}`);
+      const withdrawSnapshot = await getDocs(withdrawCollection);
+      const withdrawList = withdrawSnapshot.docs.map(doc => doc.data());
+      setWithdraw(withdrawList);
+    };
+    fetchData();
 
-
+    
+  });
 
     
   useEffect(() => {
@@ -55,6 +66,19 @@ credit.map((c)=>{
  
 })
 
+const handleWithdraw = async (e) => {
+  try {
+    await addDoc(collection(db, "admin/withdrawals/"+userId+'/'), {
+      amount: price,
+      withdraw_status: "pending",
+    });
+  console.log("Withdraw Request Added !");
+  alert('Withdraw Request Added');
+  } catch (error) {
+    console.log(error.message);
+  }
+
+}
 
 
   const [showx, setShow] = useState(false);
@@ -81,7 +105,7 @@ credit.map((c)=>{
               Cancel
             </Button>
   
-            <Button variant="success" >
+            <Button variant="success" onClick={() => {handleWithdraw() && setShow(false)} } >
               Yes
             </Button>
             
@@ -110,16 +134,23 @@ credit.map((c)=>{
   <LaunchWidthdraw/>
 
 <br />
-
 <h2 className='request-status'> Withdrawals</h2>
- <h5 className='request'>Amount: RS.{500} - status: <b className='status-withdraw'> {'pending'} </b> </h5>
+
+{withdraw.length === 0 && <h3 className='credits'> Nothing to show yet</h3>}
+{
+  withdraw.map(w => (
+    <h5 className='request'>Amount: RS.{w.amount} - status: <b className='status-withdraw'> {w.withdraw_status} </b> </h5>
+  ))
+}
+
+
 
 <h2 className='request-status'> Rewards History</h2>  
- {/* {rewards.length === 0 && <h3 className='credits'> Nothing to show yet</h3>} */}
+ {rewards.length === 0 && <h3 className='credits'> Nothing to show yet</h3>}
 
  {
 
- rewards.map(reward => ( 
+ rewards.map((reward => ( 
     
   <div className='reward-box'>
  
@@ -128,7 +159,7 @@ credit.map((c)=>{
 
   
   ) 
-  )
+  ))
  }
   
 
