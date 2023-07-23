@@ -96,14 +96,20 @@ const CompletedUserRides = () => {
                    <div className="line"> </div>
 <br/>
                    {/* <input type="button" value="completed" className="ride-join" disabled/> */}
-                   <center><a href="/rating" style={{    textDecoration: 'none',
+                   {/* <center><a href="/rating" style={{    textDecoration: 'none',
                 color: '#00FFA3',
                 flexBasis: '33.33%',
                 padding: '4px',
                 textAlign: 'center',
                 boxSizing: 'border-box',
-                 }}>rate your ride</a></center> 
-
+                 }}>rate your ride</a></center>  */}
+   <Link to={`/rating`}  state={{data:{
+          user_id : ride.user_id,
+          ride_id : ride.ride_id
+            }}}
+ style={{ textDecoration: 'none', color: '#00FFA3', flexBasis: '33.33%', padding: '4px', textAlign: 'center', boxSizing: 'border-box' }}>
+                      Rate Your Ride
+                    </Link>
                 </div>    
               ))}
             </Row>

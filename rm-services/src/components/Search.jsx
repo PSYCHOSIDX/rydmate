@@ -124,20 +124,49 @@ const Search = () => {
   }, [currentUserUid]);
 
   
-  const handleJoinRide = async () => {
-    const userDetailsRef = doc(db, 'users', currentUserUid, 'details', currentUserUid);
-    const userDetailsDoc = await getDoc(userDetailsRef);
+  // const handleJoinRide = async () => {
+  //   const userDetailsRef = doc(db, 'users', currentUserUid, 'details', currentUserUid);
+  //   const userDetailsDoc = await getDoc(userDetailsRef);
 
-      if (userDetailsDoc.data().phoneNumber) {
-          navigate('/rides')     
+  //     if (userDetailsDoc.exists() && userDetailsDoc.data().phoneNumber) {
+  //         navigate('/rides')     
       
+  //     } else {
+  //       // Phone number does not exist in user's details
+  //       alert('Please update your contact number in the profile before joining a ride.');
+  //     }
+  //   };
+
+  const handleJoinRide = async () => {
+    try {
+      if (!currentUserUid) {
+        // No user logged in, redirect to the login page or take appropriate action
+        navigate('/login'); 
+        return;
+      }
+  
+      const userDetailsRef = doc(db, 'users', currentUserUid, 'details', currentUserUid);
+      const userDetailsDoc = await getDoc(userDetailsRef);
+  
+      if (userDetailsDoc.exists()) {
+        const userData = userDetailsDoc.data();
+        
+        // Check if the phoneNumber exists and is not null
+        if (userData && userData.phoneNumber) {
+          navigate('/rides');
+        } else {
+          // Phone number does not exist in user's details
+          alert('Please update your contact number in the profile before joining a ride.');
+        }
       } else {
-        // Phone number does not exist in user's details
+        console.log('User document not found');
         alert('Please update your contact number in the profile before joining a ride.');
       }
-    };
-
-
+    } catch (error) {
+      console.error('Error fetching user details:', error);
+    }
+  };
+  
 
   return (
     <>
