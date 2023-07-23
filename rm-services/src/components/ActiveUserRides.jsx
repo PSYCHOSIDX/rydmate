@@ -278,7 +278,7 @@ useEffect(() => {
       const rewardSnapshot = await getDocs(qmainx);
       const rewardList = rewardSnapshot.docs.map(doc => doc.data());
       setReward(rewardList.length);
-      console.log(rewardList.length)
+      
       }catch(e){
         console.log('reward payment : ' + e)
       }
