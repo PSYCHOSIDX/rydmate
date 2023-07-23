@@ -157,6 +157,7 @@ const Search = () => {
         } else {
           // Phone number does not exist in user's details
           alert('Please update your contact number in the profile before joining a ride.');
+          navigate('/')
         }
       } else {
         console.log('User document not found');
