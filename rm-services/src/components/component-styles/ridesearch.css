@@ -14,6 +14,39 @@
   margin-bottom: 1rem;
 }
 
+.pay {
+  background-color: rgb(104, 230, 46);
+  width: 99%;
+  color: white;
+  border: rgb(255, 255, 255);
+  font-size: 1.1rem;
+  margin: auto;
+  margin-top: 0.7rem;
+  border-radius: 1rem;
+  padding: 1rem;
+}
+.pay:hover {
+  background-color: rgb(255, 255, 255);
+  color: black;
+  font-weight: bold;
+}
+
+.payPhone {
+  background-color: rgb(46, 169, 230);
+  width: 99%;
+  color: white;
+  border: rgb(255, 255, 255);
+  font-size: 1.1rem;
+  margin: auto;
+  margin-top: 0.7rem;
+  border-radius: 1rem;
+  padding: 1rem;
+}
+.payPhone:hover {
+  background-color: rgb(255, 255, 255);
+  color: #000000;
+}
+
 .search-holder {
   height: 32rem;
 }
@@ -247,18 +280,20 @@
   color: #ffffff;
   font-size: 1.3rem;
   font-weight: bolder;
-  text-align: center;
   font-family: "Poppins";
-  padding: 0.4rem 8rem;
+  padding: 0.4rem 6.5rem;
   margin: auto;
+  margin-left: auto;
+  margin-right: auto;
   border-radius: 0.8rem;
-  width: 100%;
   border: none;
+  text-align: center;
 }
 .card-results .ride-card .ride-join:hover {
   background-color: #ffffff;
   color: rgb(0, 0, 0);
   border: 1px solid black;
+  text-align: center;
 }
 
 @media screen and (max-width: 800px) {

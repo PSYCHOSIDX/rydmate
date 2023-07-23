@@ -16,6 +16,7 @@ function Example() {
   const { user } = UserAuth();
 
   const [phoneNumberData, setPhoneNumber] = useState('');
+  const [phoneNewNumberData, setPhoneNewNumber] = useState('');
   const [showAlert, setShowAlert] = useState(false);
   const userId = user.uid;
 
@@ -34,12 +35,12 @@ function Example() {
       if (userDetailsDoc.exists()) {
         // Update existing document
         await updateDoc(userDetailsRef, {
-          phoneNumber: phoneNumberData,
+          phoneNumber: phoneNewNumberData,
         });
       } else {
         // Create new document
         await setDoc(userDetailsRef, {
-          phoneNumber: phoneNumberData,
+          phoneNumber: phoneNewNumberData,
         });
       }
     } catch (err) {
@@ -61,7 +62,7 @@ function Example() {
     };
 
     fetchPhoneNumber();
-  }, [userId]);
+  });
 
   return (
     <>
@@ -77,16 +78,17 @@ function Example() {
           {showAlert ? <RealAlert message="Account Updated Successfully" /> : null}
           <Form xs="auto" className="sign-form" onSubmit={handleUpdate}>
             <Form.Group className="mb-3 none" controlId="formBasicPassword">
-              <Form.Label>Phone Number</Form.Label>
+              <Form.Label>Phone Number : </Form.Label>
+              <Form.Label>{phoneNumberData}</Form.Label>
               <Form.Control
-                onChange={(e) => setPhoneNumber(e.target.value)}
+                onChange={(e) => setPhoneNewNumber(e.target.value)}
                 type="tel"
                 name="phoneNumber"
                 id="phoneNumber"
                 pattern="[0-9]{10}"
                 placeholder="Enter Phone Number"
                 required
-                value={phoneNumberData}
+                value={phoneNewNumberData}
               />
             </Form.Group>
 

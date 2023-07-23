@@ -3,24 +3,122 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import './component-styles/ridesearch.css';
 import { db } from '../firebaseConfig';
-import { collection, getDoc, getDocs, query, where, doc, updateDoc } from 'firebase/firestore';
+import { collection, getDoc, getDocs, query, where, doc, updateDoc , addDoc, setDoc} from 'firebase/firestore';
 import { UserAuth } from '../context/UserAuthContext';
 import { Link } from 'react-router-dom';
-
+import shortid from "shortid";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const ActiveUserRides = () => {
   const authContext = UserAuth();
   const currentUserUid = authContext.user && authContext.user.uid;
-
+  const {user} =  UserAuth();
+  const userId = user.uid;
+  const [reward, setReward] = useState(false);
   const [rides, setRides] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [ridesPostedExists, setRidesPostedExists] = useState(true);
-  
-  
+
+  // const [rideID,setRideID]= useState();
+  let rideID;
+  let riderID;
+  let realCredit;
+  const [finalCost, setCost]= useState();
   const [acceptedRide, setAcceptedRide] = useState(null);
   const [rejectedRide, setRejectedRide] = useState(null);
+
+  const [credit, setCredit] = useState([]);
+
+  const shortid = require('shortid');
+
+  const handlePayment = (e) =>{
+    
+    if( finalCost === ""){
+      alert('please enter a valid amount');
+    } else {
+      var options = {
+        key: process.env.REACT_APP_RAYZORPAY_KEY_ID ,
+        key_secret: process.env.REACT_APP_RAYZORPAY_KEY_SECRET ,
+        amount: finalCost*100 ,
+        currency:"INR",
+        name:"RydMate",
+        receipt:'receipt'+shortid.generate() ,
+        handler: function(response){
+        if(response.razorpay_payment_id){
+        creditUpdate();
+        rewardHistory();
+        alert("Payment Success");
+        } else { console.log('failure');
+        alert("Payment Failure")
+      }
+        
+        },
+        prefill:{
+          name: user.displayName,
+          email: user.email,
+      },
+      notes:{
+        address: "Razorpay corporate Office",
+      },
+      theme:{
+        color:'#00FFA3'
+      }
+    };
+  
+    var pay = new window.Razorpay(options);
+    pay.open()
+  
+   } 
+  }
+
+
+
+  const rewardHistory = async (e) => {
+    try {
+      await addDoc(collection(db, "users/"+riderID+'/rewards'), {
+        amount: finalCost + price,
+        customer_user_id : userId,
+        payment_status: "success",
+        ride_id : rideID
+      });
+    
+    } catch (error) {
+      console.log(error.message);
+    }
+ 
+  }
+  
+
+  
+  const creditUpdate = async (e) => {
+  
+    const userDetailsRef = doc(db, 'users', riderID,'available_credits','credits' );
+    const userDetailsDoc = await getDoc(userDetailsRef);
+
+   
+     try{
+      if (userDetailsDoc.exists()) {
+        // Update existing document
+        console.log('triggered update')
+        await updateDoc(userDetailsRef, {
+          main_credit: price + finalCost ,
+        });
+      } else {
+        // Create new document
+        console.log('triggered setdoc')
+        await setDoc(userDetailsRef, {
+          main_credit:finalCost,
+        });
+      }
+     } catch(error){
+      alert(error)
+     }
+     
+    
+  };
+
+
 
 
   useEffect(() => {
@@ -33,7 +131,7 @@ const ActiveUserRides = () => {
         if (userDoc.exists()) {
           const userData = userDoc.data();
           const { request_accepted, ride_id } = userData;
-
+          
           if (request_accepted && ride_id) {
 
             setAcceptedRide(ride_id);
@@ -103,16 +201,88 @@ const ActiveUserRides = () => {
         const ridesData = ridesSnapshot.docs.map((doc) => doc.data());
         // console.log('Rides data:', ridesData);
         setRides(ridesData);
+        
           }
           setIsLoading(false);
-      } catch (error) {
-        console.error('Error fetching rides:', error);
+      }catch(error){
+        alert(" Error Loading");
       }
     };
          
 
     fetchRides();
   }, [currentUserUid]);
+
+
+  
+
+
+
+  useEffect( ()=>{
+   
+    const getJoin =  async ()=> {
+      
+
+      const requestDocRef = doc(db, `rides/${rideID}/UsersJoined/${userId}`);
+      const requestDocSnap = await getDoc(requestDocRef);
+
+      const requestDocData = requestDocSnap.data();
+      const joinData = { ...requestDocData, id: requestDocSnap.id };
+      setCost(joinData.cost);
+     
+    }
+       
+    getJoin();
+  }, );
+
+
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      
+      const creditCollection = collection(db,'users/'+riderID+'/available_credits/');
+      const creditSnapshot = await getDocs(creditCollection);
+      const creditList = creditSnapshot.docs.map(doc => doc.data());
+      setCredit(creditList);
+    };
+
+    fetchData();
+  });
+  var  price;
+credit.map((c)=>{
+ price= c.main_credit;
+ 
+})
+
+
+
+
+
+
+
+
+useEffect(() => {
+  
+    const fetchData = async () => {
+    
+      try { 
+      const rewardCollection = collection(db,'users/'+riderID+'/rewards');
+      const q = query(rewardCollection,where("ride_id", "==", rideID));
+      const qmain = query(q,where("customer_user_id", "==", userId));
+      const rewardSnapshot = await getDocs(qmain);
+      const rewardList = rewardSnapshot.docs.map(doc => doc.data());
+      setReward(rewardList);
+    }
+  catch(error){
+      console.log(error)
+    }
+  
+    fetchData();
+  
+    }
+});
+
 
   const handlePhoneCall = (contact) => {
     window.location.href = `tel:${contact}`;
@@ -123,10 +293,22 @@ const ActiveUserRides = () => {
   }
     
 
+ 
 
+  
 
   return (
     <>
+
+{rides.map((ridex)=>
+    {
+      rideID=ridex.ride_id;
+    
+      riderID=ridex.user_id;
+
+
+    })}
+   
       <div className="ride-results">
         <div className="ride-head">
           <h2 > 
@@ -143,10 +325,15 @@ const ActiveUserRides = () => {
         ) : (
           <Container className="gridbox">
             <Row className="gridrow">
+         
+
+        
+
             {rides.map((ride) => (
-               <div key={ride.ride_id} className="ride-card">
+          
+               <div key={ride.ride_id }  className="ride-card">
                <h2 id="loc">
-                    {ride.start_loc} to {ride.end_loc}
+               <b> From : </b> {ride.start_loc} <br /> <b> To :</b> {ride.end_loc}
                    </h2>
                    <div className="line"> </div>
 
@@ -158,17 +345,18 @@ const ActiveUserRides = () => {
                    <h3 id="type">{ride.vehicle_number}</h3>
                    <h2 className="type">Departure Time</h2>
                    <h3 id="type">{ride.departure_time.substring(0,35).replace('T',' ')}</h3>
-                   {/* <h2 className="type">Ride Status</h2>
-                   <h3 id="type">{ride.ride_status}</h3> */}
-                   {/* <h5 id="cost">Cost Per Km</h5> */}
-                   {/* <h2 id="realcost">{ride.cost_per_km}</h2> */}
+                   <h2 className="type">Ride Status</h2>
+                   <h3 id="type">{ride.ride_status}</h3>
+                  
 
                    <div className="line" style={{backgroundColor: 'black' }}> </div>
 
                    <h2 id="type">pickup otp: {ride.ride_otp}</h2>
                    <h2 id="type">drop otp: {ride.drop_otp}</h2>
 
-                   <input type="button" value={ride.rider_contact} onClick={() => handlePhoneCall(ride.rider_contact)} className="ride-join"/>
+                   <input type="button" value={'☏ '+ride.rider_contact} onClick={() => handlePhoneCall(ride.rider_contact)} className="payPhone"/>
+                  { reward? <h1 id="type" className='m-2'> Payment Successful </h1> : <input type="button"  onClick={handlePayment} value="Pay" className="pay"/>}
+                
                 </div>     
  
       ))}
