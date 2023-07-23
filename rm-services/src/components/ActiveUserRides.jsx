@@ -25,6 +25,7 @@ const ActiveUserRides = () => {
   let rideID;
   let riderID;
   let realCredit;
+  var pay;
   const [finalCost, setCost]= useState();
   const [acceptedRide, setAcceptedRide] = useState(null);
   const [rejectedRide, setRejectedRide] = useState(null);
@@ -47,7 +48,7 @@ const ActiveUserRides = () => {
         receipt:'receipt'+shortid.generate() ,
         handler: function(response){
         if(response.razorpay_payment_id){
-        setPayID(response.razorpay_payment_id);
+       setPayID(response.razorpay_payment_id);
         creditUpdate();
         rewardHistory();
         alert("Payment Success");
@@ -273,11 +274,13 @@ useEffect(() => {
       const rewardCollection = collection(db,'users/'+riderID+'/rewards');
       const q = query(rewardCollection,where("ride_id", "==", rideID));
       const qmain = query(q,where("customer_user_id", "==", userId));
-      const rewardSnapshot = await getDocs(qmain);
+      const qmainx = query(qmain,where("amount", "==", finalCost));
+      const rewardSnapshot = await getDocs(qmainx);
       const rewardList = rewardSnapshot.docs.map(doc => doc.data());
-      setReward(rewardList);
+      setReward(rewardList.length);
+      console.log(rewardList.length)
       }catch(e){
-        console.log(e)
+        console.log('reward payment : ' + e)
       }
       
      
@@ -359,7 +362,7 @@ useEffect(() => {
                    <h2 id="type">drop otp: {ride.drop_otp}</h2>
 
                    <input type="button" value={'☏ '+ride.rider_contact} onClick={() => handlePhoneCall(ride.rider_contact)} className="payPhone"/>
-                  { reward? <h1 id="type" className='m-2'> Payment Successful </h1> : <input type="button"  onClick={handlePayment} value="Pay" className="pay"/>}
+                  { reward === 1? <h1 id="type" className='m-2'> Payment Successful </h1> : <input type="button"  onClick={handlePayment} value="Pay" className="pay"/>}
                 
                 </div>     
  

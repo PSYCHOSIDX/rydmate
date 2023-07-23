@@ -35,7 +35,7 @@ const JoinPage = (props) => {
   const destinationRef = useRef();
 
   const data = loc.state?.data;
-  console.log(data)
+  
   const rideID = data.ride_id;
   const rideOTP = data.otp;
   const dropOTP =  data.dropotp;
@@ -180,7 +180,7 @@ if(data.seats>= bookSeat){
     });
 
     alert('Request Added successfuly')
-    console.log(ridersuserId)
+    
     const userRef1 = doc(db, 'users', ridersuserId, 'details', ridersuserId);
     const userRef2 = await getDoc(userRef1);
     if (userRef2.exists()) {
