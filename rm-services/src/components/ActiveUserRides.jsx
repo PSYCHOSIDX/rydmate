@@ -19,6 +19,7 @@ const ActiveUserRides = () => {
   const [rides, setRides] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [ridesPostedExists, setRidesPostedExists] = useState(true);
+  const [payID, setPayID] = useState('');
 
   // const [rideID,setRideID]= useState();
   let rideID;
@@ -46,6 +47,7 @@ const ActiveUserRides = () => {
         receipt:'receipt'+shortid.generate() ,
         handler: function(response){
         if(response.razorpay_payment_id){
+        setPayID(response.razorpay_payment_id);
         creditUpdate();
         rewardHistory();
         alert("Payment Success");
@@ -77,9 +79,10 @@ const ActiveUserRides = () => {
   const rewardHistory = async (e) => {
     try {
       await addDoc(collection(db, "users/"+riderID+'/rewards'), {
-        amount: finalCost + price,
+        amount: finalCost ,
         customer_user_id : userId,
         payment_status: "success",
+        payment_id: payID,
         ride_id : rideID
       });
     
@@ -263,24 +266,25 @@ credit.map((c)=>{
 
 
 useEffect(() => {
-  
+ 
     const fetchData = async () => {
     
-      try { 
+      try{
       const rewardCollection = collection(db,'users/'+riderID+'/rewards');
       const q = query(rewardCollection,where("ride_id", "==", rideID));
       const qmain = query(q,where("customer_user_id", "==", userId));
       const rewardSnapshot = await getDocs(qmain);
       const rewardList = rewardSnapshot.docs.map(doc => doc.data());
       setReward(rewardList);
-    }
-  catch(error){
-      console.log(error)
+      }catch(e){
+        console.log(e)
+      }
+      
+     
     }
   
     fetchData();
-  
-    }
+    
 });
 
 
