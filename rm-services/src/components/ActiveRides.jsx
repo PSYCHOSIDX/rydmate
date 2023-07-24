@@ -96,6 +96,19 @@ const ActiveRides = () => {
           }
 
           await updateDoc(userRef, { request_received: false, user_ride: '' });
+
+
+          const { user_ride_cancelled, user_cancel, user_cancelled_rideid } = userData;
+
+          if (user_ride_cancelled && user_cancel && user_cancelled_rideid) {
+            const rideRef = doc(db, 'rides', user_cancelled_rideid);
+            const rideDoc = await getDoc(rideRef);
+            const rideData = rideDoc.data();
+
+            toast.success(`${user_cancel} left the ride from ${rideData.start_loc} to ${rideData.end_loc}!`);
+          }
+
+          await updateDoc(userRef, {  user_ride_cancelled: false, user_cancel: '', user_cancelled_rideid:''});
         }
       } catch (error) {
         console.error('Error updating user request status:', error);

@@ -129,7 +129,7 @@ const ActiveUserRides = () => {
     const checkRequestStatus = async () => {
       try {
         // Retrieve the acceptance status from the user's document in Firestore
-        const userRef = doc(db, 'users', currentUserUid, 'details', currentUserUid); // Replace 'userId' with the actual user ID
+        const userRef = doc(db, 'users', currentUserUid, 'details', currentUserUid); 
         const userDoc = await getDoc(userRef);
 
         if (userDoc.exists()) {
@@ -303,6 +303,7 @@ const userRef = doc(db, 'rides', rideID,'UsersJoined', userId);
 // Increment the seats_requested in the rides collection by 1
 const userDoc = await getDoc(userRef);
 const userData = userDoc.data();
+console.log(userData);
 const req_seats = parseInt(userData.seats, 10) || 0;
 console.log(req_seats)
  
@@ -310,7 +311,9 @@ const rideRef = doc(db, 'rides', rideID);
 // Increment the seats_requested in the rides collection by 1
 const rideDoc = await getDoc(rideRef);
 const rideData = rideDoc.data();
+const ride_user_id = rideData.user_id;
 const seats_present = parseInt(rideData.seats, 10) || 0;
+console.log(seats_present)
 await updateDoc(rideRef, { seats: seats_present + req_seats});
 
       const userJoinedRef = doc(db, `rides/${rideID}/UsersJoined/${userId}`);
@@ -321,25 +324,27 @@ await updateDoc(rideRef, { seats: seats_present + req_seats});
 
 
     alert(`You have successfully left the ride.`);
-    // const userRef1 = doc(db, 'users', ridersuserId, 'details', user);
-    // const userRef2 = await getDoc(userRef1);
-    // if (userRef2.exists()) {
+    const userRef1 = doc(db, 'users', ride_user_id, 'details', ride_user_id);
+    const userRef2 = await getDoc(userRef1);
+    if (userRef2.exists()) {
 
-    //   await updateDoc(userRef1, {
-    //     request_received: true,
-    //   user_ride:rideID});
-    // } else {
+      await updateDoc(userRef1, {
+        user_ride_cancelled: true,
+        user_cancel:user.displayName,
+    user_cancelled_rideid: rideID});
+    } else {
 
-    //   await setDoc(userRef1, {
-    //     request_received: true,
-    //     user_ride:rideID});
+      await setDoc(userRef1, {
+        user_ride_cancelled: true,
+        user_cancel:user.displayName,
+    user_cancelled_rideid: rideID});
 
-    // }
+    }
     window.location.href = '/viewrides';
     } catch (error) {
    
       console.error('Error leaving the ride:', error);
-      toast.error('An error occurred while leaving the ride. Please try again later.');
+      alert('An error occurred while leaving the ride. Please try again later.');
     }
   };
   
