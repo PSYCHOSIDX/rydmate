@@ -453,9 +453,11 @@ const disableCancelButton = () => {
                         type="button"
                         value={userPhoneNumbers[user.user_id] || 'No contact'}
                         className="ride-join"
+                        style={{width:'300px' }}
+
                         onClick={() => handlePhoneCall(userPhoneNumbers[user.user_id])}
                       /><br/><br/>
-                    <input type="button" disabled={buttonDisabled} value={user.driver_info} className="ride-join"  onClick={() => handlePickup(user.user_id)} />
+                    <input type="button" disabled={buttonDisabled} value={user.driver_info} className="ride-join" style={{width:'300px' }} onClick={() => handlePickup(user.user_id)} />
 
 
                     {showOtpDialog && selectedUserId === user.user_id && (
