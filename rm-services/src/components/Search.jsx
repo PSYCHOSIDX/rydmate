@@ -110,6 +110,18 @@ const Search = () => {
             console.log('request_received field is missing in the user document');
           }
 
+          if (userData && Object.prototype.hasOwnProperty.call(userData, 'user_ride_cancelled')) {
+            const { user_ride_cancelled } = userData;
+
+            if (typeof user_ride_cancelled === 'boolean') {
+              setRequestReceived(user_ride_cancelled);
+            } else {
+              console.log('Invalid user_ride_cancelled value:', user_ride_cancelled);
+            }
+          } else {
+            console.log('user_ride_cancelled field is missing in the user document');
+          }
+
         }else {
           console.log('User document not found');
         }
@@ -157,6 +169,7 @@ const Search = () => {
         } else {
           // Phone number does not exist in user's details
           alert('Please update your contact number in the profile before joining a ride.');
+          navigate('/')
         }
       } else {
         console.log('User document not found');

@@ -3,12 +3,13 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import './component-styles/ridesearch.css';
 import { db } from '../firebaseConfig';
-import { collection, getDoc, getDocs, query, where, doc, updateDoc , addDoc, setDoc} from 'firebase/firestore';
+import { collection, getDoc, getDocs, query,deleteDoc, where, doc, updateDoc , addDoc, setDoc} from 'firebase/firestore';
 import { UserAuth } from '../context/UserAuthContext';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import shortid from "shortid";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 
 const ActiveUserRides = () => {
   const authContext = UserAuth();
@@ -31,8 +32,11 @@ const ActiveUserRides = () => {
   const [rejectedRide, setRejectedRide] = useState(null);
 
   const [credit, setCredit] = useState([]);
+  const [cancelledRides, setCancelledRides] = useState([]);
 
   const shortid = require('shortid');
+
+  const navigate = useNavigate();
 
   const handlePayment = (e) =>{
     
@@ -129,7 +133,7 @@ const ActiveUserRides = () => {
     const checkRequestStatus = async () => {
       try {
         // Retrieve the acceptance status from the user's document in Firestore
-        const userRef = doc(db, 'users', currentUserUid, 'details', currentUserUid); // Replace 'userId' with the actual user ID
+        const userRef = doc(db, 'users', currentUserUid, 'details', currentUserUid); 
         const userDoc = await getDoc(userRef);
 
         if (userDoc.exists()) {
@@ -299,8 +303,72 @@ useEffect(() => {
     return <p>Loading Carpools...</p>;
   }
     
-
+  const handleCancelRide = async (rideID) => {
+    try {
+     
+const userRef = doc(db, 'rides', rideID,'UsersJoined', userId);
+// Increment the seats_requested in the rides collection by 1
+const userDoc = await getDoc(userRef);
+const userData = userDoc.data();
+console.log(userData);
+const req_seats = parseInt(userData.seats, 10) || 0;
+console.log(req_seats)
  
+const rideRef = doc(db, 'rides', rideID);
+// Increment the seats_requested in the rides collection by 1
+const rideDoc = await getDoc(rideRef);
+const rideData = rideDoc.data();
+const ride_user_id = rideData.user_id;
+const seats_present = parseInt(rideData.seats, 10) || 0;
+console.log(seats_present)
+await updateDoc(rideRef, { seats: seats_present + req_seats});
+
+      const userJoinedRef = doc(db, `rides/${rideID}/UsersJoined/${userId}`);
+      await deleteDoc(userJoinedRef);
+  
+    const carpoolsJoinedRef = doc(db, `users/${userId}/CarpoolsJoined/${rideID}`);
+    await deleteDoc(carpoolsJoinedRef);
+
+
+    alert(`You have successfully left the ride.`);
+    const userRef1 = doc(db, 'users', ride_user_id, 'details', ride_user_id);
+    const userRef2 = await getDoc(userRef1);
+    if (userRef2.exists()) {
+
+      await updateDoc(userRef1, {
+        user_ride_cancelled: true,
+        user_cancel:user.displayName,
+    user_cancelled_rideid: rideID});
+    } else {
+
+      await setDoc(userRef1, {
+        user_ride_cancelled: true,
+        user_cancel:user.displayName,
+    user_cancelled_rideid: rideID});
+
+    }
+    window.location.href = '/viewrides';
+    } catch (error) {
+   
+      console.error('Error leaving the ride:', error);
+      alert('An error occurred while leaving the ride. Please try again later.');
+    }
+  };
+  
+
+ // Disable the cancel button if the remaining time is less than 2 hours
+const disableCancelButton = (ride) => {
+  if (!ride || !ride.departure_time) {
+    return false;
+  }
+
+  const currentTime = new Date();
+  const departureTime = new Date(ride.departure_time);
+  const timeDifference = departureTime.getTime() - currentTime.getTime();
+  const hoursDifference = Math.floor(timeDifference / (1000 * 60 * 60));
+
+  return hoursDifference < 2;
+};
 
   
 
@@ -342,6 +410,13 @@ useEffect(() => {
                <h2 id="loc">
                <b> From : </b> {ride.start_loc} <br /> <b> To :</b> {ride.end_loc}
                    </h2>
+                   <input
+        type="button"
+        style={{ color: 'white', borderRadius: '0.5rem', backgroundColor: '#025b02',border:'0', marginLeft: '70%',  marginBottom:'2%' }}
+        disabled={disableCancelButton(ride)}
+        onClick={() => handleCancelRide(ride.ride_id)}
+        value="leave Ride"
+      />
                    <div className="line"> </div>
 
                    <h2 className="type">Vehicle name</h2>
@@ -352,8 +427,8 @@ useEffect(() => {
                    <h3 id="type">{ride.vehicle_number}</h3>
                    <h2 className="type">Departure Time</h2>
                    <h3 id="type">{ride.departure_time.substring(0,35).replace('T',' ')}</h3>
-                   <h2 className="type">Ride Status</h2>
-                   <h3 id="type">{ride.ride_status}</h3>
+                   {/* <h2 className="type">Ride Status</h2>
+                   <h3 id="type">{ride.ride_status}</h3> */}
                   
 
                    <div className="line" style={{backgroundColor: 'black' }}> </div>
