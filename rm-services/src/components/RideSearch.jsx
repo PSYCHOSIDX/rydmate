@@ -133,7 +133,7 @@ try {
 setData(data);
 console.log(data)
   // // Assuming you have received the API response and extracted the ride IDs in apiRideIds array
-  const apiRideIds = Object.keys(data);
+  const apiRideIds = data.map((entry) => Object.keys(entry)[0]);
 
 // console.log(apiRideIds)
 // const apiRideIds = [ "tOALeWHP72PEXTQaoOZb","N5WasDQ3c1ZzhhSP1stP"]; // Replace this with the actual API response
@@ -249,7 +249,12 @@ if(!isLoaded){
               <div className="ride-card" key={ride.id}>
                 <h2 id="loc">
                   <b>FROM</b> {ride.start_loc} <br /> <b>TO</b> {ride.end_loc}
-                </h2>
+</h2>
+{/* <h5 id='type' textAlign= 'right'>Match Accuracy: {data[ride.ride_id]?.percentage || 0}%</h5> */}
+<h5 id='type' style={{ textAlign: 'right' }}>
+    {/* Use Math.round() to round the percentage to the nearest integer */}
+    Match Accuracy: {Math.round((data.find((entry) => entry[ride.ride_id])?.[ride.ride_id]?.percentage || 0))}%
+  </h5>
             <div className="line"> </div>
 
             <h2 id="name">{ride.rider_name}</h2>
@@ -295,9 +300,9 @@ if(!isLoaded){
               cost_per_seat:ride.cost_per_km,
               otp:ride.ride_otp,
               dropotp: ride.drop_otp,
-              overlap_percentage: data[ride.ride_id]?.percentage || 0,
-              pick_up: data[ride.ride_id]?.pick_up || '',
-              drop_off: data[ride.ride_id]?.drop_off || '',
+              // overlap_percentage: data[ride.ride_id]?.percentage || 0,
+              pick_up: data.find((entry) => entry[ride.ride_id])?.[ride.ride_id]?.pick_up || '',
+              drop_off: data.find((entry) => entry[ride.ride_id])?.[ride.ride_id]?.drop_off || '',
             }}}
 
             className='link'>
