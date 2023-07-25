@@ -155,7 +155,7 @@ const Ride = () => {
           rider_name: riderName,
           rider_contact: riderContact,
           ride_status: 'active',
-          seats: vehicleCapacity,
+          seats: capacity,
           vehicle_name: selectedVehicle.vehicleName,
           vehicle_number: selectedVehicle.vehicleNumber,
           vehicle_type: selectedVehicle.vehicleType,

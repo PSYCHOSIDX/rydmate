@@ -18,9 +18,9 @@ const RideSearch = () => {
   const [desSearch, setDesSearch] =useState('');
   
 const getRideVehicle = async () => {
-  const q = query(ridesCollectionRef,where("ride_status", "==", "active"),orderBy('vehicle_type','desc'));
-  const qmain = query(q,where("seats", ">", "0"));
-  const data = await getDocs(qmain);
+  const q = query(ridesCollectionRef,orderBy('vehicle_type','desc'));
+  // const qmain = query(q,where("seats", ">", "0"));
+  const data = await getDocs(q);
   const newData = data.docs.map((doc) => ({
       ...doc.data(),
       id: doc.id,
@@ -30,24 +30,30 @@ const getRideVehicle = async () => {
 };
 
 
-const getRideLow = async () => {
-  const q = query(ridesCollectionRef,where("ride_status", "==", "active"),orderBy('vehicle_type'));
-  const qmain = query(q,where("seats", ">", "0"));
-  const data = await getDocs(qmain);
-  const newData = data.docs.map((doc) => ({
-      ...doc.data(),
-      id: doc.id,
-  }));
+// const getRideLow = async () => {
+//   const q = query(ridesCollectionRef,where("ride_status", "==", "active"),orderBy('vehicle_type'));
+//   // const qmain = query(q,where("seats", ">", "0"));
+//   const data = await getDocs(q);
+//   const newData = data.docs.map((doc) => ({
+//       ...doc.data(),
+//       id: doc.id,
+//   }));
   
- setRides(newData);
-};
+//  setRides(newData);
+// };
+
 
 
 useEffect( ()=>{
   const getRides =  async ()=> {
-    const q = query(ridesCollectionRef,where("ride_status", "==", "active"));
-    const qmain = query(q,where("seats", ">", "0"));
-      const dbdata = await getDocs(qmain);
+    // const q = query(ridesCollectionRef,where("ride_status", "==", "active"));
+    // const qmain = query(q,where("seats", ">", "0"));
+    const q = query(ridesCollectionRef, 
+      where("ride_status", "==", "active"),
+      where("seats", ">", 0)
+    );
+      const dbdata = await getDocs(q);
+      console.log(dbdata)
       setRides(dbdata.docs.map((doc) => ({ ...doc.data(), id:doc.id})));
   }
 
@@ -61,6 +67,9 @@ useEffect( ()=>{
   const [map, setMap]= useState(/**@type google.maps.Map */null);
   const [directionsResponse, setDirectionsResponse]=useState(null);
   const [distance, setDistance]= useState('')
+  const [data, setData] = useState({});
+  const [showResults, setShowResults] = useState(false); // New state to track whether to show the cards or not
+
 
   /**@type React.MutableRefObject<HTMLInputElement>*/
   const originRef = useRef()
@@ -73,16 +82,73 @@ async function calculateRoute(){
   }
   
   const directionService = new global.google.maps.DirectionsService();
-
+console.log(originRef.current.value)
   const result = await directionService.route({
     origin: originRef.current.value,
     destination: destinationRef.current.value,
     travelMode: global.google.maps.TravelMode.DRIVING,
   }) 
 
+  // console.log(result)
+
   setDirectionsResponse(result)
   setDistance(result.routes[0].legs[0].distance.text)
 
+  const { origin, destination } = result.request;
+
+  console.log('Origin:', origin.query); 
+  console.log('Destination:', destination.query);
+
+  const apiUrl = 'http://localhost:5000/api/compute'; // Replace with the actual API URL
+
+// Data to be sent in the request body
+const requestData = {
+  start: origin.query,
+  end: destination.query,
+};
+
+try {
+  const response = await fetch(apiUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(requestData),
+  });
+  const data = await response.json();
+  console.log('API response:', data);
+// const data = {
+//   tOALeWHP72PEXTQaoOZb:{
+//       "percentage": '80',
+//       "pick_up":{lat:'1.66', lng: '5.66'},
+//       "drop_off":{lat:'3.66', lng: '7.66'}
+//   },
+//   N5WasDQ3c1ZzhhSP1stP:{
+//     "percentage": '10',
+//     "pick_up":{lat:'90.66', lng: '25.66'},
+//     "drop_off":{lat:'75.66', lng: '47.66'}
+// },
+
+// }
+setData(data);
+console.log(data)
+  // // Assuming you have received the API response and extracted the ride IDs in apiRideIds array
+  const apiRideIds = Object.keys(data);
+
+// console.log(apiRideIds)
+// const apiRideIds = [ "tOALeWHP72PEXTQaoOZb","N5WasDQ3c1ZzhhSP1stP"]; // Replace this with the actual API response
+
+// Filter the rides array to display only the rides with matching IDs
+const filteredRides = rides.filter((ride) => apiRideIds.includes(ride.id));
+console.log(filteredRides)
+setRides(filteredRides);
+
+setShowResults(true);
+
+}catch (error) {
+  console.error('Error fetching data:', error);
+  // Handle the error gracefully or display an error message to the user
+}
 }
   
 const {isLoaded} = useJsApiLoader({
@@ -161,48 +227,30 @@ if(!isLoaded){
                
       </div>
 
-      <div className="ride-results">
-        <div className="ride-head">
-            <h2>Rides Found</h2>
+      {showResults && ( // Only display the results section when showResults is true
+        <>
+          <div className="ride-results">
+            <div className="ride-head">
+              <h2>Rides Found</h2>
 
-        <DropdownButton id="dropdown-basic-button" title="Sort">
-            <Dropdown.Item onClick={getRideLow}><b>cost : </b>low to high</Dropdown.Item>
-            <Dropdown.Item onClick={getRideVehicle}> <b> cost : </b> high to  low</Dropdown.Item>
-            <Dropdown.Item onClick={getRideVehicle}> <b> vehicle type</b></Dropdown.Item>
-        </DropdownButton>
-         
-        </div>
-      </div>
+              <DropdownButton id="dropdown-basic-button" title="Sort">
+                {/* Dropdown items */}
+              </DropdownButton>
+            </div>
+          </div>
 
-
-
-{/* card holder and data */}
-
-
-{!rides ? <h1 id="distance"> No Rides Found</h1> : null}
-      <div className="card-results">
-
-    <Container className='gridbox'>
-      <Row text-center className='gridrow'>
-
-        {rides.filter((ride)=>{
-          return startSearch.toLowerCase() === ''
-          ?ride 
-          :ride.start_loc.toLowerCase().includes(startSearch.toLowerCase()) &&  ride.end_loc.toLowerCase().includes(desSearch.toLowerCase())
-        }).map((ride) => {
-
-       
-   
-          return  ( 
-
-           
-
-// Ride Card        
-    <div className="ride-card">
-                    
-          <h2 id="loc"><b>FROM</b> {ride.start_loc} <br/> <b>TO</b> {ride.end_loc}</h2>
-          
-            <div className="line"> .</div>
+          {!rides.length ? ( // Display "No Rides Found" message if rides array is empty
+            <h1 id="distance">No Rides Found</h1>
+          ) : (
+            <div className="card-results">
+        <Container className="gridbox">
+          <Row text-center className="gridrow">
+            {rides.map((ride) => (
+              <div className="ride-card" key={ride.id}>
+                <h2 id="loc">
+                  <b>FROM</b> {ride.start_loc} <br /> <b>TO</b> {ride.end_loc}
+                </h2>
+            <div className="line"> </div>
 
             <h2 id="name">{ride.rider_name}</h2>
 
@@ -222,7 +270,8 @@ if(!isLoaded){
             <h2 id='realcost'>{ride.cost_per_km}</h2>
 
             <h5 id='cost'>Departure Time</h5>
-            <h2 id='realcost'>{ride.departure_time.substring(0,35).replace('T',' ')}</h2>
+            {/* <h2 id='realcost'>{ride.departure_time.substring(0,35).replace('T',' ')}</h2> */}
+            <h2 id='realcost'>{ride.departure_time ? ride.departure_time.substring(0, 35).replace('T', ' ') : ''}</h2>
 
         
             
@@ -245,30 +294,26 @@ if(!isLoaded){
               vehicle_name: ride.vehicle_name,
               cost_per_seat:ride.cost_per_km,
               otp:ride.ride_otp,
-              dropotp: ride.drop_otp
+              dropotp: ride.drop_otp,
+              overlap_percentage: data[ride.ride_id]?.percentage || 0,
+              pick_up: data[ride.ride_id]?.pick_up || '',
+              drop_off: data[ride.ride_id]?.drop_off || '',
             }}}
 
             className='link'>
-            <input type="button" value='Join' className='ride-join'/>
+            <input type="button" value='Join' className='ride-join' style={{width : '265px'}}/>
             </Link>
             
-    </div>  
-          );
-              })
-              
-        } 
-
-
-
-
-      </Row>
-    </Container>
-
- 
+            </div>
+            ))}
+          </Row>
+        </Container>
         </div>
-
+          )}
+        </>
+      )}
     </>
-  )
-}
+  );
+};
 
-export default RideSearch
+export default RideSearch;

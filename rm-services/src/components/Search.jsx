@@ -49,6 +49,8 @@ const Search = () => {
 
   const [requestReceived, setRequestReceived] = useState(false);
 
+  const [usercanceledreq, setUserCancelReq]= useState(false);
+
   useEffect(() => {
     const checkRequestStatus = async () => {
       try {
@@ -114,7 +116,7 @@ const Search = () => {
             const { user_ride_cancelled } = userData;
 
             if (typeof user_ride_cancelled === 'boolean') {
-              setRequestReceived(user_ride_cancelled);
+              setUserCancelReq(user_ride_cancelled);
             } else {
               console.log('Invalid user_ride_cancelled value:', user_ride_cancelled);
             }
@@ -246,7 +248,7 @@ const Search = () => {
                             <br />
                             <br />
                             <Link className="link" to="/activerides">
-                              <button className="go-btn">View Rides  {requestReceived && <FaBell className="notification-icon" style={{ color: 'red' , fontSize: '24px' }}/>}</button>
+                              <button className="go-btn">View Rides   {requestReceived || usercanceledreq ? <FaBell className="notification-icon" style={{ color: 'red', fontSize: '24px' }} /> : null}</button>
                             </Link>
                           </div>
                         </>

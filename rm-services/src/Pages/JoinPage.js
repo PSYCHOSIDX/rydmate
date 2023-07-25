@@ -39,8 +39,15 @@ const JoinPage = (props) => {
   const rideID = data.ride_id;
   const rideOTP = data.otp;
   const dropOTP =  data.dropotp;
-  const ridersuserId = data.riders_user_id
+  const ridersuserId = data.riders_user_id;
 
+  const drop_off = data.drop_off;
+  const pick_up = data.pick_up;
+
+  const { lat: pickup_lat, lng: pickup_lng } = pick_up || {};
+const { lat: dropoff_lat, lng: dropoff_lng } = drop_off || {};
+console.log(pickup_lat,pickup_lng)
+console.log(dropoff_lat,dropoff_lng)
   const [bookSeat, setBookSeat] = useState('');
   const [phone, setPhone] = useState();
   const [dropLocation, setDropLocation]= useState();
@@ -167,16 +174,20 @@ if(data.seats>= bookSeat){
     await setDoc(usersJoinedRef, {
       carpool_status :"pending",
       driver_info:"pick up",
-      end_loc: destinationRef.current.value,
+      // end_loc: destinationRef.current.value,
       ride_id: rideID,
       seats: bookSeat,
-      start_loc: startLoc,
+      // start_loc: startLoc,
       user_id: userId,
       user_name: userName,
       cost: finalCost,
       drop_distance: distance,
       drop_otp: dropOTP,
       ride_otp: rideOTP,
+      pickup_lng: pickup_lng,//'73.9559',
+      pickup_lat: pickup_lat,//'15.2560',
+      dropoff_lat: dropoff_lat,//'15.4989',
+      dropoff_lng: dropoff_lng//'73.8278' 
     });
 
     alert('Request Added successfuly')
@@ -252,7 +263,18 @@ const handleViewMap = async () => {
     // const { latitude, longitude } = response.data.coordinates;
     // history.push(`/navigation?lat=${latitude}&lng=${longitude}`);
 
-    navigate('/navigation', {state:{lat:1,long:2}});
+    navigate('/navigation', {
+      state: {
+        data: {
+          start_loc: data.start_loc,
+          end_loc: data.end_loc,
+          pickup_lng: pickup_lng,
+          pickup_lat: pickup_lat,
+          dropoff_lat: dropoff_lat,
+          dropoff_lng: dropoff_lng,
+        },
+      },
+    });
   } catch (error) {
     console.log('Error:', error);
   }
@@ -305,8 +327,7 @@ const handleViewMap = async () => {
         <ListGroup.Item> <b>Seats Available : </b> {data.seats}</ListGroup.Item>
         <ListGroup.Item> <b>Departure Time : </b> {data.departure_time.substring(0,25).replace('T',' ')}</ListGroup.Item>
         
-        <Button variant="success" onClick={handleViewMap} className='pay'>View Map</Button>
-
+    <Button variant="success" onClick={handleViewMap} className='pay'>View Map</Button>
 
         <Form.Group className="mb-3 none" controlId="formBasicPassword">
        

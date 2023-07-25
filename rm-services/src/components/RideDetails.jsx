@@ -31,33 +31,57 @@ const RideDetails = () => {
  
   const [directionsResponse, setDirectionsResponse] = useState(null);
   const [map, setMap] = useState(null);
+  const [loadingDirections, setLoadingDirections] = useState(false);
 
-  useEffect(() => {
-    if (map && origin.current && destination.current) {
-      calculateRoute();
-    }
-  }, [map]);
+  // useEffect(() => {
+  //   if (map && origin.current && destination.current) {
+  //     calculateRoute();
+  //   }
+  // }, [map]);
 
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: process.env.REACT_APP_GMAPS_KEY,
     libraries, 
   });
 
-  useEffect(() => {
-    if (isLoaded) {
-      calculateRoute();
-    }
-  }, [isLoaded]);
+  // useEffect(() => {
+  //   if (isLoaded) {
+  //     calculateRoute();
+  //   }
+  // }, [isLoaded]);
 
-  async function calculateRoute() {
+  
+  useEffect(() => {
+    if (isLoaded && (acceptedUsers.length > 0 || pendingUsers.length > 0)) {
+      const fetchDirections = async () => {
+        setLoadingDirections(true);
+
+        const acceptedPromises = acceptedUsers.map((user) => calculateRoute(user));
+        const pendingPromises = pendingUsers.map((user) => calculateRoute(user));
+
+        await Promise.all([...acceptedPromises, ...pendingPromises]);
+
+        setLoadingDirections(false);
+      };
+      fetchDirections();
+    }
+  }, [isLoaded, acceptedUsers, pendingUsers]);
+
+  async function calculateRoute(user) {
+    try {
     // Same as before: Coords for Cuncolim, Goa, India #get from db
-    const origin = { lat: 15.2560, lng: 73.9559 };
+    
+    // const origin = { lat: 15.2560, lng: 73.9559 };
+    const origin = { lat: user.pickup_lat, lng: user.pickup_lng };
+
     // Same as before: Coords for Panjim, Goa, India
-    const destination = { lat: 15.4989, lng: 73.8278 };
+    // const destination = { lat: 15.4989, lng: 73.8278 };
+    const destination = { lat: user.dropoff_lat, lng: user.dropoff_lng };
+
     // Two intermediate points
     // const intermediate1 = { lat: 15.2753, lng: 73.9656 };
     // const intermediate2 = { lat: 15.3660, lng: 73.9390 };
-
+console.log(origin,destination)
     const directionsService = new window.google.maps.DirectionsService();
 
     const result = await directionsService.route({
@@ -70,10 +94,16 @@ const RideDetails = () => {
       travelMode: window.google.maps.TravelMode.DRIVING,
     });
 
-    setDirectionsResponse(result);
-  }
-
- 
+    setDirectionsResponse((prevResponse) => {
+    return {
+      ...prevResponse,
+      [user.user_id]: result, // Store directions response for each user in the state
+    };
+  });
+} catch (error) {
+  console.error('Error calculating route:', error);
+}
+}
 
 
   useEffect(() => {
@@ -405,8 +435,9 @@ const disableCancelButton = () => {
              
               <Row className="gridrow">
                 {acceptedUsers.map((user) => (
-                  <div className="ride-card" key={user.user_id}>
-             
+                  <div className="ride-card" key={user}>
+                       {/* {calculateRoute(user)} */}
+
                     {/* <h2 id="loc">start location</h2>
                     <h2 id="type">{user.start_loc}</h2> 
                    
@@ -440,7 +471,10 @@ const disableCancelButton = () => {
           }}
           onLoad={setMap}
         >
-          {directionsResponse && <DirectionsRenderer directions={directionsResponse} />}
+                      {directionsResponse && directionsResponse[user.user_id] && (
+                        <DirectionsRenderer directions={directionsResponse[user.user_id]} />
+                      )}
+          {/* {directionsResponse && <DirectionsRenderer directions={directionsResponse} />} */}
         </GoogleMap>
       </div>
       <br/>
@@ -492,6 +526,8 @@ const disableCancelButton = () => {
               <Row className="gridrow">
                 {pendingUsers.map((user) => (
                   <div className="ride-card" key={user.user_id}>
+                                           {/* {calculateRoute(user)} */}
+
                                         <div style={{ height: '200px', width: '300px' }}>
                                         <GoogleMap
           center={{ lat: 15.280347, lng: 73.980065 }}
@@ -520,7 +556,10 @@ const disableCancelButton = () => {
           }}
           onLoad={setMap}
         >
-          {directionsResponse && <DirectionsRenderer directions={directionsResponse} />}
+              {directionsResponse && directionsResponse[user.user_id] && (
+                        <DirectionsRenderer directions={directionsResponse[user.user_id]} />
+                      )}
+          {/* {directionsResponse && <DirectionsRenderer directions={directionsResponse} />} */}
         </GoogleMap>
       </div>
       <br/>
