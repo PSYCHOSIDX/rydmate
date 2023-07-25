@@ -167,16 +167,20 @@ if(data.seats>= bookSeat){
     await setDoc(usersJoinedRef, {
       carpool_status :"pending",
       driver_info:"pick up",
-      end_loc: destinationRef.current.value,
+      // end_loc: destinationRef.current.value,
       ride_id: rideID,
       seats: bookSeat,
-      start_loc: startLoc,
+      // start_loc: startLoc,
       user_id: userId,
       user_name: userName,
       cost: finalCost,
       drop_distance: distance,
       drop_otp: dropOTP,
       ride_otp: rideOTP,
+      pickup_lng: '73.9559',
+      pickup_lat: '15.2560',
+      dropoff_lat: '15.4989',
+      dropoff_lng: '73.8278'
     });
 
     alert('Request Added successfuly')

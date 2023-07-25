@@ -19,8 +19,8 @@ const RideSearch = () => {
   
 const getRideVehicle = async () => {
   const q = query(ridesCollectionRef,where("ride_status", "==", "active"),orderBy('vehicle_type','desc'));
-  const qmain = query(q,where("seats", ">", "0"));
-  const data = await getDocs(qmain);
+  // const qmain = query(q,where("seats", ">", "0"));
+  const data = await getDocs(q);
   const newData = data.docs.map((doc) => ({
       ...doc.data(),
       id: doc.id,
@@ -32,8 +32,8 @@ const getRideVehicle = async () => {
 
 const getRideLow = async () => {
   const q = query(ridesCollectionRef,where("ride_status", "==", "active"),orderBy('vehicle_type'));
-  const qmain = query(q,where("seats", ">", "0"));
-  const data = await getDocs(qmain);
+  // const qmain = query(q,where("seats", ">", "0"));
+  const data = await getDocs(q);
   const newData = data.docs.map((doc) => ({
       ...doc.data(),
       id: doc.id,
@@ -43,11 +43,16 @@ const getRideLow = async () => {
 };
 
 
+
 useEffect( ()=>{
   const getRides =  async ()=> {
-    const q = query(ridesCollectionRef,where("ride_status", "==", "active"));
-    const qmain = query(q,where("seats", ">", "0"));
-      const dbdata = await getDocs(qmain);
+    // const q = query(ridesCollectionRef,where("ride_status", "==", "active"));
+    // const qmain = query(q,where("seats", ">", "0"));
+    const q = query(ridesCollectionRef, 
+      where("ride_status", "==", "active"),
+      where("seats", ">", 0)
+    );
+      const dbdata = await getDocs(q);
       setRides(dbdata.docs.map((doc) => ({ ...doc.data(), id:doc.id})));
   }
 
@@ -249,7 +254,7 @@ if(!isLoaded){
             }}}
 
             className='link'>
-            <input type="button" value='Join' className='ride-join'/>
+            <input type="button" value='Join' className='ride-join' style={{width : '300px'}}/>
             </Link>
             
     </div>  
