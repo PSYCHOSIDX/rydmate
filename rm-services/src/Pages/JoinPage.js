@@ -43,11 +43,16 @@ const JoinPage = (props) => {
 
   const drop_off = data.drop_off;
   const pick_up = data.pick_up;
+// console.log(drop_off)
+// console.log(pick_up)
+const [pickup_lat, pickup_lng] = pick_up;
 
-  const { lat: pickup_lat, lng: pickup_lng } = pick_up || {};
-const { lat: dropoff_lat, lng: dropoff_lng } = drop_off || {};
-console.log(pickup_lat,pickup_lng)
-console.log(dropoff_lat,dropoff_lng)
+const [dropoff_lat, dropoff_lng] = drop_off;
+
+console.log('Pickup Lat:', pickup_lat);
+console.log('Pickup Lng:', pickup_lng);
+console.log('Dropoff Lat:', dropoff_lat);
+console.log('Dropoff Lng:', dropoff_lng);
   const [bookSeat, setBookSeat] = useState('');
   const [phone, setPhone] = useState();
   const [dropLocation, setDropLocation]= useState();
