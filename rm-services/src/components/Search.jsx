@@ -176,6 +176,7 @@ const Search = () => {
       } else {
         console.log('User document not found');
         alert('Please update your contact number in the profile before joining a ride.');
+        navigate('/')
       }
     } catch (error) {
       console.error('Error fetching user details:', error);
