@@ -1,16 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import '../components/component-styles/search.css'
 import search from '../assets/search-new.svg'
-import { Link } from 'react-router-dom'
-import { collection, getDocs } from 'firebase/firestore';
+import { Link, useNavigate} from 'react-router-dom'
+import { collection, doc, getDocs, updateDoc, getDoc } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
 import { UserAuth } from '../context/UserAuthContext';
+import { FaBell } from 'react-icons/fa';
 
 const Search = () => {
   const authContext = UserAuth();
   const isLoggedIn = authContext.user !== null; // Check if user is logged in
   const currentUserUid = authContext.user ? authContext.user.uid : null;
   const [isVerifiedUser, setIsVerifiedUser] = useState(false);
+  const [hasRiderProgram, setHasRiderProgram] = useState(false);
+
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchVerificationStatus = async () => {
@@ -24,6 +29,10 @@ const Search = () => {
             const isVerified = userData?.verified_rider || false;
             setIsVerifiedUser(isVerified);
             console.log(isVerified);
+            setHasRiderProgram(true);
+          }
+          else {
+            setHasRiderProgram(false);
           }
         }
       } catch (error) {
@@ -33,6 +42,146 @@ const Search = () => {
 
     fetchVerificationStatus();
   }, [currentUserUid]);
+
+  const [requestAccepted, setRequestAccepted] = useState(false);
+  const [requestRejected, setRequestRejected] = useState(false);
+  const [requestCancelled, setRequestCancelled] = useState(false);
+
+  const [requestReceived, setRequestReceived] = useState(false);
+
+  const [usercanceledreq, setUserCancelReq]= useState(false);
+
+  useEffect(() => {
+    const checkRequestStatus = async () => {
+      try {
+        if (currentUserUid) {
+          const userRef = doc(db, 'users', currentUserUid,'details',currentUserUid);
+          const userDoc = await getDoc(userRef);
+        
+        if (userDoc.exists()) {
+          
+          // Retrieve the request_accepted status from the user's document in Firestore
+        // const userRef = doc(db, 'users', currentUserUid); 
+        const userDoc = await getDoc(userRef);
+          const userData = userDoc.data();
+
+          if (userData && Object.prototype.hasOwnProperty.call(userData, 'request_accepted')) {
+            const { request_accepted } = userData;
+
+            if (typeof request_accepted === 'boolean') {
+              setRequestAccepted(request_accepted);
+            } else {
+              console.log('Invalid request_accepted value:', request_accepted);
+            }
+          } else {
+            console.log('request_accepted field is missing in the user document');
+          }
+          
+          if (userData && Object.prototype.hasOwnProperty.call(userData, 'request_rejected')) {
+            const { request_rejected } = userData;
+
+            if (typeof request_rejected === 'boolean') {
+              setRequestRejected(request_rejected);
+            } else {
+              console.log('Invalid request_rejected value:', request_rejected);
+            }
+          } else {
+            console.log('request_rejected field is missing in the user document');
+          }
+          if (userData && Object.prototype.hasOwnProperty.call(userData, 'request_ride_cancelled')) {
+            const { request_ride_cancelled } = userData;
+
+            if (typeof request_ride_cancelled === 'boolean') {
+              setRequestCancelled(request_ride_cancelled);
+            } else {
+              console.log('Invalid request_ride_cancelled value:', request_ride_cancelled);
+            }
+          } else {
+            console.log('request_ride_cancelled field is missing in the user document');
+          }
+          
+          if (userData && Object.prototype.hasOwnProperty.call(userData, 'request_received')) {
+            const { request_received } = userData;
+
+            if (typeof request_received === 'boolean') {
+              setRequestReceived(request_received);
+            } else {
+              console.log('Invalid request_received value:', request_received);
+            }
+          } else {
+            console.log('request_received field is missing in the user document');
+          }
+
+          if (userData && Object.prototype.hasOwnProperty.call(userData, 'user_ride_cancelled')) {
+            const { user_ride_cancelled } = userData;
+
+            if (typeof user_ride_cancelled === 'boolean') {
+              setUserCancelReq(user_ride_cancelled);
+            } else {
+              console.log('Invalid user_ride_cancelled value:', user_ride_cancelled);
+            }
+          } else {
+            console.log('user_ride_cancelled field is missing in the user document');
+          }
+
+        }else {
+          console.log('User document not found');
+        }
+      }
+    } catch (error) {
+      console.error('Error retrieving request status:', error);
+    }
+  };
+
+
+    checkRequestStatus();
+  }, [currentUserUid]);
+
+  
+  // const handleJoinRide = async () => {
+  //   const userDetailsRef = doc(db, 'users', currentUserUid, 'details', currentUserUid);
+  //   const userDetailsDoc = await getDoc(userDetailsRef);
+
+  //     if (userDetailsDoc.exists() && userDetailsDoc.data().phoneNumber) {
+  //         navigate('/rides')     
+      
+  //     } else {
+  //       // Phone number does not exist in user's details
+  //       alert('Please update your contact number in the profile before joining a ride.');
+  //     }
+  //   };
+
+  const handleJoinRide = async () => {
+    try {
+      if (!currentUserUid) {
+        // No user logged in, redirect to the login page or take appropriate action
+        navigate('/login'); 
+        return;
+      }
+  
+      const userDetailsRef = doc(db, 'users', currentUserUid, 'details', currentUserUid);
+      const userDetailsDoc = await getDoc(userDetailsRef);
+  
+      if (userDetailsDoc.exists()) {
+        const userData = userDetailsDoc.data();
+        
+        // Check if the phoneNumber exists and is not null
+        if (userData && userData.phoneNumber) {
+          navigate('/rides');
+        } else {
+          // Phone number does not exist in user's details
+          alert('Please update your contact number in the profile before joining a ride.');
+          navigate('/')
+        }
+      } else {
+        console.log('User document not found');
+        alert('Please update your contact number in the profile before joining a ride.');
+      }
+    } catch (error) {
+      console.error('Error fetching user details:', error);
+    }
+  };
+  
 
   return (
     <>
@@ -46,19 +195,21 @@ const Search = () => {
             <div className="search-card">
               <h1>Search <br /> Rides</h1>
               <h4>Find rides quickly at the best prices</h4>
-              <Link className='link' to='/rides'>
-                <button className='go-btn'>Go</button>
+              <Link className='link' to='/rides'> 
+                <button className='go-btn' onClick={handleJoinRide}>Go</button>
               </Link>
             </div>
 
             <div className="search-card">
               {isLoggedIn ? (
                 <>
-                  <h1>View <br /> Rides</h1>
+                  <h1>My <br /> Rides</h1>
                   <h4>View all the rides you joined till now</h4>
-                  <Link className='link' to='#'>
-                    <button className='go-btn'>Go</button>
+                  <Link className='link' to='/viewrides'>
+                  <button className='go-btn'>Go  {requestAccepted || requestRejected || requestCancelled ? <FaBell className="notification-icon" style={{ color: 'red', fontSize: '24px' }} /> : null}</button>
+
                   </Link>
+
                 </>
               ) : (
                 <>
@@ -71,7 +222,68 @@ const Search = () => {
               )}
             </div>
 
+
+
             <div className="search-card">
+            {isLoggedIn ? (
+                <>
+                  {hasRiderProgram ? (
+                    <>
+                      {isVerifiedUser ? (
+                        <>
+                          <h1>Rider Program</h1>
+                          <h4>Start posting rides or view active ones</h4>
+                          <div className="button-container">
+                          <Link className="link" to="/postride" style={{ marginRight: '10px' }}>
+  <button className="go-btn" style={{ fontSize: '12px', padding: '5px 10px' }}>
+    Post Rides
+  </button>
+</Link>
+<Link className="link" to="/vehicleinfo" style={{ marginRight: '10px' }}>
+  <button className="go-btn" style={{ fontSize: '12px', padding: '5px 10px' }}>
+    Add vehicle
+  </button>
+</Link>
+
+                            <br />
+                            <br />
+                            <Link className="link" to="/activerides">
+                              <button className="go-btn">View Rides   {requestReceived || usercanceledreq ? <FaBell className="notification-icon" style={{ color: 'red', fontSize: '24px' }} /> : null}</button>
+                            </Link>
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <h1>Rider Program</h1>
+                          <h4>You're yet to be verified</h4>
+                          <button className="go-btn" disabled>
+                            Verification pending
+                          </button>
+                        </>
+                      )}
+                    </>
+                  ) : (
+                    <>
+                      <h1>Register for <br/>  Rider Program</h1>
+                      <h4>Join our program to offer rides</h4>
+                      <Link className="link" to="/riderinfo">
+                        <button className="go-btn">Go</button>
+                      </Link>
+                    </>
+                  )}
+                </>
+              ) : (
+                <>
+                  <h1>Register for <br/> Rider Program</h1>
+                  <h4>Join our program to offer rides</h4>
+                  <Link className="link" to="/riderinfo">
+                    <button className="go-btn">Go</button>
+                  </Link>
+                </>
+              )}
+            </div>
+
+            {/* <div className="search-card">
               {isVerifiedUser ? (
                 <>
                   <h1>Rider Program</h1>
@@ -82,7 +294,7 @@ const Search = () => {
                     </Link>
                     <br/>
                     <br/>
-                    <Link className='link' to='#'>
+                    <Link className='link' to='/activerides'>
                       <button className='go-btn'>View Rides</button>
                     </Link>
                   </div>
@@ -90,13 +302,13 @@ const Search = () => {
               ) : (
                 <>
                   <h1>Register In <br />Rider Program</h1>
-                  <h4>Join our program to offer rides</h4>
+                  <h4>Verification pending</h4>
                   <Link className='link' to='/riderinfo'>
-                    <button className='go-btn'>Go</button>
+                    <button className='go-btn' disabled>Go</button>
                   </Link>
                 </>
               )}
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

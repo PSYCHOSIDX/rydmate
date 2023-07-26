@@ -163,6 +163,7 @@ const RiderInfo = () => {
         setAadharUploadProgress(0);
 
         console.log('Form submitted successfully!');
+        alert('Riders details sent for verification')
         navigate('/vehicleinfo')
       } else {
         console.error('User not found.');

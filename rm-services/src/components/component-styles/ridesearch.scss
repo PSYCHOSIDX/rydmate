@@ -2,6 +2,60 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Poppins:wght@200&family=Unbounded:wght@200&display=swap');
 
+#rides-bar{
+    background-color: #d9ff00;
+}
+
+
+
+#distance{
+    padding: 1rem;
+    font-size: 1.2rem;
+    margin: 1rem;
+    margin-left: 3.2rem;
+    color: rgb(255, 255, 255);
+    border: 1px solid white;
+    border-radius: 1rem;
+    margin-bottom: 1rem;
+}
+
+
+.pay{
+        
+    background-color: rgb(104, 230, 46);
+    width: 99%;
+    color: white;
+    border: rgb(255, 255, 255);
+    font-size: 1.1rem;
+    margin: auto;
+    margin-top: .7rem;
+   
+    border-radius: 1rem;
+    padding: 1rem;
+    &:hover{
+        background-color: rgb(255, 255, 255);
+        color: black;
+        font-weight: bold;
+    }
+}
+
+.payPhone{
+        
+    background-color: rgb(46, 169, 230);
+    width: 99%;
+    color: white;
+    border: rgb(255, 255, 255);
+    font-size: 1.1rem;
+    margin: auto;
+    margin-top: .7rem;
+   
+    border-radius: 1rem;
+    padding: 1rem;
+    &:hover{
+        background-color: rgb(255, 255, 255);
+        color: #000000;
+    }
+}
 
 .search-holder{
     height: 32rem;
@@ -18,6 +72,8 @@
      
     }
 }
+
+
 
 .search-bottom{
     
@@ -72,6 +128,10 @@
 
 
 @media screen and (max-width: 800px){
+
+    #distance{
+        display: block;
+    }
     .search-holder{
         margin-bottom:0%;
     
@@ -138,6 +198,9 @@
 }
 
 @media screen and (max-width:900px) {
+    #distance{
+        margin-left: 1rem;
+    }
     .form-holder{
         width: 90%;
         margin: auto;
@@ -163,7 +226,7 @@
     padding: 2rem;
     width: 100%;
     margin: auto;
-    margin-top: -2%;
+    margin-top: 0%;
     font-family: 'Poppins', sans-serif;
 
     .ride-head{
@@ -174,6 +237,11 @@
             align-items: center;
             font-weight: 600;
             color: white;
+            font-size: 1.5rem;
+            margin: auto;
+            margin-left: .5rem;
+            padding-top: .5rem;
+            padding-bottom: 0%;
         }
 
 
@@ -210,9 +278,9 @@
     
 
  .ride-card{
-                background-color: rgb(40, 40, 40);
+                background: linear-gradient(45deg,rgb(32, 32, 32), rgb(0, 0, 0));
                 width:23rem;
-              
+                color: #ffffff;
                 border-radius: 1rem;
                 padding: 2rem;
                 margin: auto;
@@ -221,13 +289,12 @@
                 
                 font-family: 'Poppins',sans-serif;
                 #loc{
-                    color: white;
-                    font-weight: bolder;
-                    font-size: 2rem;
+                    
+                    font-size: 1rem;
                 }
 
                 #dis{
-                    color: #00FFA3;
+                    color: #008720;
                     font-size: .8rem;
                 }
                 .line{
@@ -235,7 +302,7 @@
                     height: .1rem;
                 }
                 #name{
-                    color: white;
+                 
                     font-weight:bolder;
                     font-family: 'Poppins',sans-serif;
                     font-size: 1.6rem;
@@ -244,7 +311,7 @@
                 }
 
                 .type{
-                    color: #ffffff;
+                   
                     font-family: 'Poppins',sans-serif;
                     font-size: .8rem;
                     font-weight: bold;
@@ -258,14 +325,14 @@
                 }
 
                 #seat{
-                    font-size: 1rem;
-                    color: white;
+                    font-size: .8rem;
+                 
                     font-weight: bolder;
 
                 }
 
                 #cost{
-                    color: #ffffff;
+                   
                     font-size: .8rem;
                 }
 
@@ -275,21 +342,26 @@
                     font-size: 1rem;
                 }
                 .ride-join{
-                    background-color: #31d096;
+                    background-color: #00ac4b;
+                    color: #ffffff;
                     font-size: 1.3rem;
                     font-weight: bolder;
-                    text-align: center;
+                    
                     font-family: 'Poppins';
-                    padding: .5rem 8rem;
+                    padding: .4rem 6.5rem;
                     margin: auto;
-                    color: rgb(255, 255, 255);
-                    border-radius: 1rem;
-                    width : 98%;
+                    margin-left: auto;
+                    margin-right: auto;
+                    border-radius: .8rem;
+                    
+                    
                     border: none;
-
+                    text-align: center;
                     &:hover{
                         background-color: #ffffff;
-                        color: rgb(48, 47, 47);
+                        color: rgb(0, 0, 0);
+                        border: 1px solid black;
+                        text-align: center;
                     }
                 }
             }
@@ -299,6 +371,10 @@
             justify-self: center;
             align-items: center;
             align-self: center;
+
+
+
+
 }
 
 
@@ -310,12 +386,24 @@
         width: 100%;
     }
     .ride-results{
+        h2{
+            font-size: 1rem;
+        }
+    }
+    .card-results{
         margin-top: .2rem;
+
+        .ride-card{
+            .ride-join{
+                margin-left: -1rem;
+            }
+        }
     }
     .ride-head{
         margin-top: 0px;
         h2{
             font-size: 2.5rem;
+            color: white;
         }
         flex-direction: column;
         #dropdown-basic-button{
@@ -344,11 +432,11 @@
 .mapbox{
     width: 100%;
     margin: auto;
-    margin-top: -8rem;
+    margin-top: -9rem;
    background-color: #005b39;
    padding: .5rem;
     .gmap{
         margin: auto;
-        border-radius: 10rem;
+        border-radius: 5rem;
     }
 }

@@ -1,0 +1,47 @@
+/*======================
+    404 page
+=======================*/
+.page_404 div {
+  background-color: #fff;
+  margin: auto;
+}
+
+.page_404 {
+  padding: 20px 0;
+  background: #fff;
+  font-family: "Arvo", serif;
+}
+
+.page_404 img {
+  width: 100%;
+}
+
+.four_zero_bg {
+  background-image: url(https://i.gifer.com/7efs.gif);
+  height: 30rem;
+  background-position: center;
+  margin-bottom: -3rem;
+  background-repeat: no-repeat;
+}
+
+.four_zero_four_bg h1 {
+  font-size: 8rem;
+  font-weight: bolder;
+}
+
+.four_zero_four_bg h3 {
+  font-size: 1.5rem;
+  font-weight: bolder;
+  margin-top: -8rem;
+}
+
+.link_404 {
+  color: #fff !important;
+  padding: 10px 20px;
+  border-radius: 0.8rem;
+  background: #31ac81;
+  display: inline-block;
+}
+.link_404:hover {
+  background-color: black;
+}/*# sourceMappingURL=success.css.map */

@@ -23,8 +23,7 @@ const Login = () => {
     const handleGoogleSignIn = async() =>{
       setError('');
       try{
-        await googleSignIn();
-        
+        await googleSignIn(); 
       } catch(e){
         setError(e.message);
         console.log(e.message);
