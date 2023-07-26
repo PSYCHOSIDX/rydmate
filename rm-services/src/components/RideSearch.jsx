@@ -284,7 +284,6 @@ if(!isLoaded){
 
 
 
-//tanay
 
 
       {showResults && ( // Only display the results section when showResults is true
