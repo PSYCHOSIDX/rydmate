@@ -16,6 +16,9 @@ const RideSearch = () => {
   const ridesCollectionRef = collection(db,"rides");
   const [startSearch, setStartSearch] =useState('');
   const [desSearch, setDesSearch] =useState('');
+  const [showRides, setShowRides]= useState(true);
+
+  const [allRides, setAllRides] = useState([0]);
   
 const getRideVehicle = async () => {
   const q = query(ridesCollectionRef,orderBy('vehicle_type','desc'));
@@ -29,18 +32,16 @@ const getRideVehicle = async () => {
  setRides(newData);
 };
 
-
-// const getRideLow = async () => {
-//   const q = query(ridesCollectionRef,where("ride_status", "==", "active"),orderBy('vehicle_type'));
-//   // const qmain = query(q,where("seats", ">", "0"));
-//   const data = await getDocs(q);
-//   const newData = data.docs.map((doc) => ({
-//       ...doc.data(),
-//       id: doc.id,
-//   }));
+useEffect( () =>{
+const getAllRides = async () => {
+  const q = query(ridesCollectionRef,where("ride_status", "==", "active"));
+  const qmain = query(q,where("seats", ">", 0));
+  const DBdata = await getDocs(q);
+  setAllRides(DBdata.docs.map((doc) => ({ ...doc.data(), id:doc.id})));
+}
   
-//  setRides(newData);
-// };
+  getAllRides();
+}, []);
 
 
 
@@ -195,7 +196,7 @@ if(!isLoaded){
                 
                   </div>
 
-                <button  onClick={calculateRoute} className='search-btn'>Search</button>
+                <button  onClick={()=>{calculateRoute()&& setShowRides(false)}} className='search-btn'>Search</button>
             </div>
         </div>
 
@@ -226,6 +227,65 @@ if(!isLoaded){
       { !distance ? null : <h2 id="distance"> <b>Total Distance :</b>{distance} <br /> <br /><b>Average Total Cost</b>:<br />SUV : {parseInt(distance)*7} <br /> Hatch Back / Sedan : {parseInt(distance)*5} <br /> BIKE / Scooty : {parseInt(distance)*3}</h2> }
                
       </div>
+
+
+
+      {
+        showRides ?
+
+        
+            
+        <div className="card-results">
+        <Container className="gridbox">
+          <Row text-center className="gridrow">
+            {allRides.filter((item)=>{
+        
+        return startSearch.toLocaleLowerCase() === '' && desSearch.toLocaleLowerCase() === '' ? item : item.start_loc.toLocaleLowerCase().includes(startSearch.toLocaleLowerCase()) && item.end_loc.toLocaleLowerCase().includes(desSearch.toLocaleLowerCase())
+      }).map((ride)=>(
+              <div className="ride-card" key={ride.id}>
+                <h2 id="loc">
+                  <b>FROM</b> {ride.start_loc} <br /> <b>TO</b> {ride.end_loc}
+                </h2>
+
+            <div className="line"> </div>
+
+            <h2 id="name">{ride.rider_name}</h2>
+
+            <h2 className='type'>Vehicle type </h2>
+            <h3 id='type'>{ride.vehicle_type}</h3>
+
+            <h2 className='type'>Vehicle No </h2>
+            <h3 id='type'>{ride.vehicle_number}</h3>
+
+            <h2 className='type'>Vehicle Model </h2>
+            <h3 id='type'>{ride.vehicle_name}</h3>
+
+            <h2 id='seat'>Seats Available </h2>
+            <h2 id='realcost'> {ride.seats}</h2>
+
+            <h5 id='cost'>Cost Per Km</h5>
+            <h2 id='realcost'>{ride.cost_per_km}</h2>
+
+            <h5 id='cost'>Departure Time</h5>
+            
+            <h2 id='realcost'>{ride.departure_time ? ride.departure_time.substring(0, 35).replace('T', ' ') : ''}</h2>
+
+        
+           
+            
+            </div>
+          ))}
+          </Row>
+        </Container>
+        </div>
+        
+   : null
+}
+
+
+
+//tanay
+
 
       {showResults && ( // Only display the results section when showResults is true
         <>
