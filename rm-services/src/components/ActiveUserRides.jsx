@@ -3,7 +3,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import './component-styles/ridesearch.css';
 import { db } from '../firebaseConfig';
-import { collection, getDoc, getDocs, query,deleteDoc, where, doc, updateDoc , addDoc, setDoc} from 'firebase/firestore';
+import { collection, getDoc, getDocs, query,deleteDoc, where, doc, updateDoc , addDoc, setDoc  } from 'firebase/firestore';
 import { UserAuth } from '../context/UserAuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 import shortid from "shortid";
